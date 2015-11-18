@@ -57,6 +57,10 @@ public class CoordinateDialogBox {
 		return coordinate;
 	}
 	
+	/**
+	 * Display the coordinate dialog box
+	 * @param title
+	 */
 	public void display(String title){
 		
 		//making sure events only go to this window.

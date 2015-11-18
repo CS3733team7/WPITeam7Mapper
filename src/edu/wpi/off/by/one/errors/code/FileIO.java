@@ -44,6 +44,7 @@ public class FileIO {
 		}
 		nodeids = null;// best i can do to "free" it
 	}
+	
 	static int parsemapline(String[] args, Display dpy){
 		//for(String s : args) System.out.println("arg:" + s);
 		Coordinate c = new Coordinate(Float.parseFloat(args[1]), Float.parseFloat(args[2]), Float.parseFloat(args[3]));
