@@ -18,7 +18,8 @@ Currently developing this application as part of B Term 2015's Software Engineer
 
 @CS3733team7
 
- - David Rubenstein (@Tirvanel) 
+ - David Rubenstein (@Tirvanel)
+ - Nathan Beeten (@nbeeten)
  - Alex Gaines (@roboman2444) 
  - Jules Voltaire (@javoltaire) 
  - Kelly Zhang (@bonbombs)
