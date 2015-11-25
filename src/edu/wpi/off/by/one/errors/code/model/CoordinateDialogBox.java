@@ -1,4 +1,4 @@
-package edu.wpi.off.by.one.errors.code;
+package edu.wpi.off.by.one.errors.code.model;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

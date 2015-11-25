@@ -70,4 +70,4 @@ e 5 4
 e 7 6
 e 28 29
 e 32 6
-m projcenter2.png 0.0 0.0 0.0 0.0 0.0
+m projcenter2.png 0.0 0.0 0.0 0.0 0.0 Project_Center_Floor_1

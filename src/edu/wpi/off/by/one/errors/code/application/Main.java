@@ -5,10 +5,19 @@ import java.io.File;
 import java.util.*;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 import edu.wpi.off.by.one.errors.code.*;
-import edu.wpi.off.by.one.errors.code.Map;
 import edu.wpi.off.by.one.errors.code.application.event.*;
+import edu.wpi.off.by.one.errors.code.model.Coordinate;
+import edu.wpi.off.by.one.errors.code.model.CoordinateDialogBox;
+import edu.wpi.off.by.one.errors.code.model.Display;
+import edu.wpi.off.by.one.errors.code.model.Edge;
+import edu.wpi.off.by.one.errors.code.model.FileIO;
+import edu.wpi.off.by.one.errors.code.model.Graph;
+import edu.wpi.off.by.one.errors.code.model.Id;
+import edu.wpi.off.by.one.errors.code.model.Map;
+import edu.wpi.off.by.one.errors.code.model.Node;
+import edu.wpi.off.by.one.errors.code.model.Path;
 import javafx.application.Application;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.*;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
@@ -24,6 +33,8 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
+ * CURRENTLY DEPRECATED. EVERYTHING SHOULD WORK IN THE NEW GUI RIGHT NOW
+ * KEEPING THIS HERE IN CASE I MISSED MOVING A FEATURE FROM HERE TO NEW GUI
  * This Main class launches the application and sets up all the GUI interactions
  * Mainly talks to the Display class to send manipulate data in some way to the
  * underlying data.
@@ -35,7 +46,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     
     private Display display = new Display();
-    private Queue<NodeDisplay> nodeQueue = new LinkedList<NodeDisplay>();
+    protected Queue<NodeDisplay> nodeQueue = new LinkedList<NodeDisplay>();
     
     /* root BorderPane
      * TOP: MenuBar
@@ -66,8 +77,8 @@ public class Main extends Application {
     VBox editorBox = new VBox();
     VBox editPane = new VBox(5); //Change this so that buttons layout better
     Label nodeLabel = new Label("Editor");
-    Button addNode = new Button("Add Node");
-    Button editNode = new Button("Edit Node");
+    ToggleButton addNode = new ToggleButton("Add Node");
+    ToggleButton editNode = new ToggleButton("Edit Node");
     Button addEdge = new Button("Add Edge");
     Button editEdge = new Button("Edit Edge");
     Button saveNodes = new Button("Save All");
@@ -76,6 +87,11 @@ public class Main extends Application {
     CheckBox showNodes = new CheckBox("Nodes");
     CheckBox showEdges = new CheckBox("Edges");
     
+    SimpleBooleanProperty isAddMode = new SimpleBooleanProperty(addNode, "isAddMode", false);
+    SimpleBooleanProperty isEditMode = new SimpleBooleanProperty(editNode, "isEditMode", false);
+    
+    
+   
     // Directions Pane Elements
     VBox directionsBox = new VBox(10);
     Label settingsLabel = new Label("Directions");
@@ -96,7 +112,7 @@ public class Main extends Application {
     ScrollPane scroll;
     ImageView mapView;
     StackPane mapPane;
-    StackPane pathPane = new StackPane();
+    protected StackPane pathPane = new StackPane();
     private MarkerDisplay marker = null;
     final SimpleDoubleProperty zoomProperty = new SimpleDoubleProperty(200);
     
@@ -136,13 +152,11 @@ public class Main extends Application {
         // START: BORDERPANE RIGHT COMPONENTS --------------------------------------------
         editorBox.setPrefSize(scene.getWidth() * 0.3, 600);
         editorBox.setPadding(new Insets(0, 0, 0, 10));
-        editPane.setPadding(new Insets(0, 0, 100, 0));
-        /*
-         editPane.getChildren().addAll(nodeLabel, new Separator(), addNode, editNode, addEdge, editEdge,
-         saveNodes, clearNodes, show,
-         showNodes, showEdges);
-         */
-        editPane.getChildren().addAll(nodeLabel, new Separator(), addEdge);
+        editPane.setPadding(new Insets(0, 0, 100, 0)); 
+        editPane.getChildren().addAll(nodeLabel, new Separator(), addNode, editNode, addEdge, editEdge,
+        		saveNodes, clearNodes, show,
+        		showNodes, showEdges);
+        //editPane.getChildren().addAll(nodeLabel, new Separator(), addEdge);
         
         editorBox.getChildren().addAll(editPane, settingsLabel,
                                        new Separator(), drawPathButton);
@@ -231,7 +245,7 @@ public class Main extends Application {
     }
     
     /**
-     * Listens for MouseEvents to allow user to add/move/select
+     * Listens for MouseEvents to allow user to add/move/SelectEvent
      * items on the map
      */
     private void AddSceneListeners() {
@@ -240,7 +254,7 @@ public class Main extends Application {
          * Single-Click		:	Places marker on point TODO
          * Double-click 	: 	Create node on map
          * Click-Drag 		:	Pans the map
-         * Click on node 	: 	(De)Select node + add selection to NodeQueue
+         * Click on node 	: 	(De)SelectEvent node + add selection to NodeQueue
          * Scroll			: 	Pans map for now. Ideally should zoom map. TODO
          */
         mapView.setOnMouseClicked(e -> {
@@ -268,33 +282,8 @@ public class Main extends Application {
             }
             
             // If double-click
-            if (e.getClickCount() == 2) {
-                // Creates a NodeDisplay that contains the node object
-                NodeDisplay newNode = new NodeDisplay(display, e.getX(), e.getY(), 0);
-                move(newNode, e.getX(),e.getY());
-                
-                newNode.addEventFilter(SelectNode.NODE_SELECTED, event -> {
-                    System.out.println("Node Selected");
-                    newNode.selectNode();
-                    nodeQueue.add(newNode);
-                    // Add selected node to selected node queue
-                    
-                    //TODO stuff regarding info about the node clicked
-                    //if double-clicked
-                    //if in edit mode
-                    //if in add edge mode
-                    //	if 2 nodes are already selected when add edge is pressed,
-                    //	then create an edge between those two nodes
-                    //	if >2 nodes are selected, then edges will be added in order
-                    //	of selection
-                });
-                
-                newNode.addEventFilter(SelectNode.NODE_DESELECTED, event -> {
-                    nodeQueue.remove(newNode);
-                });
-                
-                // Add to the scene
-                mapPane.getChildren().add(newNode);
+            if (e.getClickCount() == 2 || isAddMode.getValue()) {
+                addNodeDisplay(e.getX(), e.getY());
             }
         });
         
@@ -330,7 +319,7 @@ public class Main extends Application {
      * @param x
      * @param y
      */
-    private void move(javafx.scene.Node obj, double x, double y){
+    public void move(javafx.scene.Node obj, double x, double y){
         Bounds localBounds = obj.localToScene(mapView.getBoundsInLocal());
         obj.setTranslateX(x - localBounds.getMaxX() / 2);
         obj.setTranslateY(y - localBounds.getMaxY() / 2);
@@ -352,7 +341,7 @@ public class Main extends Application {
                 Map newmap = new Map();
                 newmap.setImgUrl(inpath);
                 display.setMap(newmap);
-                mapView.setImage(new Image(inpath));
+                mapView.setImage(new Image("/edu/wpi/off/by/one/errors/code/resources/" + inpath));
                 mapPane.getChildren().clear();
                 mapPane.getChildren().addAll(pathPane, mapView);
                 //window.display(selectedFile);
@@ -376,43 +365,34 @@ public class Main extends Application {
             Map m = newdisp.getMap();
             //Redisplay to appropriate map
             if(m.getImgUrl() != display.getMap().getImgUrl()){
-                mapView.setImage(new Image(m.getImgUrl()));
+                mapView.setImage(new Image("/edu/wpi/off/by/one/errors/code/resources/" + m.getImgUrl()));
                 display = newdisp;
                 mapPane.getChildren().clear();
                 mapPane.getChildren().addAll(pathPane, mapView);
             }
             //Add nodes and edges to the map
+            Graph g = display.getGraph();
             Vector<Node> nodes = display.getGraph().getNodes();
             Vector<Edge> edges = display.getGraph().getEdges();
-            //System.out.printf("node: %d, edges: %d", nodes.size(), edges.size());
+            //System.out.printf("node: %d, edges: %d", nodes.size(), edges.size()
+         
+            addNodeDisplayFromList(nodes);
+            addEdgeDisplayFromList(g, edges);
             for(Node n : nodes){
                 NodeDisplay nd = new NodeDisplay(display, n.getId());
                 Coordinate c = n.getCoordinate();
                 move(nd, c.getX(), c.getY());
                 
-                nd.addEventFilter(SelectNode.NODE_SELECTED, event -> {
+                nd.addEventFilter(SelectEvent.NODE_SELECTED, event -> {
                     System.out.println("Node Selected");
                     nd.selectNode();
                     nodeQueue.add(nd);
                 });
                 
-                nd.addEventFilter(SelectNode.NODE_DESELECTED, event -> {
+                nd.addEventFilter(SelectEvent.NODE_DESELECTED, event -> {
                     nodeQueue.remove(nd);
                 });
                 mapPane.getChildren().add(nd);
-            }
-            for(Edge edge : edges){
-                Node a = nodes.get(edge.getNodeA());
-                Node b = nodes.get(edge.getNodeB());
-                Coordinate aLoc = a.getCoordinate();
-                Coordinate bLoc = b.getCoordinate();
-                Graph g = display.getGraph();
-                //System.out.println("Edge size" + g.getEdges().size());
-                Line l = new Line(aLoc.getX(), aLoc.getY(),
-                                  bLoc.getX(), bLoc.getY());
-                l.setStroke(Color.BLUE);
-                move(l, (aLoc.getX() + bLoc.getX())/2, (aLoc.getY() + bLoc.getY())/2);;
-                mapPane.getChildren().add(l);
             }
             
         });
@@ -438,40 +418,13 @@ public class Main extends Application {
                 display = newdisp;
             }
             //Add nodes and edges to the map
-            
-            Vector<Node> nodes = display.getGraph().getNodes();
-            Vector<Edge> edges = display.getGraph().getEdges();
+            Graph g = display.getGraph();
+            Vector<Node> nodes = g.getNodes();
+            Vector<Edge> edges = g.getEdges();
             //System.out.printf("node: %d, edges: %d", nodes.size(), edges.size());
-            for(Node n : nodes){
-                NodeDisplay nd = new NodeDisplay(display, n.getId());
-                Coordinate c = n.getCoordinate();
-                move(nd, c.getX(), c.getY());
-                
-                nd.addEventFilter(SelectNode.NODE_SELECTED, event -> {
-                    System.out.println("Node Selected");
-                    nd.selectNode();
-                    nodeQueue.add(nd);
-                });
-                
-                nd.addEventFilter(SelectNode.NODE_DESELECTED, event -> {
-                    nodeQueue.remove(nd);
-                });
-                mapPane.getChildren().add(nd);
-            }
-            for(Edge edge : edges){
-                Node a = nodes.get(edge.getNodeA());
-                Node b = nodes.get(edge.getNodeB());
-                Coordinate aLoc = a.getCoordinate();
-                Coordinate bLoc = b.getCoordinate();
-                Graph g = display.getGraph();
-                //System.out.println("Edge size" + g.getEdges().size());
-                Line l = new Line(aLoc.getX(), aLoc.getY(),
-                                  bLoc.getX(), bLoc.getY());
-                l.setStroke(Color.BLUE);
-                move(l, (aLoc.getX() + bLoc.getX())/2, (aLoc.getY() + bLoc.getY())/2);;
-                mapPane.getChildren().add(l);
-            }
             
+            addNodeDisplayFromList(nodes);
+            addEdgeDisplayFromList(g, edges);           
         });
         saveMenuItem.setOnAction(e -> {
             String path;
@@ -494,44 +447,16 @@ public class Main extends Application {
          * Adds edges to selected nodes on map
          */
         addEdge.setOnAction(e -> {
-            SelectNode selectNodeEvent = new SelectNode(SelectNode.NODE_DESELECTED);
-            if(!nodeQueue.isEmpty()){
-                //System.out.println(nodeQueue.size());
-                while(nodeQueue.size() > 1){
-                    NodeDisplay n = nodeQueue.poll();
-                    Graph g = display.getGraph();
-                    Node a = g.returnNodeById(n.node);
-                    Node b = g.returnNodeById(nodeQueue.peek().getNode());
-                    Coordinate aLoc;
-                    Coordinate bLoc;
-                    try{
-                        aLoc = a.getCoordinate();
-                        bLoc = b.getCoordinate();
-                    }
-                    catch(NullPointerException exception){
-                        System.out.println("a thing broke");
-                        break;
-                    }
-                    
-                    
-                    g.addEdge(a.getId(), b.getId());
-                    System.out.println("Edge size" + g.getEdges().size());
-                    Line l = new Line(aLoc.getX(), aLoc.getY(), 
-                                      bLoc.getX(), bLoc.getY());
-                    l.setStroke(Color.BLUE);
-                    move(l, (aLoc.getX() + bLoc.getX())/2, (aLoc.getY() + bLoc.getY())/2);;
-                    mapPane.getChildren().add(l);
-                    n.fireEvent(selectNodeEvent);
-                }
-                nodeQueue.remove().fireEvent(selectNodeEvent);;
-            }
+            addEdgeDisplayFromQueue();
         });
         
         addNode.setOnAction(e -> {
-            
+        	nodeQueue.clear();
+        	isAddMode.set(!isAddMode.get());
         });
         
         editNode.setOnAction(e ->{
+        	nodeQueue.clear();
             Coordinate testing = new Coordinate(1, 2, 3);
             CoordinateDialogBox box = new CoordinateDialogBox(testing);
             box.display("Edit Node");
@@ -551,12 +476,12 @@ public class Main extends Application {
                 Path p = new Path(startNode.node, endNode.node);
                 Graph g = display.getGraph();
                 //System.out.println("Size graph " + g.getEdges().size());
-                p.runAStar(nodes, g.getEdges()); //Change this later??
-                ArrayList<Integer> idList = p.getRoute();
+                p.runAStar(g); //Change this later??
+                ArrayList<Id> idList = p.getRoute();
                 System.out.println("Route size " + idList.size());
                 while(idx < idList.size() - 1){
-                    Node a = nodes.get(idList.get(idx));
-                    Node b = nodes.get(idList.get(++idx));
+                	Node a = g.returnNodeById(idList.get(idx));
+                    Node b = g.returnNodeById(idList.get(++idx));
                     Coordinate aLoc = a.getCoordinate();
                     Coordinate bLoc = b.getCoordinate();
                     Line l = new Line(aLoc.getX(), aLoc.getY(), 
@@ -568,12 +493,131 @@ public class Main extends Application {
                     pathPane.toFront();
                     pathPane.setMouseTransparent(true);
                 }
-                SelectNode selectNodeEvent = new SelectNode(SelectNode.NODE_DESELECTED);
+                SelectEvent selectNodeEvent = new SelectEvent(SelectEvent.NODE_DESELECTED);
                 startNode.fireEvent(selectNodeEvent);
                 endNode.fireEvent(selectNodeEvent);
             }
             
         });
         
+    }
+    
+    /**
+     * Add a NodeDisplay using existing Node
+     * @param nodes
+     */
+    void addNodeDisplayFromList(Collection<Node> nodes){
+    	for(Node n : nodes){
+    		NodeDisplay nd = new NodeDisplay(display, n.getId());
+            Coordinate c = n.getCoordinate();
+            move(nd, c.getX(), c.getY());
+            
+            nd.addEventFilter(SelectEvent.NODE_SELECTED, event -> {
+                System.out.println("Node Selected");
+                nd.selectNode();
+                nodeQueue.add(nd);
+            });
+            
+            nd.addEventFilter(SelectEvent.NODE_DESELECTED, event -> {
+                nodeQueue.remove(nd);
+            });
+            mapPane.getChildren().add(nd);
+        }
+    }
+    
+    /**
+     * Add a NodeDisplay using coordinates
+     * Use to add a non-existing NodeDisplay and Node to the display
+     * @param x
+     * @param y
+     */
+    void addNodeDisplay(double x, double y){
+    	NodeDisplay newNode = new NodeDisplay(display, x, y, 0);
+        move(newNode, x, y);
+        
+        newNode.addEventFilter(SelectEvent.NODE_SELECTED, event -> {
+            System.out.println("Node Selected");
+            newNode.selectNode();
+            nodeQueue.add(newNode);
+            // Add selected node to selected node queue
+            
+            //TODO stuff regarding info about the node clicked
+            //if double-clicked
+            //if in edit mode
+            //if in add edge mode
+            //	if 2 nodes are already selected when add edge is pressed,
+            //	then create an edge between those two nodes
+            //	if >2 nodes are selected, then edges will be added in order
+            //	of selection
+        });
+        
+        newNode.addEventFilter(SelectEvent.NODE_DESELECTED, event -> {
+            nodeQueue.remove(newNode);
+        });
+        
+        newNode.visibleProperty().bind(showNodes.selectedProperty());
+     
+        // Add to the scene
+        mapPane.getChildren().add(newNode);        
+    }
+    
+    /**
+     * Add EdgeDisplays from selected NodeQueue
+     * Use to add a non-existing EdgeDisplay and Edge to the display
+     */
+    void addEdgeDisplayFromQueue(){
+    	SelectEvent selectNodeEvent = new SelectEvent(SelectEvent.NODE_DESELECTED);
+        if(!nodeQueue.isEmpty()){
+            //System.out.println(nodeQueue.size());
+            while(nodeQueue.size() > 1){
+                NodeDisplay n = nodeQueue.poll();
+                Graph g = display.getGraph();
+                Node a = g.returnNodeById(n.node);
+                Node b = g.returnNodeById(nodeQueue.peek().getNode());
+                Coordinate aLoc;
+                Coordinate bLoc;
+                try{
+                    aLoc = a.getCoordinate();
+                    bLoc = b.getCoordinate();
+                }
+                catch(NullPointerException exception){
+                    System.out.println("a thing broke");
+                    break;
+                }
+                
+                
+                g.addEdge(a.getId(), b.getId());
+                System.out.println("Edge size" + g.getEdges().size());
+                Line l = new Line(aLoc.getX(), aLoc.getY(), 
+                                  bLoc.getX(), bLoc.getY());
+                l.setStroke(Color.BLUE);
+                move(l, (aLoc.getX() + bLoc.getX())/2, (aLoc.getY() + bLoc.getY())/2);;
+                mapPane.getChildren().add(l);
+                n.fireEvent(selectNodeEvent);
+            }
+            nodeQueue.remove().fireEvent(selectNodeEvent);;
+        } else {
+        	//TODO: Display message in editor that says no nodes are being selected
+        }
+    }
+    
+    /**
+     * Add an EdgeDisplay using an existing Edge list and Graph
+     * @param graph
+     * @param edges
+     */
+    void addEdgeDisplayFromList(Graph graph, Collection<Edge> edges){
+        for(Edge edge : edges){
+        	Node a = graph.returnNodeById(edge.getNodeA());
+            Node b = graph.returnNodeById(edge.getNodeB());
+            Coordinate aLoc = a.getCoordinate();
+            Coordinate bLoc = b.getCoordinate();
+            //System.out.println("Edge size" + g.getEdges().size());
+            Line l = new Line(aLoc.getX(), aLoc.getY(),
+                              bLoc.getX(), bLoc.getY());
+            l.setStroke(Color.BLUE);
+            move(l, (aLoc.getX() + bLoc.getX())/2, (aLoc.getY() + bLoc.getY())/2);;
+            mapPane.getChildren().add(l);
+        }
     }
 }

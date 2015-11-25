@@ -1,4 +1,4 @@
-package edu.wpi.off.by.one.errors.code;
+package edu.wpi.off.by.one.errors.code.model;
 /**
  * This class represents a 3 dimensional coordinate point
  */

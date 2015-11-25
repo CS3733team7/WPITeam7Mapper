@@ -1,6 +1,5 @@
-package edu.wpi.off.by.one.errors.code;
-
-//MY ATTEMPT AT THE GUI, THE DESIGN IS NOT APPEALING AS THIS IS STILL A WORK IN PROGRESS
+package edu.wpi.off.by.one.errors.code.model;
+// MY ATTEMPT AT THE GUI, THE DESIGN IS NOT APPEALING AS THIS IS STILL A WORK IN PROGRESS
 //I MADE IT JUST TO ENSURE THAT THE BASIC FUNCTIONALITY OF THE UI IS IN ORDER
 //THE NEXT ASPECTS THAT NEED TO BE IMPLEMENTED ARE THE BACKEND ALGO'S AND DATA STRUCTURES
 
@@ -10,7 +9,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-//import javafx.scene.layout.StackPane;
+import javafx.scene.layout.StackPane;
 //import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -23,8 +22,10 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.stage.Modality;
 //import javafx.scene.control.Separator;
 import javafx.stage.Stage;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -40,7 +41,8 @@ public class GUI extends Application {
 	
 	Label location = new Label("Mouse location");
 	Label coord = new Label("coordinates:");
-	Text text = new Text();
+	Label xLabel = new Label("X label:");
+	Label yLabel = new Label("Y coord:");
 	
 	Button newDest = new Button("add Destination");
 	Button addNode = new Button("Add Node");
@@ -49,20 +51,23 @@ public class GUI extends Application {
 	Button editEdge = new Button("Edit Edge");
 	Button saveNodes = new Button("Save All");
 	Button showMap = new Button("Show map");
+	Button edit = new Button("Done");
 	
+	//New code
+	//*****************************************
+	TextField xField = new TextField();
+	TextField yField = new TextField();
+	//***************************************
 	ImageView imgpic = new ImageView();
 	final SimpleDoubleProperty zoomProperty = new SimpleDoubleProperty(200);
 	
 	@Override
 	public void start(Stage primaryStage){
 		
-		text.setFont(Font.font("Times New Roman"));
-		text.setStrokeWidth(8);
-		
 		
 		showMap.setOnAction(new EventHandler<ActionEvent>(){
 			
-			Image img = new Image("file:src/campusmap.png");
+			Image img = new Image("file:src/images/map.png");
 			
 			@Override
 			public void handle(ActionEvent e){
@@ -78,14 +83,35 @@ public class GUI extends Application {
 		BorderPane root = new BorderPane();
 		root.setCenter(imgpic);
 		
-//Scrolling capability
+		//New CODE
+//************************************************************************		
+		StackPane editbtn = new StackPane();
+		editbtn.getChildren().add(edit);
+		
+		GridPane pane = new GridPane();
+		xLabel.setMaxWidth(100);
+		yLabel.setMaxWidth(100);
+		pane.setHgap(10);
+		pane.setVgap(10);
+		pane.setPadding(new Insets(25.0));
+		pane.setMaxWidth(300);
+		pane.setMaxHeight(300);
+		pane.add(xLabel,1,5);
+		pane.add(xField, 2, 5);
+		pane.add(yLabel, 1, 6);
+		pane.add(yField, 2, 6);
+		pane.add(editbtn, 5, 9);
+//****************************************************************************		
+		
+		
+// Scrolling capability
 		ScrollPane sp = new ScrollPane();
 		sp.setContent(root);
 		sp.setPannable(true);
 		sp.setFitToHeight(true);
 		
 		
-//  ZOOM
+//     ZOOM
 //******************************************************************************************************************************************************************		
 		//increases the value of the zoomProperty to be added to scroll pane for magnification
 		zoomProperty.addListener(new InvalidationListener(){
@@ -119,9 +145,10 @@ public class GUI extends Application {
 		grid.add(sp, 0, 1); // scroll pane added to grid
 		grid.add(location,0,480); //location label added
 		grid.add(coord, 0, 500);// coordinates label added
-		grid.add(text, 0,450); //information bar added...KINDA
+		
 				
-		Scene scene = new Scene(grid, 500, 500);
+		Scene mainScene = new Scene(grid, 1000, 1000);
+		Scene popup = new Scene(pane,400,400); ///****************************NEW*************
 		
 		//displays the x and Y coordinates of the mouse click relative to the top-left corner of the map
 		imgpic.setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -132,9 +159,44 @@ public class GUI extends Application {
 			}
 		});
 		
+		
+		
 		primaryStage.setTitle("WPI map");
-		primaryStage.setScene(scene);
+		primaryStage.setScene(mainScene);
 		primaryStage.show();
+		
+		//New code
+//*****************************************************************************************
+		Stage pWindow = new Stage();
+		pWindow.setTitle("Edit Node");
+		pWindow.initModality(Modality.APPLICATION_MODAL);
+		pWindow.setScene(popup);
+		
+		editNode.setOnAction(new EventHandler<ActionEvent>(){
+			
+			@Override
+			public void handle(ActionEvent e){
+				pWindow.showAndWait();
+			}
+		});
+		
+
+		edit.setOnAction(new EventHandler<ActionEvent>(){
+			
+			@Override
+			public void handle(ActionEvent e){
+				x = Integer.parseInt(xField.getText());
+				y = Integer.parseInt(yField.getText());
+				
+				System.out.println(x);
+				System.out.println(y);
+				
+				//add to node coordinates etc
+				
+				pWindow.close();
+//*******************************************************************************************************				
+			}//end of handle method
+		});
 
 		
 	}//end method start

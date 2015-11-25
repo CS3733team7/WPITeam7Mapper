@@ -1,10 +1,10 @@
-package edu.wpi.off.by.one.errors.code;
+package edu.wpi.off.by.one.errors.code.model;
 
 import java.util.ArrayList;
 import java.util.Vector;
 
 import edu.wpi.off.by.one.errors.code.application.NodeDisplay;
-import edu.wpi.off.by.one.errors.code.application.event.SelectNode;
+import edu.wpi.off.by.one.errors.code.application.event.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -45,12 +45,12 @@ public class Display extends Pane{
 	 * @param a First node
 	 * @param b Second node
 	 */
-	public void drawPath(int start, int end) {
+	public void drawPath(Id start, Id end) {
 		int idx = 0;
 		Vector<Node> nodes = currentGraph.getNodes();
 		Path p = new Path(start, end);
-		p.runAStar(currentGraph.getNodes(), currentGraph.getEdges()); //Change this later??
-		ArrayList<Integer> idList = p.getRoute();
+		p.runAStar(currentGraph); //Change this later??
+		ArrayList<Id> idList = p.getRoute();
 		while(idx < idList.size()){
 			Node a = nodes.get(idx);
 			Node b = nodes.get(idx++);
