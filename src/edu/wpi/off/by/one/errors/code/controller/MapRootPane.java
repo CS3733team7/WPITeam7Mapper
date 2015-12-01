@@ -317,7 +317,13 @@ public class MapRootPane extends AnchorPane{
 		Node[] nodeArr = new Node[nodes.size()];
 		nodes.toArray(nodeArr); // To avoid ConcurrentModificationException
 		for(Node n : nodeArr){
-			Coordinate c = n.getCoordinate();
+			Coordinate c = null;
+			try{
+				c = n.getCoordinate();
+			} catch (NullPointerException e){
+				continue;
+			}
+			 
 			//addNodeDisplay(c.getX(), c.getY());
 			
 			double tx = c.getX() - localBounds.getMaxX()/2;
@@ -352,12 +358,12 @@ public class MapRootPane extends AnchorPane{
 	        	Graph g = display.getGraph();
 	        	Id id = newNode.getNode();
 	        	Vector<Id> edges = g.returnNodeById(id).getEdgelist();
-	        	for(int i = 0; i < edges.size(); i++)  g.deleteEdge(edges.get(i));
+	        	//for(int i = 0; i < edges.size(); i++)  g.deleteEdge(edges.get(i));
 	        	g.deleteNode(id);
 	        	mapPane.getChildren().remove(newNode);
 	        	//remove edge display as well
 	        	//right now this throws nullpointerexception.
-	        	//updateDisplay(this.display, "NEW");
+	        	updateDisplay(this.display, "NEW");
 	        	//mapPane.getChildren().remove();
 	        });
 	        mapPane.getChildren().add(newNode);
@@ -516,17 +522,18 @@ public class MapRootPane extends AnchorPane{
 		edges.toArray(edgeArr); // To avoid ConcurrentModificationException
 	    for(Edge edge : edgeArr){
 	    	Id aID, bID;
+	    	Coordinate aLoc, bLoc;
 	    	try{
 	    		aID = edge.getNodeA();
 		    	bID = edge.getNodeB();
+		    	Node a = graph.returnNodeById(aID);
+		        Node b = graph.returnNodeById(bID);
+		    	aLoc = a.getCoordinate();
+		        bLoc = b.getCoordinate();
 	    	} catch (NullPointerException e){
 	    		graph.deleteEdge(edge.getId());
 	    		continue;
 	    	}
-	    	Node a = graph.returnNodeById(aID);
-	        Node b = graph.returnNodeById(bID);
-	    	Coordinate aLoc = a.getCoordinate();
-	        Coordinate bLoc = b.getCoordinate();
 	        DoubleProperty aLocX, aLocY, bLocX, bLocY;
 	        aLocX = new SimpleDoubleProperty(aLoc.getX() - localBounds.getMaxX()/2);
 	        aLocY = new SimpleDoubleProperty(aLoc.getY() - localBounds.getMaxY()/2);
