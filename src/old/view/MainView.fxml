@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import edu.wpi.off.by.one.errors.code.controller.menucontrollers.MainMenuPane?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.off.by.one.errors.code.controller.MainPane">
+    <left>
+        <MainMenuPane />
+    </left>
+
+    <center>
+        <BorderPane>
+            <center>
+                <!--To be replaced with the custom map pane-->
+                <AnchorPane>
+                    <Label text="Map goes here"/>
+                </AnchorPane>
+            </center>
+            <bottom>
+                <!--To be replaced with the custom navigation pane-->
+                <AnchorPane>
+                    <Label text="NavigationPane goes here"/>
+                </AnchorPane>
+            </bottom>
+        </BorderPane>
+    </center>
+
+</BorderPane>

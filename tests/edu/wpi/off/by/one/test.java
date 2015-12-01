@@ -21,6 +21,7 @@ import edu.wpi.off.by.one.errors.code.model.Path;
 import junit.framework.TestCase;
 
 public class test extends TestCase{
+    /*
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
     
@@ -75,13 +76,13 @@ public class test extends TestCase{
         assertEquals(loe.get(0).getId(), 0);
         g.editNode(1, c1);//could have something wrong
         assertEquals(lon.get(1).getCoordinate(), c1);
-        */
+
     }
     
     //test FileIO
     @Test 	
    public void testFile(){
-        /*
+
         Map amap = new Map("Atwater_Kent.png", "Atwater_Kent.png", 0, 0);
         amap.setScale(1);
         Graph g = new Graph();
@@ -97,7 +98,7 @@ public class test extends TestCase{
         FileIO.load(dir+"testio.txt", null);
         
         FileIO.load(dir+"testio.txt", dpy);
-        */
+
     }
     
     //test Path
@@ -121,7 +122,8 @@ public class test extends TestCase{
             	ArrayList<Integer> expNTPath = new ArrayList<Integer>();
             	nonTraversablePath.runAStar(g.getNodes(), g.getEdges());
             	assertEquals(nonTraversablePath.getRoute(), expNTPath);
-            	*/
+
             }
+            */
     
 }

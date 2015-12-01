@@ -3,3 +3,9 @@ bin/*
 /bin/
 *.iml
 *.idea/
+.idea/*
+.settings/*
+*.settings/
+.externalToolBuilders/*
+.classpath
+.project

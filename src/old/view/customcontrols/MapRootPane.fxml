@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ScrollPane fx:id="mapScrollPane" hbarPolicy="NEVER" layoutX="-1.0" layoutY="-1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pannable="true" prefHeight="327.0" prefWidth="400.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <AnchorPane>
+                    <children>
+                        <StackPane fx:id="mapPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="327.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <ImageView fx:id="mapView" cache="true" pickOnBounds="true" preserveRatio="true" />
+                            </children>
+                        </StackPane>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <VBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="25.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="150.0">
+            <children>
+                <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#zoomInAction" prefHeight="25.0" prefWidth="25.0" text="+">
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#zoomOutAction" prefHeight="25.0" prefWidth="25.0" text="-" />
+            </children>
+        </VBox>
+    </children>
+</fx:root>

@@ -92,12 +92,35 @@ public class Edge {
         Node A = g.returnNodeById(nodeA);
         Node B = g.returnNodeById(nodeB);
         if(A == null || B == null) g.deleteEdge(id);
-
-        else {
-    		float xDist = A.getCoordinate().getX()-B.getCoordinate().getX();
-    		float yDist = A.getCoordinate().getY()-B.getCoordinate().getY();
-        	length = ((float) Math.sqrt((xDist*xDist)+(yDist*yDist)));
-        }
+        else length = B.getDistance(A.getCoordinate());
     }
-    
+    /*
+    used https://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment as a ref
+    */
+    public float getDistanceSq(Coordinate coord, Graph g){
+        float cx = coord.getX(); float cy = coord.getY();
+        Node a = g.returnNodeById(nodeA);
+        Node b = g.returnNodeById(nodeB);
+        if(a == null || b == null){ g. deleteEdge(id); return -1.0f;}
+        float nax = a.getCoordinate().getX(); float nay = a.getCoordinate().getY();
+        if(length <= 0.0f){
+            float dx = cx - nax; float dy = cy - nay;
+            return dx * dx + dy * dy;
+        }
+        float nbx = b.getCoordinate().getX(); float nby = b.getCoordinate().getY();
+        float t = ((cx - nax) * (nbx - nax) + (cy - nay) * (nby - nay)) / length;
+        if(t < 0.0f){
+            float dx = cx - nax; float dy = cy - nay;
+            return dx * dx + dy * dy;
+        } else if(t > 1.0f){
+            float dx = cx - nbx; float dy = cy - nby;
+            return dx * dx + dy * dy;
+        }
+        float dx = cx - (nax + t * (nbx - nax));
+        float dy = cy - (nay + t * (nby - nay));
+        return dx * dx + dy * dy;
+    }
+    public float getDistance(Coordinate coord, Graph g){
+        return (float)Math.sqrt(((double) getDistanceSq(coord, g)));
+    }
 }

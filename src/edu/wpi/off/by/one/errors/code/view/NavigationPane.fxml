@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import edu.wpi.off.by.one.errors.code.controller.customcontrols.IconedLabel?>
+
+<fx:root type="GridPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="0" percentWidth="10" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="0" percentWidth="80" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="0" percentWidth="10" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="0" prefHeight="150" valignment="CENTER" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <Button mnemonicParsing="false" text="previous" />
+        <IconedLabel text="Navigation Instruction here" GridPane.columnIndex="1"/>
+        <StackPane GridPane.columnIndex="2">
+            <children>
+                  <Button mnemonicParsing="false" text="next" />
+                <Button mnemonicParsing="false" text="close" StackPane.alignment="TOP_RIGHT" />
+            </children>
+        </StackPane>
+    </children>
+</fx:root>

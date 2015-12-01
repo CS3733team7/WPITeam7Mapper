@@ -1,5 +1,6 @@
 package edu.wpi.off.by.one.errors.code.model;
 
+import edu.wpi.off.by.one.errors.code.model.Graph;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;

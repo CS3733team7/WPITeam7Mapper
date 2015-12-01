@@ -1,24 +1,24 @@
 package edu.wpi.off.by.one.errors.code;
 
-import edu.wpi.off.by.one.errors.code.*;
-import edu.wpi.off.by.one.errors.code.controller.ControllerMediator;
+import com.sun.javafx.css.StyleManager;
+import edu.wpi.off.by.one.errors.code.controller.MainPane;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Main extends Application{
+    public final MainPane root = new MainPane();
+
 	public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/MainView.fxml"));
-        ControllerMediator.getInstance().registerWindow(primaryStage);
+        //ControllerMediator.getInstance().registerWindow(primaryStage);
+    	root.setWindow(primaryStage);
         primaryStage.setTitle("goatThere - WPI Map Application");
         primaryStage.setScene(new Scene(root, 1600, 1000));
         primaryStage.show();

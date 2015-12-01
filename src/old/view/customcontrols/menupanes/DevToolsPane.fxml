@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import edu.wpi.off.by.one.errors.code.controller.menucontrollers.menupanecontrollers.submenupanecontrollers.*?>
+<fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <VBox>
+            <Label BorderPane.alignment="CENTER_LEFT" text="Developer Mode"/>
+            <GridPane BorderPane.alignment="CENTER">
+                <columnConstraints>
+                    <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="10.0" percentWidth="25" />
+                    <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="10.0" percentWidth="25" />
+                    <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="10.0" percentWidth="25" />
+                    <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="10.0" percentWidth="25" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints fillHeight="true" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <children>
+                    <RadioButton fx:id="mapPaneRadioButton" selected="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Map">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="devToolsToggleGroup"/>
+                        </toggleGroup>
+                    </RadioButton>
+                    <RadioButton fx:id="nodePaneRadioButton" toggleGroup="$devToolsToggleGroup" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Node" GridPane.columnIndex="1" />
+                    <RadioButton fx:id="edgePaneRadioButton" toggleGroup="$devToolsToggleGroup" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Edge" GridPane.columnIndex="2" />
+                    <RadioButton fx:id="pathPaneRadioButton" toggleGroup="$devToolsToggleGroup" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Path" GridPane.columnIndex="3" />
+                </children>
+            </GridPane>
+        </VBox>
+    </top>
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <MapDevToolPane visible="${mapPaneRadioButton.selected}" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+            <NodeDevToolPane visible="${nodePaneRadioButton.selected}" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+            <EdgeDevToolPane visible="${edgePaneRadioButton.selected}" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+            <PathDevToolPane visible="${pathPaneRadioButton.selected}" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+        </AnchorPane>
+    </center>
+    <bottom>
+        <GridPane BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="10.0" percentWidth="25" />
+                <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="10.0" percentWidth="25" />
+                <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="10.0" percentWidth="25" />
+                <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="10.0" percentWidth="25" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints fillHeight="true" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="New" GridPane.columnIndex="0" onAction="#onNewImageClick"/>
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Load New" GridPane.columnIndex="1" onAction="#onLoadNewDisplayClick"/>
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Append" GridPane.columnIndex="2" onAction="#onLoadDisplayClick"/>
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Save" GridPane.columnIndex="3" onAction="#onSaveDisplayClick"/>
+            </children>
+        </GridPane>
+    </bottom>
+</fx:root>

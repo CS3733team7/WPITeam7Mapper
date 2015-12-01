@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import edu.wpi.off.by.one.errors.code.controller.*?>
+
+<fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <left>
+        <MenuPane  fx:id="menuPane" maxWidth="275" minWidth="40" />
+    </left>
+   <center>
+      <BorderPane BorderPane.alignment="CENTER">
+         <bottom>
+             <NavigationPane  fx:id="navigationPane" prefHeight="150" prefWidth="Infinity" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" />
+         </bottom>
+         <center>
+            <ScrollPane fx:id="mapScrollPane" hbarPolicy="NEVER" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+              <content>
+                <MapRootPane fx:id="mapRootPane" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" />
+              </content>
+            </ScrollPane>
+         </center>
+      </BorderPane>
+   </center>
+
+</fx:root>

@@ -20,8 +20,7 @@ public class Path {
 	
 	/**
 	 * this method is the bulk of the A* algorithm, it iterates through a list of nodes and chooses the best path from them
-	 * @param nodesIn
-	 * @param edgesIn
+	 * @param graphin
 	 */
 	public void runAStar(Graph graphin){
 		theGraph = graphin;
@@ -208,6 +207,44 @@ public class Path {
 	//	System.out.println(route.toString());
 		//System.out.println("end of route");
 		return route;
+	}
+	/**
+	 * gets the textual path
+	 * @return the textual path
+	 */
+	public ArrayList<String> getTextual(){
+		ArrayList<String> res = new ArrayList<String>();
+		if(route == null || route.isEmpty()) return null;
+		int cnt = 0;
+		Coordinate lastcoord = null;
+		float lastangle = -10000.0f;
+		//float lastdist = 0.0f; TODO
+		for(Id cur : route){
+			Node n = theGraph.returnNodeById(cur);
+			if(n == null) continue;
+			Coordinate thiscoord = n.getCoordinate();
+			if(lastcoord != null){
+				float mx = thiscoord.getX() - lastcoord.getX();
+				float my = thiscoord.getY() - lastcoord.getY();
+				float distsq =  mx * mx + my * my;
+				float dist = (float)Math.sqrt((double)distsq);
+				float angle = (float)Math.atan2(mx, my);
+				if(lastangle > -180.0f){
+					float dxangle = lastangle - angle;
+					float dangle = Math.abs(dxangle);
+					if(dangle >= 1.0f)
+						res.add("Turn " + " Degrees to the " + ((dxangle >= 0.0f) ? "right. " : "left. "));
+				} else {
+					res.add("Face " + angle + " Degrees. ");
+				}
+				lastangle = angle;
+				res.add("Walk " + dist + " Meters. ");//TODO North south stuff
+			}
+			lastcoord = thiscoord;
+			cnt++;
+		}
+		res.add("You have reached your destination");
+		return res;
 	}
 
 }

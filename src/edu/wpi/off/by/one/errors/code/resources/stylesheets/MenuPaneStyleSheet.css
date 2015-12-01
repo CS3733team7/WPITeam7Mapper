@@ -1,0 +1,27 @@
+*{
+    -fx-focus-color: Transparent;
+}
+#menuBar{
+    -fx-background-color: #AC2B37;
+    -fx-text-fill:#FFFFFF;
+}
+
+.toggle-button{
+    -fx-background-color: Transparent;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 0;
+}
+
+.toggle-button:hover{
+    -fx-background-color: #CC3341;
+}
+
+#searchMenuRadioButton:selected,
+#directionsMenuRadioButton:selected,
+#favoritesMenuRadioButton:selected,
+#devToolMenuRadioButton:selected,
+#settingsMenuRadioButton:selected,
+#helpMenuRadioButton:selected{
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #AC2B37;
+}

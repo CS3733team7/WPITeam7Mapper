@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label text="Select a Node" />
+      <ListView prefHeight="115.0" prefWidth="300.0" />
+      <Label text="Selected Node Information">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </Label>
+      <HBox prefHeight="10.0" prefWidth="300.0">
+         <children>
+            <Label text="Node ID:" />
+            <Label text="[NODE_ID]">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <Label text="Coordinates:" />
+      <HBox prefHeight="26.0" prefWidth="300.0">
+         <children>
+            <Label text="X">
+               <HBox.margin>
+                  <Insets top="4.0" />
+               </HBox.margin>
+            </Label>
+            <TextField text="0">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </TextField>
+            <Label text="Y">
+               <HBox.margin>
+                  <Insets top="4.0" />
+               </HBox.margin>
+            </Label>
+            <TextField text="0">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </TextField>
+            <Label text="Z">
+               <HBox.margin>
+                  <Insets top="4.0" />
+               </HBox.margin>
+            </Label>
+            <TextField text="0">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <Label text="Tags:" />
+      <TextField promptText="Tags associated with the selected Node" text="Add Tag">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </TextField>
+      <ListView prefHeight="55.0" prefWidth="280.0" />
+      <HBox prefHeight="19.0" prefWidth="280.0">
+         <children>
+            <Label text="Node Size:">
+               <HBox.margin>
+                  <Insets right="5.0" top="4.0" />
+               </HBox.margin>
+            </Label>
+            <TextField alignment="CENTER" prefHeight="25.0" prefWidth="25.0" text="5" />
+            <Label text="px">
+               <HBox.margin>
+                  <Insets left="2.0" top="4.0" />
+               </HBox.margin>
+            </Label>
+            <Label text="Color:">
+               <HBox.margin>
+                  <Insets left="25.0" right="10.0" top="4.0" />
+               </HBox.margin>
+            </Label>
+            <ColorPicker editable="true" promptText="Node Color" />
+         </children>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</fx:root>

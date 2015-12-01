@@ -14,6 +14,25 @@ public class Graph {
 	private int edge_arraylasttaken = -1;
 	private int edge_arraysize = 0;
 	private Vector<Edge> listOfEdges;
+	private Coordinate AABBmin = null;
+	private Coordinate AABBmax = null;
+
+	private void updateAABBGrow(Coordinate add){ //todo have AABB shrinking
+		if(AABBmax == null)AABBmax = new Coordinate(add.getX(), add.getY(), add.getZ());
+		if(AABBmin == null)AABBmin = new Coordinate(add.getX(), add.getY(), add.getZ());
+		float ix = add.getX(); float iy = add.getY(); float iz = add.getZ();
+		float mx = AABBmax.getX(); float my = AABBmax.getY(); float mz = AABBmax.getZ();
+		float nx = AABBmin.getX(); float ny = AABBmin.getY(); float nz = AABBmin.getZ();
+
+		if(ix > mx) mx = ix;
+		else if (ix < nx) nx = ix;
+		if(iy > my) my = iy;
+		else if (iy < ny) ny = iy;
+		if(iz > mz) mz = iz;
+		else if (iz < nz) nz = iz;
+		AABBmax.setAll(mx, my, mz);
+		AABBmin.setAll(nx, ny, nz);
+	}
 
 	public Graph(){
 		listOfNodes = new Vector<Node>(); //array list of nodes
@@ -37,6 +56,7 @@ public class Graph {
 		Id nid = new Id(node_arrayfirstopen, node_count);
 		Node n = new Node(coordIn, nid);
 		listOfNodes.set(node_arrayfirstopen, n);
+		updateAABBGrow(n.getCoordinate());
 		
 		if(node_arraylasttaken < node_arrayfirstopen) node_arraylasttaken = node_arrayfirstopen; //todo redo
 		return n;
@@ -58,6 +78,7 @@ public class Graph {
 		Id nid = new Id(node_arrayfirstopen, node_count);
 		Node n = new Node(coordIn, nid);
 		listOfNodes.set(node_arrayfirstopen, n);
+		updateAABBGrow(n.getCoordinate());
 		
 		if(node_arraylasttaken < node_arrayfirstopen) node_arraylasttaken = node_arrayfirstopen; //todo redo
 		return nid;
@@ -199,5 +220,58 @@ public class Graph {
 	
 	public void editEdge(){//edits an edge on the list
 		//TODO: add functionality after we decide exactly what this should do
+	}
+	/*
+		Returns the nearest node to a point on the map
+		unoptimized, linear search through all nodes, can optimize later with an acceleration structure or sorted node list
+	*/
+	public Id GetNearestNode(Coordinate coord){
+		float distsq = Float.MAX_VALUE;
+		float cx = coord.getX();
+		float cy = coord.getY();
+		Id nearest = null;
+		for(Node n : listOfNodes){
+			if(n == null) continue;
+			float mx = n.getCoordinate().getX() - cx;
+			float my = n.getCoordinate().getY() - cy;
+			float mydistsq = mx * mx + my * my;
+			if(mydistsq < distsq){
+				distsq = mydistsq;
+				nearest = n.getId();
+			}
+		}
+		return nearest;
+	}
+	/*
+    Returns the nearest edge to a point on the map
+    unoptimized, linear search through all edges, can optimize later with an acceleration structure
+    */
+	public Id GetNearestEdge(Coordinate coord) {
+		float distsq = Float.MAX_VALUE;
+		Id nearest = null;
+		for (Edge e : listOfEdges) {
+			if (e == null) continue;
+			float mydistsq = e.getDistanceSq(coord, this);
+			if (mydistsq < distsq && mydistsq >= 0.0f) {
+				distsq = mydistsq;
+				nearest = e.getId();
+			}
+		}
+		return nearest;
+	}
+	/**
+	 * search for a node by tags
+	 * @param searchTerm: the string being searched for
+	 * @return: returns id of node with tag being searched for. If none are found returns null
+	 */
+	public Id search(String searchTerm){
+		for(Node searched : listOfNodes){
+			for(String tag : searched.GetTags()){
+				if(searchTerm == tag){
+					return searched.getId();
+				}
+			}
+		}
+		return null;
 	}
 }

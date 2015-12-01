@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import edu.wpi.off.by.one.errors.code.controller.menucontrollers.menupanecontrollers.*?>
+
+<fx:root type="HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0">
+        <fx:define>
+            <ToggleGroup fx:id="menuRadioButtonToggleGroup"/>
+        </fx:define>
+        <children>
+            <VBox AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <children>
+                    <ToggleButton fx:id="hamburgerToggleButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0"  text="Options" VBox.vgrow="NEVER">
+                        <!--<graphic>
+                           <ImageView fitHeight="25.0" fitWidth="25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image />
+                              </image>
+                              <cursor>
+                                 <Cursor fx:constant="HAND" />
+                              </cursor>
+                           </ImageView>
+                        </graphic>-->
+                    </ToggleButton>
+                    <RadioButton fx:id="searchRadioButton" selected="true" toggleGroup="$menuRadioButtonToggleGroup" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Search" onMouseClicked="#showMenuDetails">
+                        <!--<graphic>
+                           <ImageView fitHeight="25.0" fitWidth="25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                              <cursor>
+                                 <Cursor fx:constant="HAND" />
+                              </cursor>
+                              <image>
+                                 <Image />
+                              </image>
+                           </ImageView>
+                        </graphic>-->
+                    </RadioButton>
+                    <RadioButton fx:id="directionsRadioButton" toggleGroup="$menuRadioButtonToggleGroup" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Directions" onMouseClicked="#showMenuDetails">
+                        <!--<graphic>
+                           <ImageView fitHeight="25.0" fitWidth="25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                              <cursor>
+                                 <Cursor fx:constant="HAND" />
+                              </cursor>
+                              <image>
+                                 <Image  />
+                              </image>
+                           </ImageView>
+                        </graphic>-->
+                    </RadioButton>
+                    <RadioButton fx:id="favoritesRadioButton" toggleGroup="$menuRadioButtonToggleGroup" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Favorites" onMouseClicked="#showMenuDetails">
+                        <!--<graphic>
+                           <ImageView fitHeight="25.0" fitWidth="25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                              <cursor>
+                                 <Cursor fx:constant="HAND" />
+                              </cursor>
+                              <image>
+                                 <Image  />
+                              </image>
+                           </ImageView>
+                        </graphic>-->
+                    </RadioButton>
+                </children>
+            </VBox>
+            <VBox layoutY="250.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <children>
+                    <RadioButton fx:id="devModeRadioButton" toggleGroup="$menuRadioButtonToggleGroup" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Edit" onMouseClicked="#showMenuDetails">
+                        <!--<graphic>
+                           <ImageView fitHeight="25.0" fitWidth="25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                              <cursor>
+                                 <Cursor fx:constant="HAND" />
+                              </cursor>
+                              <image>
+                                 <Image />
+                              </image>
+                           </ImageView>
+                        </graphic>-->
+                    </RadioButton>
+                    <RadioButton fx:id="settingsRadioButton" toggleGroup="$menuRadioButtonToggleGroup" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Settings" onMouseClicked="#showMenuDetails">
+                        <!--<graphic>
+                           <ImageView fitHeight="25.0" fitWidth="25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                              <cursor>
+                                 <Cursor fx:constant="HAND" />
+                              </cursor>
+                              <image>
+                                 <Image  />
+                              </image>
+                           </ImageView>
+                        </graphic>-->
+                    </RadioButton>
+                    <RadioButton fx:id="helpRadioButton" toggleGroup="$menuRadioButtonToggleGroup" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Help" onMouseClicked="#showMenuDetails">
+                        <!--<graphic>
+                           <ImageView fitHeight="25.0" fitWidth="25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                              <cursor>
+                                 <Cursor fx:constant="HAND" />
+                              </cursor>
+                              <image>
+                                 <Image  />
+                              </image>
+                           </ImageView>
+                        </graphic>-->
+                    </RadioButton>
+                </children>
+            </VBox>
+        </children>
+    </AnchorPane>
+    <AnchorPane fx:id="detailsMenuPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
+        <SearchLocationMenuPane visible="${searchRadioButton.selected}" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+        <DirectionsMenuPane visible="${directionsRadioButton.selected}" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+        <FavoritesMenuPane visible="${favoritesRadioButton.selected}" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+        <DevToolsPane visible="${devModeRadioButton.selected}" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+        <SettingsMenuPane visible="${settingsRadioButton.selected}" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+        <HelpMenuPane visible="${helpRadioButton.selected}" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+    </AnchorPane>
+</fx:root>

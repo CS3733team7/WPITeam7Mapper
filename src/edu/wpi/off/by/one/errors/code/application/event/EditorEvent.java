@@ -22,7 +22,10 @@ public class EditorEvent extends Event{
 	public static final EventType<EditorEvent> NONE = new EventType<>(EDIT_ELEMENT, "NONE");
 	public static final EventType<EditorEvent> ADD = new EventType<>(EDIT_ELEMENT, "ADD");
 	public static final EventType<EditorEvent> EDIT = new EventType<>(EDIT_ELEMENT, "EDIT");
-	public static final EventType<EditorEvent> DELETE = new EventType<>(EDIT_ELEMENT, "DELETE");
+	public static final EventType<EditorEvent> DELETE_EDGE = new EventType<>(EDIT_ELEMENT, "DELETE_EDGE");
+	public static final EventType<EditorEvent> DELETE_NODE = new EventType<>(EDIT_ELEMENT, "DELETE_NODE");
+	public static final EventType<EditorEvent> DRAW_ELEMENT = new EventType<>(ANY, "DRAW_EVENT");
+	public static final EventType<EditorEvent> DRAW_EDGES = new EventType<>(DRAW_ELEMENT, "DRAW_EDGES");
 	
 	public EditorEvent() { this(NONE); }
 

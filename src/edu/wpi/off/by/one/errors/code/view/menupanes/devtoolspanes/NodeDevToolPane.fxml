@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root minWidth="0.0" prefWidth="235.0" spacing="10.0" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane minWidth="0.0">
+         <left>
+            <Label fx:id="nodeIdLabel" minWidth="0.0" text="Node ID:" BorderPane.alignment="CENTER" />
+         </left>
+         <center>
+            <Label maxWidth="1.7976931348623157E308" minWidth="0.0" text="[NODE_ID]" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+      <Label minWidth="0.0" text="Coordinates:" />
+      <GridPane hgap="5.0" minWidth="0.0">
+         <children>
+            <BorderPane minWidth="0.0">
+               <center>
+                  <TextField fx:id="xTextField" minWidth="0.0" promptText="X" BorderPane.alignment="CENTER" />
+               </center>
+               <left>
+                  <Label minWidth="0.0" text="X" BorderPane.alignment="CENTER">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
+               </left>
+            </BorderPane>
+            <BorderPane minWidth="0.0" GridPane.columnIndex="1">
+               <center>
+                  <TextField fx:id="yTextField" minWidth="0.0" promptText="Y" BorderPane.alignment="CENTER" />
+               </center>
+               <left>
+                  <Label minWidth="0.0" text="Y" BorderPane.alignment="CENTER">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
+               </left>
+            </BorderPane>
+            <BorderPane minWidth="0.0" GridPane.columnIndex="2">
+               <center>
+                  <TextField fx:id="zTextField" minWidth="0.0" promptText="Z" BorderPane.alignment="CENTER" />
+               </center>
+               <left>
+                  <Label minWidth="0.0" text="Z" BorderPane.alignment="CENTER">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
+               </left>
+            </BorderPane>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="0" percentWidth="33.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="0" percentWidth="34.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="0" percentWidth="33.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <Label minWidth="0.0" text="Tags:" />
+      <BorderPane minWidth="0.0">
+         <center>
+            <TextField fx:id="tagTextField" minWidth="0.0" promptText="Add a Tag" BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <Button fx:id="addTagButton" minWidth="0.0" mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+      <ListView fx:id="tagListView" minWidth="0.0" prefHeight="30.0" />
+      <BorderPane minWidth="0.0">
+         <center>
+            <BorderPane minWidth="0.0" BorderPane.alignment="CENTER">
+               <center>
+                  <TextField alignment="CENTER" minWidth="0.0" prefHeight="25.0" text="5" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </BorderPane.margin>
+                  </TextField>
+               </center>
+               <left>
+                  <Label minWidth="0.0" text="Node Size:" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <Label minWidth="0.0" text="px" BorderPane.alignment="CENTER" />
+               </right>
+               <BorderPane.margin>
+                  <Insets right="5.0" />
+               </BorderPane.margin>
+            </BorderPane>
+         </center>
+         <right>
+            <HBox minWidth="0.0" spacing="5.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label maxHeight="1.7976931348623157E308" minWidth="0.0" text="Color:" />
+                  <ColorPicker editable="true" maxWidth="55.0" minWidth="0.0" promptText="Node Color" />
+               </children>
+            </HBox>
+         </right>
+      </BorderPane>
+      <Label minWidth="0.0" text="Connected Edges" />
+      <ListView fx:id="edgeListView" minWidth="0.0" prefHeight="30.0" />
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</fx:root>

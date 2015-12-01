@@ -7,7 +7,7 @@ public class Node {
     private Coordinate coord;
     private Vector<Id> edges;//list of indexes of edges
     private Id id;
-    private ArrayList<String> tags;
+    private ArrayList<String> tags;//list of tags the node has
     
     /**
      *
@@ -17,6 +17,7 @@ public class Node {
         this.edges = new Vector<Id>(); // we can totally use arraylist here, dont have to use a vector
         this.coord = coordIn;
         this.id = new Id();//default, set when added
+        tags = new ArrayList<String>();
     }
     /**
      *
@@ -28,6 +29,7 @@ public class Node {
         this.edges = new Vector<Id>(); // we can totally use arraylist here, dont have to use a vector
         this.coord = coordIn;
         this.id = nid;//default, set when added
+        tags = new ArrayList<String>();
     }
     
 	/**
@@ -155,5 +157,15 @@ public class Node {
      */
     public void modifyTagAtIndex(int i, String newTag){
     	tags.set(i, newTag);
+    }
+
+
+    public float getDistanceSq(Coordinate c){
+        float mx = coord.getX() - c.getX();
+        float my = coord.getY() - c.getY();
+        return mx * mx + my * my;
+    }
+    public float getDistance(Coordinate c){
+        return (float)Math.sqrt((double)getDistanceSq(c));
     }
 }
