@@ -66,6 +66,16 @@ public class NodeDevToolPane extends VBox {
     }
     
     private void setListeners(){
+    	
+    	this.visibleProperty().addListener(e -> {
+    		if(this.isVisible()){
+    			mainPane.getMapRootPane().isNodeEditor = true;
+    		} else {
+    			mainPane.getMapRootPane().isNodeEditor = false;
+    		}
+    		
+    	});
+    	
     	//do sth to adjust node display on map as well
     	this.xTextField.setOnAction(e -> {
     		String s = xTextField.getText();

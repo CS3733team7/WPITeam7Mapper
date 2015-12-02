@@ -68,11 +68,11 @@ public class MapRootPane extends AnchorPane{
     Queue<EdgeDisplay> edgeQueue = new LinkedList<EdgeDisplay>();
     
     boolean isMapEditor = false;
-    boolean isNodeEditor = false;
-    boolean isEdgeEditor = false;
-    boolean isEditMode = false;
-    boolean isAddMode = false;		//Is editor currently adding nodes?
-    boolean isDeleteMode = false;	//Is editor currently deleting nodes?
+    public boolean isNodeEditor = false;
+    public boolean isEdgeEditor = false;
+    public boolean isEditMode = false;
+    public boolean isAddMode = false;		//Is editor currently adding nodes?
+    public boolean isDeleteMode = false;	//Is editor currently deleting nodes?
 
 	
     public MapRootPane() {
@@ -236,10 +236,10 @@ public class MapRootPane extends AnchorPane{
     		if(e.isStillSincePress()){
     			//TODO Add marker on map
     			
-    			if (isAddMode && isNodeEditor && e.getButton() == MouseButton.PRIMARY) {
+    			if (isNodeEditor && e.getButton() == MouseButton.PRIMARY) {
 	                addNodeDisplay(e.getX(), e.getY());
 	            }
-	    		else if (isEditMode && isNodeEditor){
+	    		else if (isNodeEditor){
 	    			if(!nodeQueue.isEmpty()){
 	    				System.out.println("Editing node");
 	    				NodeDisplay n = nodeQueue.poll();
@@ -314,20 +314,20 @@ public class MapRootPane extends AnchorPane{
 	 * @param nodes
 	 */
 	void addNodeDisplayFromList(Collection<Node> nodes){
+		System.out.println(nodes.size());
 		Node[] nodeArr = new Node[nodes.size()];
 		nodes.toArray(nodeArr); // To avoid ConcurrentModificationException
 		for(Node n : nodeArr){
-			Coordinate c = null;
-			try{
-				c = n.getCoordinate();
-			} catch (NullPointerException e){
+			if(n == null) {
+				System.out.println("NULL!");
 				continue;
 			}
-			 
+			System.out.println("SUCCESS");
+			Coordinate c = n.getCoordinate();
 			//addNodeDisplay(c.getX(), c.getY());
 			
-			double tx = c.getX() - localBounds.getMaxX()/2;
-			double ty = c.getY() - localBounds.getMaxY()/2;
+			double tx = c.getX() - (localBounds.getMaxX()/2);
+			double ty = c.getY() - (localBounds.getMaxY()/2);
 			
 			NodeDisplay newNode = new NodeDisplay(display, n.getId(),
 					new SimpleDoubleProperty(tx), 
@@ -354,17 +354,19 @@ public class MapRootPane extends AnchorPane{
 	        });
 	        
 	        newNode.addEventFilter(EditorEvent.DELETE_NODE, event -> {
-	        	System.out.println("Node deleted");
-	        	Graph g = display.getGraph();
-	        	Id id = newNode.getNode();
-	        	Vector<Id> edges = g.returnNodeById(id).getEdgelist();
-	        	//for(int i = 0; i < edges.size(); i++)  g.deleteEdge(edges.get(i));
-	        	g.deleteNode(id);
-	        	mapPane.getChildren().remove(newNode);
-	        	//remove edge display as well
-	        	//right now this throws nullpointerexception.
-	        	updateDisplay(this.display, "NEW");
-	        	//mapPane.getChildren().remove();
+	        	if(isNodeEditor){
+		        	System.out.println("Node deleted");
+		        	Graph g = display.getGraph();
+		        	Id id = newNode.getNode();
+		        	System.out.println(id);
+		        	System.out.println(display);
+		        	//for(int i = 0; i < edges.size(); i++)  g.deleteEdge(edges.get(i));
+		        	g.deleteNode(id);
+		        	//mapPane.getChildren().remove(this);
+		        	//remove edge display as well
+		        	//right now this throws nullpointerexception.
+		        	updateDisplay(display, "NEW");
+	        	}
 	        });
 	        mapPane.getChildren().add(newNode);
 	    }
@@ -393,23 +395,15 @@ public class MapRootPane extends AnchorPane{
 	    newNode.centerYProperty().addListener(e -> {
 	    	newNode.setTranslateY(newNode.getCenterY());
 	    });
-
+	    System.out.println(newNode.getNode());
 	    newNode.addEventFilter(SelectEvent.NODE_SELECTED, event -> {
 	    	
-	        if(isDeleteMode && isNodeEditor){
-	        	System.out.println("Node deleted");
-	        	Id id = newNode.getNode();
-	        	display.getGraph().deleteNode(id);
-	        	mapPane.getChildren().remove(newNode);
-	        	System.out.println(display.getGraph().getNodes().size());
-	        } else {
-	        	System.out.println("Node Selected");
-	        	newNode.selectNode();
-		        nodeQueue.add(newNode);
-		        System.out.println(newNode.getCenterX() + " " + newNode.getCenterY());
+	        System.out.println("Node Selected");
+	        newNode.selectNode();
+		    nodeQueue.add(newNode);
+		    System.out.println(newNode.getCenterX() + " " + newNode.getCenterY());
 		        // Add selected node to selected node queue
-		        mainPane.getNodeTool().displayNodeInfo(newNode);
-	        }
+		    mainPane.getNodeTool().displayNodeInfo(newNode);
 
 	        //TODO stuff regarding info about the node clicked
 	        //if double-clicked
@@ -424,6 +418,22 @@ public class MapRootPane extends AnchorPane{
 	    newNode.addEventFilter(SelectEvent.NODE_DESELECTED, event -> {
 	        nodeQueue.remove(newNode);
 	    });
+	    
+	    newNode.addEventFilter(EditorEvent.DELETE_NODE, event -> {
+        	if(isNodeEditor){
+	        	System.out.println("Node deleted");
+	        	System.out.println(display);
+	        	Graph g = display.getGraph();
+	        	Id id = newNode.getNode();
+	        	System.out.println(id);
+	        	g.deleteNode(id);
+	        	//mapPane.getChildren().remove(this);
+	        	//remove edge display as well
+	        	//right now this throws nullpointerexception.
+	        	updateDisplay(display, "NEW");
+	        	//mapPane.getChildren().remove();
+        	}
+        });
 
 	    //newNode.visibleProperty().bind(showNodes.selectedProperty());
 
@@ -435,7 +445,7 @@ public class MapRootPane extends AnchorPane{
 	 * Add EdgeDisplays from selected NodeQueue
 	 * Use to add a non-existing EdgeDisplay and Edge to the display
 	 */
-	void addEdgeDisplayFromQueue(){
+	public void addEdgeDisplayFromQueue(){
 		SelectEvent selectNodeEvent = new SelectEvent(SelectEvent.NODE_DESELECTED);
 	    if(!nodeQueue.isEmpty()){
 	        //System.out.println(nodeQueue.size());
@@ -481,7 +491,7 @@ public class MapRootPane extends AnchorPane{
 	            aND.fireEvent(selectNodeEvent);
 	            
 	            e.addEventFilter(SelectEvent.EDGE_SELECTED, ev -> {
-	            	if(isDeleteMode && isEdgeEditor){
+	            	if(isEdgeEditor){
 	            		System.out.println("Edge deleted");
 	    	        	Id id = e.getEdge();
 	    	        	display.getGraph().deleteEdge(id);

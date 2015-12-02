@@ -58,7 +58,7 @@
       </BorderPane>
       <StackPane minWidth="0.0">
          <children>
-            <Button minWidth="0.0" mnemonicParsing="false" text="Connect" StackPane.alignment="CENTER_RIGHT" />
+            <Button fx:id="connectEdges" minWidth="0.0" mnemonicParsing="false" onAction="#connectEdgesAction" text="Connect" StackPane.alignment="CENTER_RIGHT" />
          </children>
       </StackPane>
    </children>

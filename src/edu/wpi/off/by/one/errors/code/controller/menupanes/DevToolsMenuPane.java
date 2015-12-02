@@ -60,7 +60,7 @@ public class DevToolsMenuPane extends BorderPane {
     		Map currentMap = mainPane.getMapRootPane().getDisplay().getMap();
     		mapDevToolPane.setMap(currentMap);
     	});
-    	
+
     	this.loadNewMapButton.setOnAction(e -> {
     		Display newdisp = null;
             FileChooser fileChooser = new FileChooser();
@@ -116,7 +116,7 @@ public class DevToolsMenuPane extends BorderPane {
 		this.mainPane = mainPane;
 		mapDevToolPane.setMainPane(mainPane);
 		nodeDevToolPane.setMainPane(mainPane);
-		//edgeDevToolPane.setMainPane(mainPane);
+		edgeDevToolPane.setMainPane(mainPane);
 		//pathDevToolPane.setMainPane(mainPane);
 		
 	}
