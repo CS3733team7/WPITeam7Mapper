@@ -1,4 +1,10 @@
 package edu.wpi.off.by.one.errors.code.controller;
+
+import javafx.fxml.FXML;
+import javafx.beans.property.BooleanProperty;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
@@ -18,14 +24,16 @@ import edu.wpi.off.by.one.errors.code.controller.menupanes.devtoolspanes.NodeDev
  * 
  */
 public class MainPane extends BorderPane {
-	
+    private BooleanProperty isDevModeOn;
+
+
 	Window window;
-	
-	@FXML ScrollPane mapScrollPane;
-	@FXML MenuPane menuPane;
-	@FXML MapRootPane mapRootPane;
-	@FXML NavigationPane navigationPane;
-	
+
+    @FXML private Button openNavigationPaneButton;
+	@FXML private ScrollPane mapScrollPane;
+	@FXML private MenuPane menuPane;
+	@FXML private MapRootPane mapRootPane;
+	@FXML private NavigationPane navigationPane;
     public MainPane(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/MainPane.fxml"));
 
@@ -41,11 +49,37 @@ public class MainPane extends BorderPane {
         }catch(IOException excpt){
             throw new RuntimeException(excpt);
         }
+
+        addListeners();
+
+        this.getStylesheets().add(getClass().getResource("../resources/stylesheets/MainPaneStyleSheet.css").toExternalForm());
     }
-    public void setWindow(Window window) { this.window = window; }
+
+    private void addListeners(){
+        openNavigationPaneButton.visibleProperty().bind(navigationPane.visibleProperty().not());
+
+    }
+
+    @FXML private void onOpenNavigationPaneButtonClick(){
+        navigationPane.open();
+    }
+    public void setWindow(Window window) { 
+    	this.window = window; 
+    	window.heightProperty().addListener(e -> {
+    		System.out.println("Scroll Pane Size: " + mapScrollPane.getHeight());
+    		mapRootPane.updateCanvasSize(mapScrollPane.getWidth(), mapScrollPane.getHeight());
+    	});
+    	
+    	window.widthProperty().addListener(e -> {
+    		System.out.println("Scroll Pane Size: " + mapScrollPane.getWidth());
+    		mapRootPane.updateCanvasSize(mapScrollPane.getWidth(), mapScrollPane.getHeight());
+    	});
+    }
     public Window getWindow() { return this.window; }
     public MenuPane getMenuPane() { return this.menuPane; }
     public MapRootPane getMapRootPane() { return this.mapRootPane; }
     public NavigationPane getNavigationPane() { return this.navigationPane;}
     public NodeDevToolPane getNodeTool() { return this.menuPane.getDevToolsMenuPane().getNodeDevToolPane(); }
+    
 }
+

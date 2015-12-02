@@ -2,10 +2,13 @@ package edu.wpi.off.by.one.errors.code.controller;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -58,6 +61,10 @@ public class MapRootPane extends AnchorPane{
 	@FXML VBox editorPane;
 	@FXML Button drawPathDisplayButton;
 	StackPane pathPane = new StackPane();
+	//Change this as necessary
+	Canvas canvas = new Canvas(1000, 1000);
+
+	private Path p;
 
 	//Where all the images and txt files should be
 	String resourceDir = "/edu/wpi/off/by/one/errors/code/resources/";
@@ -68,11 +75,11 @@ public class MapRootPane extends AnchorPane{
     Queue<EdgeDisplay> edgeQueue = new LinkedList<EdgeDisplay>();
     
     boolean isMapEditor = false;
-    boolean isNodeEditor = false;
-    boolean isEdgeEditor = false;
-    boolean isEditMode = false;
-    boolean isAddMode = false;		//Is editor currently adding nodes?
-    boolean isDeleteMode = false;	//Is editor currently deleting nodes?
+    public boolean isNodeEditor = false;
+    public boolean isEdgeEditor = false;
+    public boolean isEditMode = false;
+    public boolean isAddMode = false;		//Is editor currently adding nodes?
+    public boolean isDeleteMode = false;	//Is editor currently deleting nodes?
 
 	
     public MapRootPane() {
@@ -92,6 +99,14 @@ public class MapRootPane extends AnchorPane{
     public MapRootPane getMapRootPane() { return this; }
     public HashMap<String, Display> getAllDisplays() {return displayList; }
     
+    public void updateCanvasSize(double width, double height){
+    	
+    	//System.out.printf("Height: %f, Width: %f\n", height, width);
+    	canvas.setHeight(height);
+    	canvas.setWidth(width);
+    	System.out.print("Canvas Height: " + canvas.getHeight() + "Canvas Width: " + canvas.getWidth());
+    }
+    
     private void initialize(){
     	System.out.print("Main Controller Initialized.");
 		//Load all displays into application
@@ -99,6 +114,7 @@ public class MapRootPane extends AnchorPane{
 		//Load campus map from display list
         display = displayList.get("Campus Map");
         mapPane.getChildren().add(0, pathPane);
+        mapPane.getChildren().add(0, canvas);
 		//Set map image
         mapView.setImage(new Image(resourceDir + "maps/images/" + display.getMap().getImgUrl()));
 		mapView.preserveRatioProperty().set(true);
@@ -236,10 +252,10 @@ public class MapRootPane extends AnchorPane{
     		if(e.isStillSincePress()){
     			//TODO Add marker on map
     			
-    			if (isAddMode && isNodeEditor && e.getButton() == MouseButton.PRIMARY) {
+    			if (isNodeEditor && e.getButton() == MouseButton.PRIMARY) {
 	                addNodeDisplay(e.getX(), e.getY());
 	            }
-	    		else if (isEditMode && isNodeEditor){
+	    		else if (isNodeEditor){
 	    			if(!nodeQueue.isEmpty()){
 	    				System.out.println("Editing node");
 	    				NodeDisplay n = nodeQueue.poll();
@@ -304,8 +320,8 @@ public class MapRootPane extends AnchorPane{
         System.out.println("MOVING");
         System.out.println(localBounds.getMinX() + " " + localBounds.getMinY());
         System.out.println(localBounds.getMaxX() + " " + localBounds.getMaxY());
-        obj.setTranslateX(x - localBounds.getMaxX() / 2);
-        obj.setTranslateY(y - localBounds.getMaxY() / 2);
+        obj.setTranslateX(x - (localBounds.getMaxX() / 2));
+        obj.setTranslateY(y - (localBounds.getMaxY() / 2));
 
     }
 
@@ -314,18 +330,23 @@ public class MapRootPane extends AnchorPane{
 	 * @param nodes
 	 */
 	void addNodeDisplayFromList(Collection<Node> nodes){
+		System.out.println(nodes.size());
 		Node[] nodeArr = new Node[nodes.size()];
 		nodes.toArray(nodeArr); // To avoid ConcurrentModificationException
 		for(Node n : nodeArr){
+			if(n == null) {
+				System.out.println("NULL!");
+				continue;
+			}
 			Coordinate c = n.getCoordinate();
 			//addNodeDisplay(c.getX(), c.getY());
 			
-			double tx = c.getX() - localBounds.getMaxX()/2;
-			double ty = c.getY() - localBounds.getMaxY()/2;
+			double tx = c.getX() - (localBounds.getMaxX()/2);
+			double ty = c.getY() - (localBounds.getMaxY()/2);
 			
 			NodeDisplay newNode = new NodeDisplay(display, n.getId(),
-					new SimpleDoubleProperty(tx), 
-					new SimpleDoubleProperty(ty),
+					new SimpleDoubleProperty(c.getX()), 
+					new SimpleDoubleProperty(c.getY()),
 					new SimpleDoubleProperty(0));
 			newNode.setTranslateX(tx);
 			newNode.setTranslateY(ty);
@@ -348,17 +369,19 @@ public class MapRootPane extends AnchorPane{
 	        });
 	        
 	        newNode.addEventFilter(EditorEvent.DELETE_NODE, event -> {
-	        	System.out.println("Node deleted");
-	        	Graph g = display.getGraph();
-	        	Id id = newNode.getNode();
-	        	Vector<Id> edges = g.returnNodeById(id).getEdgelist();
-	        	for(int i = 0; i < edges.size(); i++)  g.deleteEdge(edges.get(i));
-	        	g.deleteNode(id);
-	        	mapPane.getChildren().remove(newNode);
-	        	//remove edge display as well
-	        	//right now this throws nullpointerexception.
-	        	//updateDisplay(this.display, "NEW");
-	        	//mapPane.getChildren().remove();
+	        	if(isNodeEditor){
+		        	System.out.println("Node deleted");
+		        	Graph g = display.getGraph();
+		        	Id id = newNode.getNode();
+		        	System.out.println(id);
+		        	System.out.println(display);
+		        	//for(int i = 0; i < edges.size(); i++)  g.deleteEdge(edges.get(i));
+		        	g.deleteNode(id);
+		        	//mapPane.getChildren().remove(this);
+		        	//remove edge display as well
+		        	//right now this throws nullpointerexception.
+		        	updateDisplay(display, "NEW");
+	        	}
 	        });
 	        mapPane.getChildren().add(newNode);
 	    }
@@ -376,8 +399,8 @@ public class MapRootPane extends AnchorPane{
         double ty = y - (localBounds.getMaxY() / 2);
 		
 		NodeDisplay newNode = new NodeDisplay(display, 
-				new SimpleDoubleProperty(tx), 
-				new SimpleDoubleProperty(ty),
+				new SimpleDoubleProperty(x), 
+				new SimpleDoubleProperty(y),
 				new SimpleDoubleProperty(0));
 		newNode.setTranslateX(tx);
 		newNode.setTranslateY(ty);
@@ -387,23 +410,15 @@ public class MapRootPane extends AnchorPane{
 	    newNode.centerYProperty().addListener(e -> {
 	    	newNode.setTranslateY(newNode.getCenterY());
 	    });
-
+	    System.out.println(newNode.getNode());
 	    newNode.addEventFilter(SelectEvent.NODE_SELECTED, event -> {
 	    	
-	        if(isDeleteMode && isNodeEditor){
-	        	System.out.println("Node deleted");
-	        	Id id = newNode.getNode();
-	        	display.getGraph().deleteNode(id);
-	        	mapPane.getChildren().remove(newNode);
-	        	System.out.println(display.getGraph().getNodes().size());
-	        } else {
-	        	System.out.println("Node Selected");
-	        	newNode.selectNode();
-		        nodeQueue.add(newNode);
-		        System.out.println(newNode.getCenterX() + " " + newNode.getCenterY());
+	        System.out.println("Node Selected");
+	        newNode.selectNode();
+		    nodeQueue.add(newNode);
+		    System.out.println(newNode.getCenterX() + " " + newNode.getCenterY());
 		        // Add selected node to selected node queue
-		        mainPane.getNodeTool().displayNodeInfo(newNode);
-	        }
+		    mainPane.getNodeTool().displayNodeInfo(newNode);
 
 	        //TODO stuff regarding info about the node clicked
 	        //if double-clicked
@@ -429,7 +444,7 @@ public class MapRootPane extends AnchorPane{
 	 * Add EdgeDisplays from selected NodeQueue
 	 * Use to add a non-existing EdgeDisplay and Edge to the display
 	 */
-	void addEdgeDisplayFromQueue(){
+	public void addEdgeDisplayFromQueue(){
 		SelectEvent selectNodeEvent = new SelectEvent(SelectEvent.NODE_DESELECTED);
 	    if(!nodeQueue.isEmpty()){
 	        //System.out.println(nodeQueue.size());
@@ -457,8 +472,8 @@ public class MapRootPane extends AnchorPane{
 	        			aLocX, aLocY,
 	                    bLocX, bLocY);
 	            e.setStroke(Color.BLUE);
-	            e.setTranslateX((aLocX.get() + bLocX.get())/2);
-	            e.setTranslateY((aLocY.get() + bLocY.get())/2);
+	            e.setTranslateX((aLocX.get() + bLocX.get())/2 - (localBounds.getMaxX() / 2));
+	            e.setTranslateY((aLocY.get() + bLocY.get())/2 - (localBounds.getMaxY() / 2));
 	            e.startXProperty().addListener(ev -> {
 	            	e.setTranslateX((aLocX.get() + bLocX.get())/2);
 	            });
@@ -475,7 +490,7 @@ public class MapRootPane extends AnchorPane{
 	            aND.fireEvent(selectNodeEvent);
 	            
 	            e.addEventFilter(SelectEvent.EDGE_SELECTED, ev -> {
-	            	if(isDeleteMode && isEdgeEditor){
+	            	if(isEdgeEditor){
 	            		System.out.println("Edge deleted");
 	    	        	Id id = e.getEdge();
 	    	        	display.getGraph().deleteEdge(id);
@@ -515,18 +530,17 @@ public class MapRootPane extends AnchorPane{
 		Edge[] edgeArr = new Edge[edges.size()];
 		edges.toArray(edgeArr); // To avoid ConcurrentModificationException
 	    for(Edge edge : edgeArr){
-	    	Id aID, bID;
-	    	try{
-	    		aID = edge.getNodeA();
-		    	bID = edge.getNodeB();
-	    	} catch (NullPointerException e){
-	    		graph.deleteEdge(edge.getId());
-	    		continue;
-	    	}
-	    	Node a = graph.returnNodeById(aID);
-	        Node b = graph.returnNodeById(bID);
-	    	Coordinate aLoc = a.getCoordinate();
-	        Coordinate bLoc = b.getCoordinate();
+	    	if(edge == null) continue;
+	    	Id aID = edge.getNodeA();
+		    Id bID = edge.getNodeB();
+		    Node a = graph.returnNodeById(aID);
+		    Node b = graph.returnNodeById(bID);
+		    if(a == null || b == null){
+		    graph.deleteEdge(edge.getId());
+		    	continue;
+		    }
+		    Coordinate aLoc = a.getCoordinate();
+		    Coordinate bLoc = b.getCoordinate();
 	        DoubleProperty aLocX, aLocY, bLocX, bLocY;
 	        aLocX = new SimpleDoubleProperty(aLoc.getX() - localBounds.getMaxX()/2);
 	        aLocY = new SimpleDoubleProperty(aLoc.getY() - localBounds.getMaxY()/2);
@@ -588,7 +602,7 @@ public class MapRootPane extends AnchorPane{
             Vector<Node> nodes = display.getGraph().getNodes();
             //System.out.println(nodes.size());
 
-            Path p = new Path(startNode.getNode(), endNode.getNode());
+            p = new Path(startNode.getNode(), endNode.getNode());
             Graph g = display.getGraph();
             //System.out.println("Size graph " + g.getEdges().size());
             p.runAStar(g); //Change this later??
@@ -602,6 +616,7 @@ public class MapRootPane extends AnchorPane{
                 Line l = new Line(aLoc.getX(), aLoc.getY(),
                                   bLoc.getX(), bLoc.getY());
                 l.setStrokeWidth(3.0);
+                l.setStroke(Color.RED);
                 l.setTranslateX((aLoc.getX() + bLoc.getX()) / 2);
                 l.setTranslateY((aLoc.getY() + bLoc.getY()) / 2);
        
@@ -614,8 +629,13 @@ public class MapRootPane extends AnchorPane{
             SelectEvent selectNodeEvent = new SelectEvent(SelectEvent.NODE_DESELECTED);
             startNode.fireEvent(selectNodeEvent);
             endNode.fireEvent(selectNodeEvent);
+            showDirections();
         }
 	}
 
+    public void showDirections(){
+        ObservableList<String> pathList = FXCollections.observableList(p.getTextual());
+        mainPane.getMenuPane().getDirectionsMenuPane().getdirectionsListView().setItems(pathList);
+    }
 
 }

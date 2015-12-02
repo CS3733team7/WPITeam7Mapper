@@ -96,7 +96,11 @@ public class FileIO {
 		if (args.length > 5)
 			return null;
 		Coordinate c = new Coordinate(Float.parseFloat(args[0]), Float.parseFloat(args[1]), Float.parseFloat(args[2]));
-		return g.addNodeRint(c);
+		Node n = g.addNode(c);
+		if(args.length >= 4) {
+			for(String j : getTags(args[3])) n.addTag(j);
+		}
+		return n.getId();
 	}
 
 	/**
@@ -115,7 +119,9 @@ public class FileIO {
 			return null;
 		Id id1 = nodeids.get(indice1);
 		Id id2 = nodeids.get(indice2);
-		return g.addEdgeRint(id1, id2); 
+		Edge e = g.addEdge(id1, id2);
+		//if(args.length >= 3) for(String j : getTags(args[2])) e.addTag(j);
+		return e.getId();
 	}
 
 	/**
@@ -216,14 +222,22 @@ public class FileIO {
 			if(n == null) continue;
 			ids.put(n.getId(), i);
 			Coordinate c = n.getCoordinate();
-			writer.printf("p %f %f %f\n", c.getX(), c.getY(), c.getZ());
+			writer.printf("p %f %f %f", c.getX(), c.getY(), c.getZ());
+			if(!n.GetTags().isEmpty()){
+				writer.printf(" %s", getTags(n.GetTags().toArray().toString()));
+			}
+			writer.printf("\n");
 			i++;
 		}
 		for( Edge e : g.getEdges()){
 			if(e == null) continue;
 			int indice1 = ids.get(e.getNodeA());
 			int indice2 = ids.get(e.getNodeB());
-			writer.printf("e %d %d\n", indice1, indice2);
+			writer.printf("e %d %d", indice1, indice2);
+			//if(!e.GetTags().isEmpty()){
+			//	writer.printf(" %s", getTags(e.GetTags().toArray().toString()));
+			//}
+			writer.printf("\n");
 		}
 		ids = null;
 		//will change this over to iterate over a list later
@@ -233,7 +247,7 @@ public class FileIO {
 		} else {
 			Coordinate c = m.center; // should this be a getter?
 			//writer.printf("m %s %f %f %f %f %f\n", m.imagePath, c.getX(), c.getY(), c.getZ(), m.rotation, m.scale);
-			String[] aaa = null;
+			String[] aaa = new String[1];
 			aaa[0] = m.getName();
 			writer.println("m " + m.imagePath + " " + c.getX() + " " + c.getY() + " " + c.getZ() + " " + m.rotation + " " + m.scale + " " + toTags(aaa));
 

@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.Test;
 import java.lang.String;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Vector;
 
 import org.junit.rules.ExpectedException;
@@ -20,7 +22,7 @@ import edu.wpi.off.by.one.errors.code.model.Path;
 import junit.framework.TestCase;
 
 public class test extends TestCase{
-    /*
+    
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
     
@@ -56,44 +58,34 @@ public class test extends TestCase{
         Coordinate c2 = new Coordinate(100,0,0);
         Coordinate c3 = new Coordinate(0);
         Coordinate c4 = new Coordinate(600);
-        g.addNode(c1);
-        g.addNode(c2);
-       
-        assertEquals( g.addEdgeRint(0, 1), 0);
         
-        g.addNode(c3);
-        g.addNode(c4);
-
-        assertEquals( g.addEdgeRint(2, 3), 1);
+        Node n1 = g.addNode(c1);
+        Node n2 = g.addNode(c2);
+        Node n3 = g.addNode(c3);
+        Node n4 = g.addNode(c4);
         
-        Vector<Node> lon = g.getNodes();
-        assertEquals(lon.get(0).getId(), 0);
-        assertEquals(lon.get(1).getId(), 1);
-        
-        Vector<Edge> loe = g.getEdges();
-        assertEquals(loe.get(0).getId(), 0);
-        g.editNode(1, c1);//could have something wrong
-        assertEquals(lon.get(1).getCoordinate(), c1);
-
+        g.addEdgeRint(n1.getId(), n2.getId());
+        assertEquals(n1.getEdgelist().get(0) == n2.getEdgelist().get(0), true);
+        g.addEdgeRint(n3.getId(), n4.getId());
+        assertEquals(n3.getEdgelist().get(0) == n4.getEdgelist().get(0), true);
     }
     
     //test FileIO
-    @Test
+    /*@Test
    public void testFile(){
-        /*
         Map amap = new Map("Atwater_Kent.png", "Atwater_Kent.png", 0, 0);
         amap.setScale(1);
         Graph g = new Graph();
         Coordinate c1 = new Coordinate(400);
         Coordinate c2 = new Coordinate(100,0,0);
-        g.addNode(c1);
-        g.addNode(c2);
-        assertEquals( g.addEdgeRint(0, 1), 0);
+        Node n1 = g.addNode(c1);
+        Node n2 = g.addNode(c2);
+        g.addEdgeRint(n1.getId(), n2.getId());
         Display dpy = new Display(amap, g);
         String dir = System.getProperty("user.dir");
-        FileIO.save(dir + "testio.txt", dpy);//test save file
-        FileIO.load(dir+"testio.txt", null);//test load file without display
-        FileIO.load(dir+"testio.txt", dpy);//test load file with display
+        //FileIO.save(dir + "testio.txt", dpy);//test save file
+        //FileIO.load(dir+"testio.txt", null);//test load file without display
+        //FileIO.load(dir+"testio.txt", dpy);//test load file with display
 
     }
     
@@ -102,23 +94,21 @@ public class test extends TestCase{
     public void testAStar(){
 
     	String dir = System.getProperty("user.dir");
-    	Display d = FileIO.load(dir + "/src/testmap.txt", null);
+    	Display d = FileIO.load(dir + "/src/edu/wpi/off/by/one/errors/code/resources/maps/txtfiles/testmap.txt", null);
     	Graph g = d.getGraph();
-    	
-    	Path traversablePath = new Path(5, 12);
+    	Path traversablePath = new Path(g.getNodes().get(5).getId(), g.getNodes().get(12).getId());
     	ArrayList<Integer> expTPath1 = new ArrayList<Integer>();
     	ArrayList<Integer> expTPath2 = new ArrayList<Integer>();
     	expTPath1.addAll(Arrays.asList(5, 4, 17, 6, 7, 10, 9, 11, 12));
     	expTPath2.addAll(Arrays.asList(5, 4, 17, 7, 10, 9, 11, 12));
-    	traversablePath.runAStar(g.getNodes(), g.getEdges());
+    	traversablePath.runAStar(g);
     	assertNotEquals(traversablePath.getRoute(), expTPath1);
     	assertEquals(traversablePath.getRoute(), expTPath2);
     	
-    	Path nonTraversablePath = new Path(5, 0);
+    	Path nonTraversablePath = new Path(g.getNodes().get(5).getId(), g.getNodes().get(0).getId());
     	ArrayList<Integer> expNTPath = new ArrayList<Integer>();
-    	nonTraversablePath.runAStar(g.getNodes(), g.getEdges());
+    	nonTraversablePath.runAStar(g);
     	assertEquals(nonTraversablePath.getRoute(), expNTPath);
 
-    }
-    */
+    }*/
 }

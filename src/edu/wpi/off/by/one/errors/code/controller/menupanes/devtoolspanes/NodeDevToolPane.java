@@ -11,9 +11,6 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.owasp.html.PolicyFactory;
-import org.owasp.html.Sanitizers;
-
 import edu.wpi.off.by.one.errors.code.application.NodeDisplay;
 import edu.wpi.off.by.one.errors.code.controller.MainPane;
 import edu.wpi.off.by.one.errors.code.model.*;
@@ -34,8 +31,7 @@ public class NodeDevToolPane extends VBox {
 	@FXML ListView<String> tagListView;
 	@FXML ListView<Id> edgeListView;
 	@FXML Button addTagButton;
-	
-	PolicyFactory policy = Sanitizers.FORMATTING.and(Sanitizers.LINKS);
+
 	
     public NodeDevToolPane(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../view/menupanes/devtoolspanes/NodeDevToolPane.fxml"));
@@ -70,9 +66,19 @@ public class NodeDevToolPane extends VBox {
     }
     
     private void setListeners(){
+    	
+    	this.visibleProperty().addListener(e -> {
+    		if(this.isVisible()){
+    			mainPane.getMapRootPane().isNodeEditor = true;
+    		} else {
+    			mainPane.getMapRootPane().isNodeEditor = false;
+    		}
+    		
+    	});
+    	
     	//do sth to adjust node display on map as well
     	this.xTextField.setOnAction(e -> {
-    		String s = policy.sanitize(xTextField.getText());
+    		String s = xTextField.getText();
     		Node n = currentDisplay.getGraph().returnNodeById(currentNd.getNode());
     		Coordinate currentc = n.getCoordinate();
     		n.setCoordinate(new Coordinate(Float.parseFloat(s),
@@ -80,7 +86,7 @@ public class NodeDevToolPane extends VBox {
     	});
     
     	this.yTextField.setOnAction(e -> {
-    		String s = policy.sanitize(yTextField.getText());
+    		String s = yTextField.getText();
     		Node n = currentDisplay.getGraph().returnNodeById(currentNd.getNode());
     		Coordinate currentc = n.getCoordinate();
     		n.setCoordinate(new Coordinate(currentc.getX(),
@@ -88,7 +94,7 @@ public class NodeDevToolPane extends VBox {
     	});
     	
     	this.zTextField.setOnAction(e -> {
-    		String s = policy.sanitize(zTextField.getText());
+    		String s = zTextField.getText();
     		Node n = currentDisplay.getGraph().returnNodeById(currentNd.getNode());
     		Coordinate currentc = n.getCoordinate();
     		n.setCoordinate(new Coordinate(currentc.getX(),
@@ -104,7 +110,7 @@ public class NodeDevToolPane extends VBox {
     
     private void addTag(){
     	System.out.println("Adding tag");
-    	String s = policy.sanitize(tagTextField.getText());
+    	String s = tagTextField.getText();
     	Node n = currentDisplay.getGraph().returnNodeById(currentNd.getNode());
     	n.addTag(s);
     	tagListView.getItems().clear();

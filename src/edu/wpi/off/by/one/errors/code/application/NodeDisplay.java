@@ -77,7 +77,7 @@ public class NodeDisplay extends Circle implements IDisplayItem{
 		setHandlers();
 	}
 	
-	public NodeDisplay(Display display, DoubleProperty x, DoubleProperty y, DoubleProperty z){
+	public NodeDisplay(Display disp, DoubleProperty x, DoubleProperty y, DoubleProperty z){
 		super(x.get(), y.get(), 5);
 		setFill(Color.BLUE);
 		x.bind(centerXProperty());
@@ -85,9 +85,10 @@ public class NodeDisplay extends Circle implements IDisplayItem{
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.display = display;
-		this.node = display.getGraph().addNodeRint(
+		this.display = disp;
+		this.node = disp.getGraph().addNodeRint(
 				new Coordinate(x.floatValue(), y.floatValue(), z.floatValue()));
+		System.out.println(disp.getGraph());
 		setHandlers();
 	}
 	
@@ -123,7 +124,9 @@ public class NodeDisplay extends Circle implements IDisplayItem{
 				if(e.getButton() == MouseButton.SECONDARY){
 					EditorEvent deleteNodeEvent = new EditorEvent(EditorEvent.DELETE_NODE);
 					self.fireEvent(deleteNodeEvent);
-				} else {
+				} 
+				
+				else if(e.getButton() == MouseButton.PRIMARY) {
 					SelectEvent selectNodeEvent = new SelectEvent(SelectEvent.NODE_SELECTED);
 					self.fireEvent(selectNodeEvent);
 				}
@@ -197,6 +200,7 @@ public class NodeDisplay extends Circle implements IDisplayItem{
 		this.setOnMouseExited(onMouseExitedEventHandler);
 		this.setOnMouseClicked(onMouseClickedEventHandler);
 		this.onDeselectEventHandler();
+		/*
 		this.showProperty().addListener((v, oldVal, newVal) -> {
 			if(newVal){
 				this.setVisible(false);
@@ -206,5 +210,6 @@ public class NodeDisplay extends Circle implements IDisplayItem{
 				this.setMouseTransparent(false);
 			}
 		});
+		*/
 	}
 }

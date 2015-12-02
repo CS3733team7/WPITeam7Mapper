@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
@@ -9,27 +10,27 @@
     <children>
         <BorderPane fx:id="menuBar" maxWidth="-Infinity">
             <top>
-                <ToggleButton fx:id="hamburgerToggleButton" selected="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="ToggleButton" BorderPane.alignment="CENTER" />
+                <ToggleButton fx:id="hamburgerToggleButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" selected="true" BorderPane.alignment="CENTER" />
             </top>
             <center>
                 <VBox BorderPane.alignment="CENTER">
                     <children>
-                        <RadioButton fx:id="searchMenuRadioButton" styleClass="toggle-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" selected="true" text="Search" onMouseClicked="#extend">
+                        <RadioButton fx:id="searchMenuRadioButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#extend" prefHeight="40.0" prefWidth="40.0" selected="true" styleClass="toggle-button">
                             <toggleGroup>
                                 <ToggleGroup fx:id="menuButtonToggleGroup" />
                             </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="directionsMenuRadioButton" styleClass="toggle-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Directions" toggleGroup="$menuButtonToggleGroup" onMouseClicked="#extend"/>
-                        <RadioButton fx:id="favoritesMenuRadioButton" styleClass="toggle-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Favorites" toggleGroup="$menuButtonToggleGroup" onMouseClicked="#extend"/>
+                        <RadioButton fx:id="directionsMenuRadioButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#extend" prefHeight="40.0" prefWidth="40.0" styleClass="toggle-button" toggleGroup="$menuButtonToggleGroup"/>
+                        <RadioButton fx:id="favoritesMenuRadioButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#extend" prefHeight="40.0" prefWidth="40.0" styleClass="toggle-button" toggleGroup="$menuButtonToggleGroup"/>
                     </children>
                 </VBox>
             </center>
             <bottom>
                 <VBox BorderPane.alignment="CENTER">
                     <children>
-                        <RadioButton fx:id="devToolMenuRadioButton" styleClass="toggle-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Dev Tools" toggleGroup="$menuButtonToggleGroup" onMouseClicked="#extend"/>
-                        <RadioButton fx:id="settingsMenuRadioButton" styleClass="toggle-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Settings" toggleGroup="$menuButtonToggleGroup" onMouseClicked="#extend"/>
-                        <RadioButton fx:id="helpMenuRadioButton" styleClass="toggle-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Help" toggleGroup="$menuButtonToggleGroup" onMouseClicked="#extend"/>
+                        <RadioButton fx:id="devToolMenuRadioButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#extend" prefHeight="40.0" prefWidth="40.0" styleClass="toggle-button" toggleGroup="$menuButtonToggleGroup"/>
+                        <RadioButton fx:id="settingsMenuRadioButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#extend" prefHeight="40.0" prefWidth="40.0" styleClass="toggle-button" toggleGroup="$menuButtonToggleGroup"/>
+                        <RadioButton fx:id="helpMenuRadioButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#extend" prefHeight="40.0" prefWidth="40.0" styleClass="toggle-button" toggleGroup="$menuButtonToggleGroup"/>
                     </children>
                 </VBox>
             </bottom>

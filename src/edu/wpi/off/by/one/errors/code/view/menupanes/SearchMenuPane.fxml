@@ -5,20 +5,25 @@
 <?import javafx.scene.control.*?>
 <?import edu.wpi.off.by.one.errors.code.controller.customcontrols.AutoCompleteTextField?>
 
+<?import javafx.geometry.Insets?>
 <fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <ListView BorderPane.alignment="CENTER" />
+      <ListView fx:id="locationResultListView" minWidth="0.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </ListView>
    </center>
    <top>
       <VBox minWidth="0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Label" />
-            <BorderPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="0.0">
+            <Label fx:id="searchLabel" minWidth="0.0" maxHeight="40" text="Search" />
+            <BorderPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="30.0">
                <center>
-                  <AutoCompleteTextField minWidth="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+                  <TextField fx:id="searchInputTextField" maxHeight="-Infinity" minWidth="0.0" prefHeight="30.0" BorderPane.alignment="CENTER" />
                </center>
                <right>
-                  <Button maxWidth="-Infinity" minWidth="0.0" mnemonicParsing="false" prefWidth="30.0" text="Button" BorderPane.alignment="CENTER" />
+                  <Button fx:id="searchLocationButton" minWidth="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="Button" BorderPane.alignment="CENTER" />
                </right>
             </BorderPane>
          </children>

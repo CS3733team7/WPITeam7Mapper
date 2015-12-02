@@ -17,8 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.owasp.html.*;
-
 import edu.wpi.off.by.one.errors.code.controller.MainPane;
 import edu.wpi.off.by.one.errors.code.model.Coordinate;
 import edu.wpi.off.by.one.errors.code.model.Display;
@@ -44,9 +42,6 @@ public class MapDevToolPane extends VBox {
 	@FXML TextField scaleTextField;
 	@FXML Label pathLabel;
 	@FXML Button changeImageButton;
-	
-	PolicyFactory policy = Sanitizers.FORMATTING.and(Sanitizers.LINKS);
-
 
     public MapDevToolPane() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../view/menupanes/devtoolspanes/MapDevToolPane.fxml"));
@@ -62,16 +57,21 @@ public class MapDevToolPane extends VBox {
     }
     
     private void setListeners(){
+/*    	
+    	this.displayChoiceBox.setOnAction(e -> {
+    		changeDisplay();
+    	});
+    */	
     	this.nameTextField.setOnAction(e -> {
     		String old_s = currentMap.getName();
     		if(old_s == null) old_s = currentMap.getImgUrl();
-    		String s = policy.sanitize(nameTextField.getText());
+    		String s = nameTextField.getText();
     		currentMap.setName(s);
     		updateDisplayList(old_s, s);
     	});
     	
     	this.rotationTextField.setOnAction(e -> {
-    		String s = policy.sanitize(rotationTextField.getText());
+    		String s = rotationTextField.getText();
     		currentMap.setRotation(Float.parseFloat(s));
     		String name = (currentMap.getName() != null) ?  currentMap.getName(): currentMap.getImgUrl();
     		Display d = displayList.get(name);
@@ -80,7 +80,7 @@ public class MapDevToolPane extends VBox {
     	});
     	
     	this.scaleTextField.setOnAction(e -> {
-    		String s = policy.sanitize(scaleTextField.getText());
+    		String s = scaleTextField.getText();
     		currentMap.setScale(Float.parseFloat(s));
     		String name = (currentMap.getName() != null) ?  currentMap.getName(): currentMap.getImgUrl();
     		Display d = displayList.get(name);
@@ -89,7 +89,7 @@ public class MapDevToolPane extends VBox {
     	});
     	
     	this.xTextField.setOnAction(e -> {
-    		String s = policy.sanitize(xTextField.getText());
+    		String s = xTextField.getText();
     		Coordinate currentc = currentMap.getCenter();
     		currentMap.setCenter(new Coordinate(Float.parseFloat(s),
     				currentc.getY(), currentc.getZ()));
@@ -100,7 +100,7 @@ public class MapDevToolPane extends VBox {
     	});
     	
     	this.yTextField.setOnAction(e -> {
-    		String s = policy.sanitize(yTextField.getText());
+    		String s = yTextField.getText();
     		Coordinate currentc = currentMap.getCenter();
     		currentMap.setCenter(new Coordinate(currentc.getX(),
     				Float.parseFloat(s), currentc.getZ()));
@@ -111,7 +111,7 @@ public class MapDevToolPane extends VBox {
     	});
     	
     	this.zTextField.setOnAction(e -> {
-    		String s = policy.sanitize(zTextField.getText());
+    		String s = zTextField.getText();
     		Coordinate currentc = currentMap.getCenter();
     		currentMap.setCenter(new Coordinate(currentc.getX(),
     				currentc.getY(), Float.parseFloat(s)));

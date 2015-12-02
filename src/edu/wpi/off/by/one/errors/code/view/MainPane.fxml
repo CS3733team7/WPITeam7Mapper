@@ -4,23 +4,41 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import edu.wpi.off.by.one.errors.code.controller.*?>
+<?import javafx.scene.control.*?>
 
+<?import javafx.geometry.Insets?>
 <fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <left>
-        <MenuPane  fx:id="menuPane" maxWidth="275" minWidth="40" />
+        <MenuPane fx:id="menuPane" maxWidth="275" minWidth="40" />
     </left>
    <center>
       <BorderPane BorderPane.alignment="CENTER">
-         <bottom>
-             <NavigationPane  fx:id="navigationPane" prefHeight="150" prefWidth="Infinity" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" />
-         </bottom>
          <center>
-            <ScrollPane fx:id="mapScrollPane" hbarPolicy="NEVER" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
-              <content>
-                <MapRootPane fx:id="mapRootPane" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" />
-              </content>
-            </ScrollPane>
+            <StackPane>
+                <children>
+                    <ScrollPane fx:id="mapScrollPane" hbarPolicy="NEVER" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+                        <content>
+                            <MapRootPane fx:id="mapRootPane" />
+                        </content>
+                    </ScrollPane>
+                    <VBox maxHeight="-Infinity" maxWidth="40" prefWidth="25" StackPane.alignment="CENTER_RIGHT">
+                        <children>
+                            <Button maxHeight="40" maxWidth="Infinity" text="L" />
+                            <Button maxHeight="40" maxWidth="Infinity" text="R" />
+                            <Button maxHeight="40" maxWidth="Infinity" text="+" />
+                            <Button maxHeight="40" maxWidth="Infinity" text="-" />
+                        </children>
+                        <padding>
+                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </padding>
+                    </VBox>
+                    <Button fx:id="openNavigationPaneButton" onAction="#onOpenNavigationPaneButtonClick" prefWidth="75" text="^" StackPane.alignment="BOTTOM_CENTER" />
+                </children>
+            </StackPane>
          </center>
+         <bottom>
+             <NavigationPane fx:id="navigationPane" minHeight="0" prefHeight="150" prefWidth="Infinity" />
+         </bottom>
       </BorderPane>
    </center>
 

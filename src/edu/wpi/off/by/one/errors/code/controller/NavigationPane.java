@@ -25,21 +25,24 @@ public class NavigationPane extends GridPane {
             throw new RuntimeException(excpt);
         }
 
-        this.setMinHeight(0);
+        this.getStylesheets().add(getClass().getResource("../resources/stylesheets/NavigationPaneStyleSheet.css").toExternalForm());
     }
     
     public void setMainPane(MainPane m) { this.mainPane = m; }
 
     public void open(){
-        this.setPrefHeight(this.getMaxWidth());
+        this.setPrefHeight(this.getMaxHeight());
+        this.setVisible(true);
     }
 
     public void close(){
         this.setPrefHeight(this.getMinHeight());
+        this.setVisible(false);
     }
 
     @FXML
-    public void onClosePaneButtonClick(){
+    private void onClosePaneButtonClick(){
         close();
     }
+
 }

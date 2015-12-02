@@ -54,9 +54,9 @@
                 <RowConstraints fillHeight="true" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Load New" GridPane.columnIndex="0" />
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Append" GridPane.columnIndex="1" />
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Save" GridPane.columnIndex="2" />
+                <Button fx:id="loadNewMapButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Load New" GridPane.columnIndex="0" />
+                <Button fx:id="appendMapButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Append" GridPane.columnIndex="1" />
+                <Button fx:id="saveCurrentMapButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Save" GridPane.columnIndex="2" />
             </children>
         </GridPane>
     </bottom>
