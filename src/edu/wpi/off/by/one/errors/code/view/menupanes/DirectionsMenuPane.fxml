@@ -10,7 +10,7 @@
     <top>
         <VBox minWidth="0.0" spacing="10" BorderPane.alignment="CENTER">
             <children>
-                <Label contentDisplay="CENTER" minWidth="0.0" text="Directions" />
+                <Label fx:id="directionsLabel" contentDisplay="CENTER" minWidth="0.0" text="Directions" />
                 <BorderPane minWidth="0.0">
                     <left>
                         <Label minWidth="0.0" text="A" BorderPane.alignment="CENTER" />
@@ -50,10 +50,10 @@
         </VBox>
     </top>
     <center>
-        <ListView minWidth="0.0" BorderPane.alignment="CENTER" />
+        <ListView fx:id="directionsListView" minWidth="0.0" BorderPane.alignment="CENTER" />
     </center>
-    <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-    </padding>
 
+    <padding>
+        <Insets bottom="0" left="10.0" right="10.0" top="0" />
+    </padding>
 </fx:root>

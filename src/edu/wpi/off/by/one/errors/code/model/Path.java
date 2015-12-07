@@ -24,7 +24,7 @@ public class Path {
 	 */
 	public void runAStar(Graph graphin){
 		theGraph = graphin;
-		System.out.println("started a*");
+		////System.out.println("started a*");
 		ArrayList<Id> visited = new ArrayList<Id>();	//These nodes we have already seen
 		ArrayList<Id> open = new ArrayList<Id>();		//These are the next nodes we will visit
 
@@ -38,32 +38,34 @@ public class Path {
 		HashMap<Id, Float> fScore = new HashMap<Id, Float>();	//create a new #map for the f score of the node
 
 		for (Node elem : theGraph.getNodes()){	//sets each node that we could examine, place its ID and the maximum value into the #maps
+			if(elem==null)
+				continue;
 			gScore.put(elem.getId(), Float.MAX_VALUE);
 			fScore.put(elem.getId(), Float.MAX_VALUE);
 		}
 		gScore.put(startNode, (float) 0.0);	//start the algorithm at the first node
 		fScore.put(startNode, calcHeuristic(startNode,endNode));	//initialize the fscore with the heuristic of length
-		if (open.isEmpty()){System.out.println("open is empty you fool");}
+	
 		while(!open.isEmpty()){	//while we still have nodes to visit
 			current = findLowestFInOpen(open, fScore);	//find the closest node to the end in the open list 
 			int toRemove = open.indexOf(current);
 			open.remove(toRemove);
-			System.out.println("Start printing open" + open.toString() + "finished printing open");
+			//System.out.println("Start printing open" + open.toString() + "finished printing open");
 			if (current == endNode){	//we made it!
-				System.out.println("ever found a path");
+				//System.out.println("ever found a path");
 				route = reconstructPath(cameFrom, current);	//run the helper that goes through and puts the path in order
 			}
 			//int toRemove = open.indexOf(current);
 			//open.remove(toRemove);	//take the current node out of nodes to visit
 			visited.add(current);	//then add it to the list of already visited nodes
-			/*System.out.println("start of edgelist");
-			System.out.println(nodes.get(current).getEdgelist().toString());
-			System.out.println("end of edgelist");*/
-			//System.out.println("nodes.get(current) "+nodes.get(current)+" end");
-			//System.out.println("EdgeListBeforeFor" + nodes.get(current).getEdgelist()+"EdgeListBeforeForDone");
+			/*//System.out.println("start of edgelist");
+			//System.out.println(nodes.get(current).getEdgelist().toString());
+			//System.out.println("end of edgelist");*/
+			////System.out.println("nodes.get(current) "+nodes.get(current)+" end");
+			////System.out.println("EdgeListBeforeFor" + nodes.get(current).getEdgelist()+"EdgeListBeforeForDone");
 			for(Id elem : theGraph.returnNodeById(current).getEdgelist()){	//find all the edges attached to the node
 				if(elem == null) continue;
-				System.out.println("in the for loop");
+				//System.out.println("in the for loop");
 				Edge neighborEdge = theGraph.returnEdgeById(elem);	//pull one edge from the list at a time
 				Id neighborId;	//the ID of the node at the other end of the edge
 				if (neighborEdge.getNodeA() == current){	//if we try and get the ID for the node and it's the same ID
@@ -84,8 +86,8 @@ public class Path {
 					else continue;	//otherwise we need to do the while loop again
 				}
 				if(!open.contains(neighborId)){	//if we haven't been to the neighbor yet
-					System.out.println("adding to open");
-					System.out.println("Start printing open" + open.toString() + "finished printing open");
+					//System.out.println("adding to open");
+					//System.out.println("Start printing open" + open.toString() + "finished printing open");
 					open.add(neighborId);		//add the neighbor to the list of places to go
 				}
 				else if(tentativeGScore>gScore.get(neighborId)){	//if this path to this node isn't better than the existing one
@@ -151,22 +153,22 @@ public class Path {
 	private ArrayList<Id> reconstructPath(HashMap<Id, Id> parentList, Id currentNode){
 		Id currNode = currentNode;
 		ArrayList<Id> totalPath = new ArrayList<Id>();	//initialize a variable that will hold the path as we back through it
-		System.out.println(currNode);
+		//System.out.println(currNode);
 		totalPath.add(currNode); //start with the node we ended at
 		while(currNode != startNode){	//while we haven't gotten back to the start
-			System.out.println(currNode);
+			//System.out.println(currNode);
 
-			//System.out.println(Math.round(parentList.get(currNode)));
+			////System.out.println(Math.round(parentList.get(currNode)));
 			currNode= (parentList.get(currNode));
 			
 			//currNode = Integer.parseInt(jank); //keep adding the parent node of the current node to the path
 			totalPath.add(currNode);
 		}
-		System.out.println("PreReverse" + totalPath + "prereverse printed");
+		//System.out.println("PreReverse" + totalPath + "prereverse printed");
 		Collections.reverse(totalPath);
-		System.out.println("startPath");
-		System.out.println(totalPath.toString());
-		System.out.println("endPath");
+		//System.out.println("startPath");
+		//System.out.println(totalPath.toString());
+		//System.out.println("endPath");
 		return totalPath;
 	}
 	
@@ -203,9 +205,9 @@ public class Path {
 	 * @return the route
 	 */
 	public ArrayList<Id> getRoute(){
-//		sSystem.out.println("start of route");
-	//	System.out.println(route.toString());
-		//System.out.println("end of route");
+//		s//System.out.println("start of route");
+	//	//System.out.println(route.toString());
+		////System.out.println("end of route");
 		return route;
 	}
 	/**
@@ -232,13 +234,14 @@ public class Path {
 				if(lastangle > -180.0f){
 					float dxangle = lastangle - angle;
 					float dangle = Math.abs(dxangle);
+					float degreedangle = (float) (dangle * 180 / Math.PI);
 					if(dangle >= 1.0f)
-						res.add("Turn " + " Degrees to the " + ((dxangle >= 0.0f) ? "right. " : "left. "));
+						res.add("Turn " + Math.round(degreedangle) + " Degrees to the " + ((dxangle >= 0.0f) ? "right. " : "left. "));
 				} else {
 					res.add("Face " + angle + " Degrees. ");
 				}
 				lastangle = angle;
-				res.add("Walk " + dist + " Meters. ");//TODO North south stuff
+				res.add("Walk " + Math.round(dist) + " Meters. ");//TODO North south stuff
 			}
 			lastcoord = thiscoord;
 			cnt++;

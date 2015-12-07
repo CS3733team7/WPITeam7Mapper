@@ -1,22 +1,25 @@
 package edu.wpi.off.by.one.errors.code.controller;
 
-import edu.wpi.off.by.one.errors.code.controller.menupanes.*;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-
 import java.io.IOException;
 
-import edu.wpi.off.by.one.errors.code.controller.menupanes.*;
+import edu.wpi.off.by.one.errors.code.controller.menupanes.DevToolsMenuPane;
+import edu.wpi.off.by.one.errors.code.controller.menupanes.DirectionsMenuPane;
+import edu.wpi.off.by.one.errors.code.controller.menupanes.FavoritesMenuPane;
+import edu.wpi.off.by.one.errors.code.controller.menupanes.HelpMenuPane;
+import edu.wpi.off.by.one.errors.code.controller.menupanes.SearchMenuPane;
+import edu.wpi.off.by.one.errors.code.controller.menupanes.SettingsMenuPane;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 /**
  * Created by jules on 11/28/2015.
  */
 public class MenuPane extends HBox {
 
-	MainPane mainPane;
-	
     //region FXML file attributes
     @FXML
     private ToggleButton hamburgerToggleButton;
@@ -58,24 +61,15 @@ public class MenuPane extends HBox {
         } catch (IOException excpt) {
             throw new RuntimeException(excpt);
         }
+        
         removeRadioButtonStyles();
         addListeners();
         this.getStylesheets().add(getClass().getResource("../resources/stylesheets/MenuPaneStyleSheet.css").toExternalForm());
-
+        ControllerSingleton.getInstance().registerMenuPane(this);
 
     }
     //endregion
-
-    public void setMainPane(MainPane m) { 
-    	mainPane = m; 
-    	searchMenuPane.setMainPane(mainPane);
-        directionsMenuPane.setMainPane(mainPane);
-        favoritesMenuPane.setMainPane(mainPane);
-        devToolsMenuPane.setMainPane(mainPane);
-        settingsMenuPane.setMainPane(mainPane);
-        helpMenuPane.setMainPane(mainPane);
-    }
-    public MainPane getMainPane() { return mainPane; }
+    
     public SearchMenuPane getSearchMenuPane() { return searchMenuPane; }
     public DirectionsMenuPane getDirectionsMenuPane() { return directionsMenuPane; }
 	public FavoritesMenuPane getFavoritesMenuPane() { return favoritesMenuPane; }
@@ -131,8 +125,6 @@ public class MenuPane extends HBox {
         devToolMenuRadioButton.getStyleClass().remove("radio-button");
         settingsMenuRadioButton.getStyleClass().remove("radio-button");
         helpMenuRadioButton.getStyleClass().remove("radio-button");
-
-
     }
 
 }

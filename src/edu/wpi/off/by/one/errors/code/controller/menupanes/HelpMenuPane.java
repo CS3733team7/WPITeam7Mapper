@@ -1,14 +1,12 @@
 package edu.wpi.off.by.one.errors.code.controller.menupanes;
 
-import edu.wpi.off.by.one.errors.code.controller.MenuPane;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-
 import java.io.IOException;
 
 import edu.wpi.off.by.one.errors.code.controller.MainPane;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * Created by jules on 11/28/2015.

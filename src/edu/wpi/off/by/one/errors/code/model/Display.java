@@ -3,17 +3,12 @@ package edu.wpi.off.by.one.errors.code.model;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import edu.wpi.off.by.one.errors.code.application.NodeDisplay;
-import edu.wpi.off.by.one.errors.code.application.event.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class Display extends Pane{
 	
-	Map currentMap;
+	ArrayList<Map> Maps;
 	Graph currentGraph;
 
 	/**
@@ -22,7 +17,8 @@ public class Display extends Pane{
 	 * @param currentGraph
 	 */
 	public Display(Map currentMap, Graph currentGraph){
-		this.currentMap = currentMap == null ? new Map() : currentMap;
+		this.Maps = Maps == null ? new ArrayList<Map>() : Maps;
+		if(Maps.isEmpty()) Maps.add(new Map());
 		this.currentGraph = currentGraph == null ? new Graph() : currentGraph;
 	}
 	
@@ -31,19 +27,20 @@ public class Display extends Pane{
 	 * 
 	 */
 	public Display(){
-		this.currentMap = new Map();
+		this.Maps = new ArrayList<Map>();
+		Maps.add(new Map());
 		this.currentGraph = new Graph();
 	}
 	
-	public void setMap(Map m){ this.currentMap = m; }
+	public void addMap(Map m){ Maps.add(m);}
 	public void setGraph(Graph g) { this.currentGraph = g; }
-	public Map getMap() { return currentMap; }
+	public ArrayList<Map> getMaps() { return Maps; }
 	public Graph getGraph() { return currentGraph; }
 	
 	/**
 	 * Draws a graphical path between two nodes on the map
-	 * @param a First node
-	 * @param b Second node
+	 * @param start First node
+	 * @param end Second node
 	 */
 	public void drawPath(Id start, Id end) {
 		int idx = 0;
@@ -64,9 +61,9 @@ public class Display extends Pane{
 		}
 		//TODO: Add code to actually draw the line on the map
 	}
-	
+	/*
 	private ImageView GetMapView() {
-		currentMap.getImgUrl();
+		Maps.getImgUrl();
 		Image map = new Image("campusmap.png");
 		ImageView mapIV = new ImageView();
 		mapIV.setImage(map);
@@ -75,5 +72,5 @@ public class Display extends Pane{
 		mapIV.setCache(true);
 		return mapIV;
 	}
-	
+	*/
 }

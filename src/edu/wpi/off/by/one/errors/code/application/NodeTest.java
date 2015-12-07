@@ -1,22 +1,5 @@
 package edu.wpi.off.by.one.errors.code.application;
 
-//THE CLASSES BELOW ARE NOT PROPER IMPLEMENTATIONS. I AM NOT A 100% SURE ABOUT THIS CODE 
-//AND I DONT WANT TO RISK MESSING UP THE CODE THIS LATE SO CHECK IT OUT 
-//AND IF YOU HAVE QUESTIONS FEEL FREE TO ASK
-
-//I am using properties, they are kinda troublesome. 
-//Sometimes they dont work when outside a block of code
-
-import java.util.ArrayList;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Button;
-
 public class NodeTest {
 	
 	

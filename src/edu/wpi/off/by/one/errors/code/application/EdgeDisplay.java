@@ -2,14 +2,15 @@ package edu.wpi.off.by.one.errors.code.application;
 
 import edu.wpi.off.by.one.errors.code.application.event.EditorEvent;
 import edu.wpi.off.by.one.errors.code.application.event.SelectEvent;
-import edu.wpi.off.by.one.errors.code.model.*;
-import javafx.beans.property.DoubleProperty;
+import edu.wpi.off.by.one.errors.code.model.Coordinate;
+import edu.wpi.off.by.one.errors.code.model.Display;
+import edu.wpi.off.by.one.errors.code.model.Edge;
+import edu.wpi.off.by.one.errors.code.model.Id;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.StrokeLineCap;
 
 public class EdgeDisplay extends Line implements IDisplayItem {
 	Display display;
@@ -18,48 +19,32 @@ public class EdgeDisplay extends Line implements IDisplayItem {
 	Id edge;
 	Id nodeA, nodeB;
 	float length;
-	int selectedStrokeLength = 4;
-	int strokeLength = 2; //default
-	Color strokeColor = Color.BLUE;
+	int selectedStrokeLength = 8;
+	int strokeLength = 5; //default
+	Color strokeColor = Color.AQUA;
 	
 	
 	public boolean isSelected = false;
 	
-	public EdgeDisplay(Display display, Id edge, 
-			DoubleProperty startX, DoubleProperty startY, DoubleProperty endX, DoubleProperty endY){
-		//super(startX.floatValue(), startY.floatValue(), 
-		//		endX.floatValue(), endY.floatValue());
-		setStrokeWidth(this.strokeLength);
-		setStrokeLineCap(StrokeLineCap.BUTT);
-		startXProperty().bind(startX);
-		startYProperty().bind(startY);
-		endXProperty().bind(endX);
-		endYProperty().bind(endY);
+	public EdgeDisplay(Display display, Id edge, Coordinate start, Coordinate end){
 		this.display = display;
 		this.edge = edge;
 		Edge temp = display.getGraph().returnEdgeById(edge);
 		this.nodeA = temp.getNodeA();
 		this.nodeB = temp.getNodeB();
 		this.length = temp.getLength();
+
 		
 		setHandlers();
 	}
 	
-	public EdgeDisplay(Display display, Id nodeA, Id nodeB,
-			DoubleProperty startX, DoubleProperty startY, DoubleProperty endX, DoubleProperty endY){
-		//super(startX.floatValue(), startY.floatValue(), 
-		//		endX.floatValue(), endY.floatValue());
-		setStrokeWidth(this.strokeLength);
-		startXProperty().bind(startX);
-		startYProperty().bind(startY);
-		endXProperty().bind(endX);
-		endYProperty().bind(endY);
+	public EdgeDisplay(Display display, Id nodeA, Id nodeB, Coordinate start, Coordinate end){
 		this.display = display;
 		this.nodeA = nodeA;
 		this.nodeB = nodeB;
 		this.edge = display.getGraph().addEdgeRint(nodeA, nodeB);
 		this.length = display.getGraph().returnEdgeById(this.edge).getLength();
-
+		
 		setHandlers();
 	}
 	
@@ -124,7 +109,7 @@ public class EdgeDisplay extends Line implements IDisplayItem {
 		
 		public void handle(MouseEvent e){
 			if(!isSelected){
-				self.setStroke(Color.BLUE);
+				self.setStroke(Color.AQUA);
 				self.setStrokeWidth(self.strokeLength);
 			}
 		}

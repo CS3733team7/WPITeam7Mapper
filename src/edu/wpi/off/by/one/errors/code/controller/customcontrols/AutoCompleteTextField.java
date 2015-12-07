@@ -8,7 +8,10 @@ import java.util.TreeSet;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Side;
-import javafx.scene.control.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 /**
  * Original code by Caleb Brinkman (floralvikings)
  * source: https://gist.github.com/floralvikings/10290131

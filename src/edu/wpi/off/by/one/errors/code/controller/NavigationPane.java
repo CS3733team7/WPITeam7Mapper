@@ -1,19 +1,16 @@
 package edu.wpi.off.by.one.errors.code.controller;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-
-import java.io.IOException;
 
 /**
  * Created by jules on 11/28/2015.
  */
 public class NavigationPane extends GridPane {
 	
-	MainPane mainPane;
-
     public NavigationPane(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/NavigationPane.fxml"));
 
@@ -24,22 +21,23 @@ public class NavigationPane extends GridPane {
         }catch(IOException excpt){
             throw new RuntimeException(excpt);
         }
-
-        this.setMinHeight(0);
+        ControllerSingleton.getInstance().registerNavigationPane(this);
+        this.getStylesheets().add(getClass().getResource("../resources/stylesheets/NavigationPaneStyleSheet.css").toExternalForm());
     }
-    
-    public void setMainPane(MainPane m) { this.mainPane = m; }
 
     public void open(){
-        this.setPrefHeight(this.getMaxWidth());
+        this.setPrefHeight(this.getMaxHeight());
+        this.setVisible(true);
     }
 
     public void close(){
         this.setPrefHeight(this.getMinHeight());
+        this.setVisible(false);
     }
 
     @FXML
-    public void onClosePaneButtonClick(){
+    private void onClosePaneButtonClick(){
         close();
     }
+
 }

@@ -1,6 +1,6 @@
 package edu.wpi.off.by.one.errors.code.application;
 
-import javafx.scene.image.*;
+import javafx.scene.image.ImageView;
 
 public class MarkerDisplay extends ImageView{
 	

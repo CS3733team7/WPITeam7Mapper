@@ -1,22 +1,21 @@
 package edu.wpi.off.by.one.errors.code.controller.menupanes;
 
+import java.io.IOException;
+
+import edu.wpi.off.by.one.errors.code.controller.ControllerSingleton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
-
-import java.io.IOException;
-
-import edu.wpi.off.by.one.errors.code.controller.MainPane;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
 
 /**
  * Created by jules on 11/28/2015.
  */
 public class DirectionsMenuPane extends BorderPane {
 	
-	MainPane mainPane;
-	
 	@FXML Button routeButton;
+    @FXML private ListView<String> directionsListView;
 	
     public DirectionsMenuPane(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../../view/menupanes/DirectionsMenuPane.fxml"));
@@ -29,13 +28,17 @@ public class DirectionsMenuPane extends BorderPane {
         }catch(IOException excpt){
             throw new RuntimeException(excpt);
         }
+
+        this.getStylesheets().add(getClass().getResource("../../resources/stylesheets/menupanes/DirectionsPaneStyleSheet.css").toExternalForm());
     }
 
-	public void setMainPane(MainPane mainPane) { this.mainPane = mainPane; }
-	
 	private void setListeners(){
 		this.routeButton.setOnAction(e -> {
-			mainPane.getMapRootPane().drawPath();
+			ControllerSingleton.getInstance().getMapRootPane().drawPath();
 		});
 	}
+
+    public ListView<String> getdirectionsListView(){
+        return this.directionsListView;
+    }
 }

@@ -1,6 +1,6 @@
 package edu.wpi.off.by.one.errors.code.model;
 
-import java.util.*;
+import java.util.Vector;
 
 //graph class manages edges and nodes
 public class Graph {

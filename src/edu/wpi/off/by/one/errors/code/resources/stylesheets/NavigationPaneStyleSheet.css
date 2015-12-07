@@ -1,0 +1,25 @@
+.label{
+    -fx-font-size:25;
+}
+
+#closePaneButton{
+    -fx-background-color: Transparent;
+    -fx-background-radius:0;
+    -fx-text-fill:#000000;
+}
+
+#closePaneButton:hover{
+    -fx-background-color: #F1F2F3;
+}
+
+#previousButton{
+    -fx-background-radius:50;
+    -fx-background-image: url("../icons/white/Leftarrow.png");
+    -fx-background-size: cover;
+}
+
+#nextButton{
+    -fx-background-radius:50;
+    -fx-background-image: url("../icons/white/Rightarrow.png");
+    -fx-background-size: cover;
+}

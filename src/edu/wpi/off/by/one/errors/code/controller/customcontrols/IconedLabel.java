@@ -1,17 +1,16 @@
 package edu.wpi.off.by.one.errors.code.controller.customcontrols;
 
+import java.io.IOException;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.image.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-
-import java.awt.*;
-import java.io.IOException;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 /**
  * Created by jules on 11/30/2015.
