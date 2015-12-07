@@ -218,6 +218,52 @@ public class Graph {
 		}
 	}
 	
+	/**
+	 * edit node and add a tag
+	 * @param target
+	 * @param newCoord
+	 * @param newTag 
+	 */
+	public void editNode(Id target, Coordinate newCoord, String newTag){
+		Node n = returnNodeById(target);
+		if(n != null){
+			n.setCoordinate(newCoord);
+			listOfNodes.set(target.indice, n);
+			n.addTag(newTag);
+		}
+	}
+	
+	/**
+	 * edit node and modify a tag
+	 * @param target
+	 * @param newCoord
+	 * @param i
+	 * @param newTag
+	 */
+	public void editNode(Id target, Coordinate newCoord, int i, String newTag){
+		Node n = returnNodeById(target);
+		if(n != null){
+			n.setCoordinate(newCoord);
+			listOfNodes.set(target.indice, n);
+			n.modifyTagAtIndex(i, newTag);
+		}
+	}
+	
+	/**
+	 * edit node and remove a tag
+	 * @param target
+	 * @param newCoord
+	 * @param i
+	 */
+	public void editNode(Id target, Coordinate newCoord, int i){
+		Node n = returnNodeById(target);
+		if(n != null){
+			n.setCoordinate(newCoord);
+			listOfNodes.set(target.indice, n);
+			n.removeTagAtIndex(i);
+		}
+	}
+	
 	public void editEdge(){//edits an edge on the list
 		//TODO: add functionality after we decide exactly what this should do
 	}
