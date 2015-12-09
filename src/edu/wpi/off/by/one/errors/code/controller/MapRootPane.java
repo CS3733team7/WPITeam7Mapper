@@ -271,7 +271,10 @@ public class MapRootPane extends AnchorPane{
 				ds.setColor(Color.RED);
 				ds.setRadius(50 / m.getScale());
 				ds.setSpread(0.5);
+<<<<<<< HEAD
 				ds.setBlurType(BlurType.ONE_PASS_BOX);
+=======
+>>>>>>> CS3733team7/dev
 				mygc.setEffect(ds);
 			}
 			mygc.drawImage(m.getImage(), 0, 0);
@@ -433,6 +436,7 @@ public class MapRootPane extends AnchorPane{
 			System.out.println("Avg3 " + (renderavg3 * 0.001) / (double) renderavgcount);
 			System.out.println("Avg4 " + (renderavg4 * 0.001) / (double) renderavgcount);
 			System.out.println("Avg5 " + (renderavg5 * 0.001) / (double) renderavgcount);
+<<<<<<< HEAD
 
 			renderavg1 = 0.0;
 			renderavg2 = 0.0;
@@ -440,6 +444,15 @@ public class MapRootPane extends AnchorPane{
 			renderavg4 = 0.0;
 			renderavg5 = 0.0;
 
+=======
+
+			renderavg1 = 0.0;
+			renderavg2 = 0.0;
+			renderavg3 = 0.0;
+			renderavg4 = 0.0;
+			renderavg5 = 0.0;
+
+>>>>>>> CS3733team7/dev
 			renderavgcount = 0;
 		}
 	}
@@ -496,9 +509,16 @@ public class MapRootPane extends AnchorPane{
 		Coordinate mydragged = new Coordinate(0);
     	canvas.setOnMousePressed(e -> {
     		Map nearestMap = null;
+<<<<<<< HEAD
     		
     		Coordinate click = invview.transform(new Coordinate((float)e.getX(), (float)e.getY()));
 			nearestMap = display.getNearestMap(click, currentLevel);
+=======
+    		if(!selectedMaps.isEmpty() && ControllerSingleton.getInstance().getMapDevToolPane().isVisible()) nearestMap = selectedMaps.get(0);
+    		else selectedMaps.clear();
+    		Coordinate click = invview.transform(new Coordinate((float)e.getX(), (float)e.getY()));
+			//nearestMap = display.getNearestMap(click, currentLevel);
+>>>>>>> CS3733team7/dev
 			if(e.getButton() == MouseButton.PRIMARY && isEditMode && ControllerSingleton.getInstance().getMapDevToolPane().isVisible()){
 				//select map
 				lastview = invview;
@@ -585,6 +605,7 @@ public class MapRootPane extends AnchorPane{
 	    			render();
 	    		}
 	    		*/
+<<<<<<< HEAD
     		}
     	});
     	
@@ -634,6 +655,57 @@ public class MapRootPane extends AnchorPane{
     		}
     	});
     	
+=======
+    		}
+    	});
+    	
+    	markerPane.setOnMouseClicked(e -> {
+    		if (e.getClickCount() == 2) e.consume();
+    		else if (!isEditMode && e.getButton() == MouseButton.PRIMARY) {
+    			//Select nearest node on map
+    			Coordinate click = invview.transform(new Coordinate((float)e.getX(), (float)e.getY()));
+    			Id nearestNodeId = display.getGraph().GetNearestNode(click, currentLevel);
+    			Node nearestNode = display.getGraph().returnNodeById(nearestNodeId);
+    			if (endMarker != null && startMarker != null){
+    				startMarker = null;
+    				endMarker = null;
+    				currentRoute.clear();
+    				markerPane.getChildren().clear();
+    			}
+    			if(startMarker != null && endMarker == null) {
+    				endMarker = new MarkerDisplay(nearestNode.getCoordinate().getX(), nearestNode.getCoordinate().getY(), currentLevel, Marker.END);
+    				endMarker.setNodePoint(nearestNodeId);
+    				drawPath(startMarker.getNodePoint(), endMarker.getNodePoint());
+    				//markerPane.getChildren().add(endMarker);
+    			}
+    			if(startMarker == null && nodeQueue.size() == 0) {
+    				//snap to nearest available node
+    				markerPane.getChildren().clear();
+    				startMarker = new MarkerDisplay(nearestNode.getCoordinate().getX(), nearestNode.getCoordinate().getY(), currentLevel, Marker.START);
+    				startMarker.setNodePoint(nearestNodeId);
+    				markerPane.getChildren().add(startMarker);
+    				
+    			} else { nodeQueue.clear(); }
+    			/*
+    			List<javafx.scene.Node> nearestList = nodeLayer.getChildren().stream()
+    					.filter((Predicate<? super javafx.scene.Node>) nd -> ((NodeDisplay) nd).getNode() == nearestNodeId)
+    					.collect(Collectors.toList());
+    					*/
+    			/*
+    			NodeDisplay nearest = (NodeDisplay) nearestList.get(0);
+    			if(nodeQueue.size() > 0) {
+    				if(nearest == nodeQueue.peek()) {
+    					nodeQueue.clear();
+    					return;
+    				}
+    			}
+    			nearest.fireEvent(new SelectEvent(SelectEvent.NODE_SELECTED));
+    			*/
+    			render();
+    		}
+    	});
+    	
+>>>>>>> CS3733team7/dev
     	edgeLayer.addEventFilter(EditorEvent.DRAW_EDGES, e -> {
     		if(isEdgeEditor) addEdgeDisplayFromQueue();
     	});
@@ -901,7 +973,10 @@ public class MapRootPane extends AnchorPane{
 	}
 
 	public void drawPath(Id nodeAId, Id nodeBId){
+<<<<<<< HEAD
 		pathPane.getChildren().clear();
+=======
+>>>>>>> CS3733team7/dev
 		 p = new Path(nodeAId, nodeBId);
 	        Graph g = display.getGraph();
 	        if(ControllerSingleton.getInstance().getMapRootPane().isAccessibleMode){
