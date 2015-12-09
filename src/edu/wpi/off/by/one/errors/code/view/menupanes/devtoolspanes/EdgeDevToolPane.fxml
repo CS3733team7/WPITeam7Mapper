@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root minWidth="0.0" prefWidth="235.0" spacing="10.0" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minWidth="0.0" prefHeight="195.0" prefWidth="235.0" spacing="10.0" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane minWidth="0.0">
          <center>
@@ -29,15 +29,11 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <ChoiceBox minWidth="0.0" prefHeight="25.0" prefWidth="45.0" value="m">
-               <contextMenu>
-                  <ContextMenu>
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="m" />
-                        <MenuItem mnemonicParsing="false" text="in" />
-                    </items>
-                  </ContextMenu>
-               </contextMenu></ChoiceBox>
+            <Label text="m">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin>
+            </Label>
          </children>
       </HBox>
       <Label text="Tags:" />
@@ -50,8 +46,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <CheckBox mnemonicParsing="false" text="Accessible" />
-            <CheckBox mnemonicParsing="false" text="Walkway" GridPane.columnIndex="1" />
+            <CheckBox fx:id="accessibleCheckbox" mnemonicParsing="false" onAction="#switchAccessible" text="Accessible" />
+            <CheckBox fx:id="walkwayCheckbox" mnemonicParsing="false" onAction="#switchWalkway" text="Walkway" visible="false" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <Separator prefWidth="200.0" />

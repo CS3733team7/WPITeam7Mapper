@@ -15,10 +15,14 @@ import edu.wpi.off.by.one.errors.code.model.Map;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -42,6 +46,12 @@ public class MapDevToolPane extends VBox {
 	@FXML TextField scaleTextField;
 	@FXML Label pathLabel;
 	@FXML Button changeImageButton;
+	@FXML ToggleButton selectColorButton;
+	@FXML CheckBox autoEdgeSelector;
+	@FXML ColorPicker walkableColorSelector;
+	
+	int eyedroppedColor = 0;
+	
 	private ArrayList<Map> mapList = new ArrayList<Map>();
 	private Map selectedMap;
 
@@ -67,7 +77,9 @@ public class MapDevToolPane extends VBox {
 			//should be change map info
 			changeDisplay();
 		});
-
+		
+		this.selectColorButton.setStyle("-fx-background-color: #CC3341;");
+		
 		this.mapChoiceBox.setOnContextMenuRequested(e->{
 			MapRootPane mapRoot = ControllerSingleton.getInstance().getMapRootPane();
 			mapChoiceBox.getItems().clear();
@@ -157,9 +169,16 @@ public class MapDevToolPane extends VBox {
 	}
 
 	public void changeDisplay(){
+		MapRootPane maproot = ControllerSingleton.getInstance().getMapRootPane();
 		int index = mapChoiceBox.getItems().indexOf(mapChoiceBox.getSelectionModel().getSelectedItem());
 		this.selectedMap = this.mapList.get(index);
+		ArrayList<Map> selectedMaps = maproot.getSelectedMaps();
+		selectedMaps.clear();
+		selectedMaps.add(this.selectedMap);
+		maproot.setSelectedMaps(selectedMaps);
+		maproot.render();
 		setMap(this.selectedMap);
+		ControllerSingleton.getInstance().getMenuPane().getSearchMenuPane().spinnyZoom(index);
 	}
 
 	public void updateMapList(ArrayList<Map> maps){
@@ -173,6 +192,26 @@ public class MapDevToolPane extends VBox {
 		}
 	}
 
+	@FXML private void toggleAutoEdge(){
+		autoEdgeSelector.isSelected();
+		//TODO do stuff w this
+	}
+	
+	@FXML private void setWalkableColor(){
+		Color color = walkableColorSelector.getValue();
+		//TODO do stuff w this
+	}
+	
+	@FXML private void selectColorOnMap(){
+		ControllerSingleton.getInstance().getMapRootPane().isEyedrop = selectColorButton.isSelected() ? true : false;
+	}
+	
+	public void setEyedroppedColor(int color){
+		this.eyedroppedColor = color;
+		System.out.println(color);
+		//walkableColorSelector.setValue();
+	}
+	
 	/**
 	 * Parses/cleans input string to only contain
 	 * numerical values

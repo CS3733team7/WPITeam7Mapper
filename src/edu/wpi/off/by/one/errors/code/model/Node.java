@@ -8,6 +8,9 @@ public class Node {
     private Vector<Id> edges;//list of indexes of edges
     private Id id;
     private ArrayList<String> tags;//list of tags the node has
+    private TagMap tagMap;
+    private boolean accessible = true;
+    private String name = "";
     
     /**
      *
@@ -18,6 +21,7 @@ public class Node {
         this.coord = coordIn;
         this.id = new Id();//default, set when added
         tags = new ArrayList<String>();
+        tagMap = TagMap.getTagMap();
     }
     /**
      *
@@ -30,6 +34,7 @@ public class Node {
         this.coord = coordIn;
         this.id = nid;//default, set when added
         tags = new ArrayList<String>();
+        tagMap = TagMap.getTagMap();
     }
     
 	/**
@@ -46,6 +51,14 @@ public class Node {
      */
     public void setCoordinate(Coordinate newCoord) {
         this.coord = newCoord;
+    }
+    
+    public void setName(String name){
+    	this.name = name;
+    }
+    
+    public String getName(){
+    	return this.name;
     }
     
     public boolean addEdgeId(Id id){
@@ -123,6 +136,7 @@ public class Node {
      */
     public void addTag(String newTag){
     	tags.add(newTag);
+    	tagMap.add(newTag, id);
     }
     
     /**
@@ -131,6 +145,7 @@ public class Node {
      */
     public void removeTag(String tag){
     	tags.remove(tag);
+    	tagMap.remove(tag, id);
     }
     
     /**
@@ -138,6 +153,7 @@ public class Node {
      * @param i: index to remove tag from
      */
     public void removeTagAtIndex(int i){
+    	tagMap.remove(tags.get(i), id);
     	tags.remove(i);
     }
     
@@ -148,6 +164,7 @@ public class Node {
      */
     public void modifyTag(String oldTag, String newTag){
     	tags.set(tags.indexOf(oldTag), newTag);
+    	tagMap.modify(oldTag, newTag);
     }
     
     /**
@@ -156,6 +173,7 @@ public class Node {
      * @param newTag: the new tag to replace it with
      */
     public void modifyTagAtIndex(int i, String newTag){
+    	tagMap.modify(tags.get(i), newTag);
     	tags.set(i, newTag);
     }
 
@@ -167,5 +185,13 @@ public class Node {
     }
     public float getDistance(Coordinate c){
         return (float)Math.sqrt((double)getDistanceSq(c));
+    }
+    
+    public boolean isAccessible(){
+    	return accessible;
+    }
+    
+    public void setAccessible(boolean accessibility){
+    	accessible = accessibility;
     }
 }

@@ -5,30 +5,28 @@
 <?import javafx.scene.layout.*?>
 <?import edu.wpi.off.by.one.errors.code.controller.menupanes.devtoolspanes.*?>
 <?import javafx.geometry.Insets?>
-<fx:root minWidth="0.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <VBox minWidth="0.0">
            <children>
                <Label fx:id="devModeLabel" minWidth="0.0" text="Developer Mode" BorderPane.alignment="CENTER_LEFT" />
                <GridPane BorderPane.alignment="CENTER">
                    <columnConstraints>
-                       <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="0" percentWidth="25" />
-                       <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="0" percentWidth="25" />
-                       <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="0" percentWidth="25" />
-                       <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="0" percentWidth="25" />
+                       <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="0" percentWidth="33" />
+                       <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="0" percentWidth="34" />
+                       <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="0" percentWidth="33" />
                    </columnConstraints>
                    <rowConstraints>
                        <RowConstraints fillHeight="true" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                    </rowConstraints>
                    <children>
-                       <RadioButton fx:id="mapPaneRadioButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" selected="true" text="Map">
+                       <RadioButton fx:id="nodePaneRadioButton" selected="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Node">
                            <toggleGroup>
                                <ToggleGroup fx:id="devToolsToggleGroup" />
                            </toggleGroup>
                        </RadioButton>
-                       <RadioButton fx:id="nodePaneRadioButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Node" toggleGroup="$devToolsToggleGroup" GridPane.columnIndex="1" />
+                       <RadioButton fx:id="mapPaneRadioButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Map" toggleGroup="$devToolsToggleGroup" GridPane.columnIndex="1"/>
                        <RadioButton fx:id="edgePaneRadioButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Edge" toggleGroup="$devToolsToggleGroup" GridPane.columnIndex="2" />
-                       <RadioButton fx:id="pathPaneRadioButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Path" toggleGroup="$devToolsToggleGroup" GridPane.columnIndex="3" />
                    </children>
                </GridPane>
            </children>
@@ -40,12 +38,12 @@
             <MapDevToolPane fx:id="mapDevToolPane" visible="${mapPaneRadioButton.selected}" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="10"/>
              <NodeDevToolPane fx:id= "nodeDevToolPane" visible="${nodePaneRadioButton.selected}" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="10"/>
              <EdgeDevToolPane fx:id="edgeDevToolPane" visible="${edgePaneRadioButton.selected}" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="10"/>
-             <PathDevToolPane fx:id="pathDevToolPane" visible="${pathPaneRadioButton.selected}" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="10"/>
          </children>
         </AnchorPane>
     </center>
     <bottom>
-        <GridPane minWidth="0.0" BorderPane.alignment="CENTER">
+    <Button fx:id="saveCurrentMapButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Save"/>
+        <!--GridPane minWidth="0.0" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="0" percentWidth="33" />
                 <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="0" percentWidth="34" />
@@ -55,10 +53,10 @@
                 <RowConstraints fillHeight="true" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-            	<Button fx:id="loadNewImageButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="New Image" GridPane.columnIndex="0" />
+            	< Button fx:id="loadNewImageButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="New Image" GridPane.columnIndex="0" />
                 <Button fx:id="appendMapButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Append" GridPane.columnIndex="1" />
-                <Button fx:id="saveCurrentMapButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" text="Save" GridPane.columnIndex="2" />
+                
             </children>
-        </GridPane>
+        </GridPane-->
     </bottom>
 </fx:root>

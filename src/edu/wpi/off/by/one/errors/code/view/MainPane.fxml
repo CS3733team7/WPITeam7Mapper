@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import edu.wpi.off.by.one.errors.code.controller.*?>
 <?import javafx.scene.control.*?>
 
-<?import javafx.geometry.Insets?>
 <fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <left>
         <MenuPane fx:id="menuPane" maxWidth="300" minWidth="50" />
     </left>
-   <center>
-      <BorderPane BorderPane.alignment="CENTER">
-         <center>
-            <StackPane fx:id="mapContainer" maxHeight="Infinity">
-                <children>
-                    <ScrollPane fx:id="mapScrollPane" hbarPolicy="ALWAYS" prefHeight="Infinity" prefWidth="Infinity" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
-                        <content>
-                            <MapRootPane fx:id="mapRootPane" prefHeight="Infinity" prefWidth="Infinity"/>
-                        </content>
-                    </ScrollPane>
-                    <VBox maxHeight="-Infinity" maxWidth="40" prefWidth="25" StackPane.alignment="CENTER_RIGHT">
-                        <children>
-                            <Button fx:id="rotateLeftButton" maxHeight="40" maxWidth="Infinity" text="L" />
-                            <Button fx:id="rotateRightButton" maxHeight="40" maxWidth="Infinity" text="R" />
-                            <Button fx:id="zoomInButton" maxHeight="40" maxWidth="Infinity" text="+" />
-                            <Button fx:id="zoomOutButton" maxHeight="40" maxWidth="Infinity" text="-" />
-                        </children>
-                        <padding>
-                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </padding>
-                    </VBox>
-                    <Button fx:id="openNavigationPaneButton" onAction="#onOpenNavigationPaneButtonClick" prefWidth="75" text="^" StackPane.alignment="BOTTOM_CENTER" />
-                </children>
-            </StackPane>
-         </center>
-         <bottom>
-             <NavigationPane fx:id="navigationPane" visible="false" minHeight="0" prefHeight="0" prefWidth="Infinity" />
-         </bottom>
-      </BorderPane>
-   </center>
-
+    <center>
+        <BorderPane BorderPane.alignment="CENTER">
+            <center>
+                <StackPane fx:id="mapContainer" maxHeight="Infinity">
+                    <children>
+                        <ScrollPane fx:id="mapScrollPane" hbarPolicy="NEVER" prefHeight="Infinity" prefWidth="Infinity" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+                            <content>
+                                <MapRootPane fx:id="mapRootPane" maxHeight="Infinity" maxWidth="Infinity"/>
+                            </content>
+                        </ScrollPane>
+                        <Slider fx:id="floorSlider" blockIncrement="1" majorTickUnit="1" max="5" maxHeight="500" min="-2" minorTickCount="0" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1" StackPane.alignment="CENTER_LEFT" onMouseClicked="#onFloorSliderMouseCLicked">
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding></Slider>
+                        <VBox maxHeight="160.0" maxWidth="40.0" prefWidth="40.0" StackPane.alignment="CENTER_RIGHT">
+                            <children>
+                                <Button fx:id="rotateLeftButton" maxWidth="1.7976931348623157E308" prefHeight="40.0" text="L" />
+                                <Button fx:id="rotateRightButton" maxWidth="1.7976931348623157E308" prefHeight="40.0" text="R" />
+                                <Button fx:id="zoomInButton" maxWidth="1.7976931348623157E308" prefHeight="40.0" text="+" />
+                                <Button fx:id="zoomOutButton" maxWidth="1.7976931348623157E308" prefHeight="40.0" text="-" />
+                            </children>
+                        </VBox>
+                        <Button visible="false" fx:id="openNavigationPaneButton" onAction="#onOpenNavigationPaneButtonClick" prefWidth="75" text="^" StackPane.alignment="BOTTOM_CENTER" />
+                    </children>
+                </StackPane>
+            </center>
+            <bottom>
+                <!--NavigationPane fx:id="navigationPane" minHeight="0" prefHeight="0" prefWidth="Infinity" visible="false" /-->
+            </bottom>
+        </BorderPane>
+    </center>
 </fx:root>

@@ -117,7 +117,7 @@ public class EdgeDisplay extends Line implements IDisplayItem {
 	
 	private void onDeselectEventHandler(){
 		this.addEventFilter(SelectEvent.EDGE_DESELECTED, event -> {
-			super.setStroke(this.strokeColor);
+			super.setStroke(Color.AQUA);
 			super.setStrokeWidth(this.strokeLength);
 			this.isSelected = false;
 		});

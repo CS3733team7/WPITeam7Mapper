@@ -99,7 +99,12 @@ public class FileIO {
 		Coordinate c = new Coordinate(Float.parseFloat(args[0]), Float.parseFloat(args[1]), Float.parseFloat(args[2]));
 		Node n = g.addNode(c);
 		if(args.length >= 4) {
-			for(String j : getTags(args[3])) n.addTag(j);
+			String[] tags = getTags(args[3]);
+			n.setName(tags[0]);
+			for(int i = 1; i < tags.length; i++){ 
+				n.addTag(tags[i]);
+			}
+			//for(String j : getTags(args[3])) n.addTag(j);
 		}
 		return n.getId();
 	}
@@ -227,8 +232,9 @@ public class FileIO {
 			ids.put(n.getId(), i);
 			Coordinate c = n.getCoordinate();
 			writer.printf("p %f %f %f", c.getX(), c.getY(), c.getZ());
-			if(!n.GetTags().isEmpty()){
+			if(!n.GetTags().isEmpty() || !n.getName().isEmpty()){
 				ArrayList<String> tagList = n.GetTags();
+				tagList.add(0, n.getName());
 				String[] tagListReborn = tagList.toArray(new String[tagList.size()]);
 				writer.printf(" %s", toTags(tagListReborn));
 			}
@@ -237,6 +243,9 @@ public class FileIO {
 		}
 		for( Edge e : g.getEdges()){
 			if(e == null) continue;
+			Node na = g.returnNodeById(e.getNodeA());
+			Node nb = g.returnNodeById(e.getNodeB());
+			if(na == null || nb == null) continue;
 			int indice1 = ids.get(e.getNodeA());
 			int indice2 = ids.get(e.getNodeB());
 			writer.printf("e %d %d", indice1, indice2);
@@ -258,6 +267,7 @@ public class FileIO {
 				writer.println("m " + map.imagePath + " " + c.getX() + " " + c.getY() + " " + c.getZ() + " " + map.rotation + " " + map.scale + " " + toTags(aaa));
 			}
 		if (writer != null) writer.close();
+		System.out.println("Writing completed");
 		return i;
 	}
 

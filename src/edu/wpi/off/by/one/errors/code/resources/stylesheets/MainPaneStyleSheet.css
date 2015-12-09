@@ -13,3 +13,27 @@
 .button:hover{
     -fx-background-color: #BABFC5;
 }
+
+#floorSlider,
+#rotateLeftButton,
+#rotateRightButton,
+#zoomInButton,
+#zoomOutButton,
+#openNavigationPaneButton
+{
+    -fx-background-color: rgba(27,41,10,0.4);
+    -fx-text-fill: White;
+}
+
+#floorSlider:hover,
+#rotateLeftButton:hover,
+#rotateRightButton:hover,
+#zoomInButton:hover,
+#zoomOutButton:hover,
+#openNavigationPaneButton:hover
+{
+    -fx-background-color: rgba(27,41,10,0.6);
+    -fx-text-fill: White;
+}
+
+

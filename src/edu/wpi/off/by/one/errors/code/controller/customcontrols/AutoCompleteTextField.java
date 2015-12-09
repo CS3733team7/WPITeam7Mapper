@@ -1,17 +1,29 @@
 package edu.wpi.off.by.one.errors.code.controller.customcontrols;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import edu.wpi.off.by.one.errors.code.controller.ControllerSingleton;
+import edu.wpi.off.by.one.errors.code.model.TagMap;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 /**
  * Original code by Caleb Brinkman (floralvikings)
  * source: https://gist.github.com/floralvikings/10290131
@@ -22,13 +34,13 @@ public class AutoCompleteTextField extends TextField{
 	private ContextMenu entriesPopup;
 	
 	public AutoCompleteTextField(){
-		super();
-		entries = new TreeSet<>();
+		setListeners();
+		entries = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
 		entriesPopup = new ContextMenu();
-		//TODO ADD MORE ENTRIES
-		//TODO SMART SEARCH
-		entries.add("CC");
-        entries.add("Campus Center");
+		this.setOnMouseClicked(e -> {
+			update();
+		});
+		
 		textProperty().addListener(new ChangeListener<String>(){
 
 			@Override
@@ -49,7 +61,7 @@ public class AutoCompleteTextField extends TextField{
 			}
 		});
 		
-		focusedProperty().addListener(new ChangeListener<Boolean>(){
+		this.focusedProperty().addListener(new ChangeListener<Boolean>(){
 
 			@Override
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
@@ -58,9 +70,21 @@ public class AutoCompleteTextField extends TextField{
 			}
 			
 		});
+		update();
+		
+		
+	}
+	
+	private void setListeners(){
+		
 	}
 	
 	public SortedSet<String> getEntries() { return entries; }
+	
+	public void update(){
+		Set<String> tags = TagMap.getTagMap().getTags();
+		entries.addAll(tags);
+	}
 	
 	private void populatePopup(List<String> result){
 		List<CustomMenuItem> menuItems = new LinkedList<>();
@@ -79,5 +103,4 @@ public class AutoCompleteTextField extends TextField{
 		entriesPopup.getItems().clear();
 		entriesPopup.getItems().addAll(menuItems);
 	}
-	
 }

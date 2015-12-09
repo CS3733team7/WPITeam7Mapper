@@ -29,10 +29,10 @@ public class MenuPane extends HBox {
     
     @FXML SearchMenuPane searchMenuPane;
     @FXML DirectionsMenuPane directionsMenuPane;
-    @FXML FavoritesMenuPane favoritesMenuPane;
+    //@FXML FavoritesMenuPane favoritesMenuPane;
     @FXML DevToolsMenuPane devToolsMenuPane;
     @FXML SettingsMenuPane settingsMenuPane;
-    @FXML HelpMenuPane helpMenuPane;
+    //@FXML HelpMenuPane helpMenuPane;
 
     //Menu RadioButton
     @FXML private RadioButton searchMenuRadioButton;
@@ -40,7 +40,7 @@ public class MenuPane extends HBox {
     @FXML private RadioButton favoritesMenuRadioButton;
     @FXML private RadioButton devToolMenuRadioButton;
     @FXML private RadioButton settingsMenuRadioButton;
-    @FXML private RadioButton helpMenuRadioButton;
+   // @FXML private RadioButton helpMenuRadioButton;
 
     //endregion
 
@@ -72,10 +72,10 @@ public class MenuPane extends HBox {
     
     public SearchMenuPane getSearchMenuPane() { return searchMenuPane; }
     public DirectionsMenuPane getDirectionsMenuPane() { return directionsMenuPane; }
-	public FavoritesMenuPane getFavoritesMenuPane() { return favoritesMenuPane; }
+	//public FavoritesMenuPane getFavoritesMenuPane() { return favoritesMenuPane; }
 	public DevToolsMenuPane getDevToolsMenuPane() { return devToolsMenuPane; }
 	public SettingsMenuPane getSettingsMenuPane() { return settingsMenuPane; }
-	public HelpMenuPane getHelpMenuPane() { return helpMenuPane; }
+	//public HelpMenuPane getHelpMenuPane() { return helpMenuPane; }
 
 
 	//region Listener Methods
@@ -117,6 +117,10 @@ public class MenuPane extends HBox {
             hamburgerToggleButton.setSelected(false);
     }
     //endregion
+    
+    public void showDirections(){
+    	directionsMenuRadioButton.setSelected(true);
+    }
 
     public void removeRadioButtonStyles(){
         searchMenuRadioButton.getStyleClass().remove("radio-button");
@@ -124,7 +128,7 @@ public class MenuPane extends HBox {
         favoritesMenuRadioButton.getStyleClass().remove("radio-button");
         devToolMenuRadioButton.getStyleClass().remove("radio-button");
         settingsMenuRadioButton.getStyleClass().remove("radio-button");
-        helpMenuRadioButton.getStyleClass().remove("radio-button");
+        //helpMenuRadioButton.getStyleClass().remove("radio-button");
     }
 
 }

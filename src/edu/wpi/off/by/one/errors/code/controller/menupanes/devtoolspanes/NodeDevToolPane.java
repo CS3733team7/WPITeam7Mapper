@@ -1,10 +1,13 @@
 package edu.wpi.off.by.one.errors.code.controller.menupanes.devtoolspanes;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import edu.wpi.off.by.one.errors.code.controller.customcontrols.ClearableTextField;
 import edu.wpi.off.by.one.errors.code.application.NodeDisplay;
 import edu.wpi.off.by.one.errors.code.controller.ControllerSingleton;
 import edu.wpi.off.by.one.errors.code.controller.MainPane;
@@ -14,13 +17,13 @@ import edu.wpi.off.by.one.errors.code.model.Display;
 import edu.wpi.off.by.one.errors.code.model.Graph;
 import edu.wpi.off.by.one.errors.code.model.Id;
 import edu.wpi.off.by.one.errors.code.model.Node;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import edu.wpi.off.by.one.errors.code.model.TagMap;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseButton;
 
 /**
  * Created by jules on 11/30/2015.
@@ -30,6 +33,7 @@ public class NodeDevToolPane extends VBox {
 	MainPane mainPane;
 	Display currentDisplay;
 	NodeDisplay currentNd;
+	@FXML TextField nodeNameTextField;
 	@FXML Label nodeIdLabel;
 	@FXML TextField xTextField;
 	@FXML TextField yTextField;
@@ -38,6 +42,7 @@ public class NodeDevToolPane extends VBox {
 	@FXML ListView<String> tagListView;
 	@FXML ListView<Id> edgeListView;
 	@FXML Button addTagButton;
+	@FXML CheckBox accessibleCheckbox;
 	
     public NodeDevToolPane(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../view/menupanes/devtoolspanes/NodeDevToolPane.fxml"));
@@ -60,6 +65,7 @@ public class NodeDevToolPane extends VBox {
     	Graph g = currentDisplay.getGraph();
     	Node n = g.returnNodeById(nd.getNode());
     	Coordinate c = g.returnNodeById(nd.getNode()).getCoordinate();
+    	nodeNameTextField.setText(n.getName());
     	nodeIdLabel.setText(nd.getNode().toString());
     	xTextField.setText(Float.toString(c.getX()));
     	yTextField.setText(Float.toString(c.getY()));
@@ -68,6 +74,8 @@ public class NodeDevToolPane extends VBox {
     	edgeListView.getItems().clear();
     	tagListView.getItems().addAll((n.GetTags() != null) ? n.GetTags() : new ArrayList<String>());
     	edgeListView.getItems().addAll((n.getEdgelist() != null) ? n.getEdgelist() : new ArrayList<Id>());
+    	tagTextField.clear();
+    	accessibleCheckbox.setSelected(g.returnNodeById(nd.getNode()).isAccessible());
     }
     
     private void setListeners(){
@@ -118,10 +126,29 @@ public class NodeDevToolPane extends VBox {
     	this.addTagButton.setOnAction(e -> {
     		addTag();
     	});
+    	this.nodeNameTextField.setOnAction(e -> {
+    		MapRootPane maproot = ControllerSingleton.getInstance().getMapRootPane();
+    		String s = nodeNameTextField.getText();
+    		if(currentNd != null) {
+    			Node n = currentDisplay.getGraph().returnNodeById(currentNd.getNode());
+    			n.setName(s);
+    		}
+    		
+    	});
+    	this.tagListView.setOnMouseClicked(e -> {
+    		if(e.getButton() == MouseButton.SECONDARY){
+    			String toRemove = tagListView.getSelectionModel().getSelectedItem();
+    			TagMap.getTagMap().remove(toRemove, currentNd.getNode());
+    			tagListView.getItems().remove(toRemove);
+    		}
+		});
     }
     
     @FXML private void toggleIsBathroom() {}
-    @FXML private void toggleIsAccessible() {}
+    @FXML private void toggleIsAccessible() {
+    	Node n = currentDisplay.getGraph().returnNodeById(currentNd.getNode());
+    	n.setAccessible(accessibleCheckbox.isSelected() ? true : false);
+    }
     @FXML private void toggleIsFood() {}
     
     /**
@@ -137,6 +164,7 @@ public class NodeDevToolPane extends VBox {
     	n.addTag(s);
     	tagListView.getItems().clear();
     	tagListView.getItems().addAll((n.GetTags() != null) ? n.GetTags() : new ArrayList<String>());
+    	tagTextField.clear();
     }
     
     /**

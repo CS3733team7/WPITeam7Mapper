@@ -2,6 +2,7 @@ package edu.wpi.off.by.one.errors.code.controller;
 
 import java.io.IOException;
 
+import edu.wpi.off.by.one.errors.code.controller.customcontrols.IconedLabel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.GridPane;
@@ -10,7 +11,8 @@ import javafx.scene.layout.GridPane;
  * Created by jules on 11/28/2015.
  */
 public class NavigationPane extends GridPane {
-	
+	@FXML private IconedLabel InstructionLabel;
+
     public NavigationPane(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/NavigationPane.fxml"));
 
@@ -35,8 +37,7 @@ public class NavigationPane extends GridPane {
         this.setVisible(false);
     }
 
-    @FXML
-    private void onClosePaneButtonClick(){
+    @FXML private void onClosePaneButtonClick(){
         close();
     }
 

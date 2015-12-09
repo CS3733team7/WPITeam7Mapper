@@ -1,0 +1,23 @@
+.clearable-text-field{
+    -fx-background-color: White;
+    -fx-border-width: 1;
+    -fx-border-color: #A9B0B7;
+}
+
+.button{
+    -fx-text-fill: Black;
+    -fx-background-color: Transparent;
+}
+
+.button:hover{
+    -fx-text-fill: #AC2B37;
+    -fx-background-color: Transparent;
+}
+
+.button:disabled{
+    -fx-background-color: #A9B0B7;
+    -fx-background-color: Transparent;
+}
+.text-field{
+    -fx-background-color: Transparent;
+}
