@@ -261,6 +261,7 @@ public class FileIO {
 				writer.println("m " + map.imagePath + " " + c.getX() + " " + c.getY() + " " + c.getZ() + " " + map.rotation + " " + map.scale + " " + toTags(aaa));
 			}
 		if (writer != null) writer.close();
+		System.out.println("Writing completed");
 		return i;
 	}
 

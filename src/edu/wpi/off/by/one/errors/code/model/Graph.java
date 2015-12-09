@@ -52,11 +52,17 @@ public class Graph {
 	public Node addNode(Coordinate coordIn){//adds a node to the list
 		//linear search to make sure the node already isnt there
 		int i;
+		float inx = coordIn.getX();
+		float iny = coordIn.getY();
+		float inz = coordIn.getZ();
 		Node n = null;
 		for(i = 0; i < listOfNodes.size(); i++){
 			n = listOfNodes.get(i);
-			if(n!=null) continue;
-			if(coordIn.getX() == n.getCoordinate().getX() && coordIn.getY() == n.getCoordinate().getY() && coordIn.getZ() == n.getCoordinate().getZ()) break;
+			if(n==null) continue;
+			float ox = n.getCoordinate().getX();
+			float oy = n.getCoordinate().getY();
+			float oz = n.getCoordinate().getZ();
+			if(inx <= ox + 0.01f && inx >= ox - 0.01f && iny <= oy + 0.01f && iny >= oy - 0.01f && inz <= oz + 0.01f && inz >= oz - 0.01f)break;
 		}
 		if(i < listOfNodes.size()){ // found duplicate
 			return n;
@@ -85,11 +91,17 @@ public class Graph {
 	 */
 	public Id addNodeRint(Coordinate coordIn){//adds a node to the list, returns ID instead of node
 		int i;
+		float inx = coordIn.getX();
+		float iny = coordIn.getY();
+		float inz = coordIn.getZ();
 		Node n = null;
 		for(i = 0; i < listOfNodes.size(); i++){
 			n = listOfNodes.get(i);
-			if(n!=null) continue;
-			if(coordIn.getX() == n.getCoordinate().getX() && coordIn.getY() == n.getCoordinate().getY() && coordIn.getZ() == n.getCoordinate().getZ()) break;
+			if(n==null) continue;
+			float ox = n.getCoordinate().getX();
+			float oy = n.getCoordinate().getY();
+			float oz = n.getCoordinate().getZ();
+			if(inx <= ox + 0.01f && inx >= ox - 0.01f && iny <= oy + 0.01f && iny >= oy - 0.01f && inz <= oz + 0.01f && inz >= oz - 0.01f)break;
 		}
 		if(i < listOfNodes.size()){ // found duplicate
 			return n.getId();
@@ -134,10 +146,11 @@ public class Graph {
 		Edge e = null;
 		for(i = 0; i < listOfEdges.size(); i++){
 			e = listOfEdges.get(i);
-			if(e!=null) continue;
-			if((nodeAIn == e.getNodeA() && nodeBIn == e.getNodeB()) || (nodeBIn == e.getNodeA() && nodeAIn == e.getNodeB()))break;
+			if(e==null) continue;
+			if((nodeAIn.compare(e.getNodeA()) && nodeBIn.compare(e.getNodeB())) || (nodeBIn.compare(e.getNodeA()) && nodeAIn.compare(e.getNodeB())))break;
 		}
 		if(i < listOfEdges.size()){ // found duplicate
+			System.out.println("found dupe");
 			return e;
 		}
 		Node A = returnNodeById(nodeAIn);
@@ -173,10 +186,11 @@ public class Graph {
 		Edge e = null;
 		for(i = 0; i < listOfEdges.size(); i++){
 			e = listOfEdges.get(i);
-			if(e!=null) continue;
-			if((nodeAIn == e.getNodeA() && nodeBIn == e.getNodeB()) || (nodeBIn == e.getNodeA() && nodeAIn == e.getNodeB()))break;
+			if(e==null) continue;
+			if((nodeAIn.compare(e.getNodeA()) && nodeBIn.compare(e.getNodeB())) || (nodeBIn.compare(e.getNodeA()) && nodeAIn.compare(e.getNodeB())))break;
 		}
 		if(i < listOfEdges.size()){ // found duplicate
+			System.out.println("found dupe");
 			return e.getId();
 		}
 
