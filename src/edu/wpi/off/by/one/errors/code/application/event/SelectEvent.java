@@ -14,7 +14,9 @@ public class SelectEvent extends Event{
 	 */
 	private static final long serialVersionUID = -2781253555711376301L;
 	public static final EventType<SelectEvent> SELECTED = new EventType<>(ANY, "SELECTED");
-	public static final EventType<SelectEvent> NODE_SELECTED = new EventType<>(ANY, "NODE_SELECTED");
+	public static final EventType<SelectEvent> NODE = new EventType<>(ANY, "NODE_SELECTED");
+	public static final EventType<SelectEvent> NODE_SELECTED = new EventType<>(NODE, "NODE_SELECTED");
+	public static final EventType<SelectEvent> PIVOT_NODE_SELECTED = new EventType<>(NODE, "PIVOT_NODE_SELECTED");
 	public static final EventType<SelectEvent> NODE_DESELECTED = new EventType<>(ANY, "NODE_DESELECTED");
 	public static final EventType<SelectEvent> EDGE_SELECTED = new EventType<>(ANY, "EDGE_SELECTED");
 	public static final EventType<SelectEvent> EDGE_DESELECTED = new EventType<>(ANY, "EDGE_DESELECTED");

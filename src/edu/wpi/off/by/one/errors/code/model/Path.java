@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import edu.wpi.off.by.one.errors.code.controller.ControllerSingleton;
+
 public class Path {
 	private Id startNode;
 	private Id endNode;
@@ -101,6 +103,90 @@ public class Path {
 		
 		
 	}
+	
+	public void runAccessibleAStar(Graph graphin){
+		theGraph = graphin;
+		////System.out.println("started a*");
+		ArrayList<Id> visited = new ArrayList<Id>();	//These nodes we have already seen
+		ArrayList<Id> open = new ArrayList<Id>();		//These are the next nodes we will visit
+
+		open.add(startNode);
+		//this.nodes = nodesIn;	//the list of Node objects to search
+		//this.edges = edgesIn;	//the list of the associated edges for the Nodes
+
+		Id current; 		//the ID for the node we are currently examining
+		HashMap<Id, Id> cameFrom = new HashMap<Id, Id>();		//The map of current optimum path to a node
+		HashMap<Id, Float> gScore = new HashMap<Id, Float>();	//The map of the nodeID to its path finding score, the lower the better
+		HashMap<Id, Float> fScore = new HashMap<Id, Float>();	//create a new #map for the f score of the node
+
+		for (Node elem : theGraph.getNodes()){	//sets each node that we could examine, place its ID and the maximum value into the #maps
+			if(elem==null)
+				continue;
+			gScore.put(elem.getId(), Float.MAX_VALUE);
+			fScore.put(elem.getId(), Float.MAX_VALUE);
+		}
+		gScore.put(startNode, (float) 0.0);	//start the algorithm at the first node
+		fScore.put(startNode, calcHeuristic(startNode,endNode));	//initialize the fscore with the heuristic of length
+	
+		while(!open.isEmpty()){	//while we still have nodes to visit
+			current = findLowestFInOpen(open, fScore);	//find the closest node to the end in the open list 
+			int toRemove = open.indexOf(current);
+			open.remove(toRemove);
+			//System.out.println("Start printing open" + open.toString() + "finished printing open");
+			if (current == endNode){	//we made it!
+				//System.out.println("ever found a path");
+				route = reconstructPath(cameFrom, current);	//run the helper that goes through and puts the path in order
+			}
+			//int toRemove = open.indexOf(current);
+			//open.remove(toRemove);	//take the current node out of nodes to visit
+			visited.add(current);	//then add it to the list of already visited nodes
+			/*//System.out.println("start of edgelist");
+			//System.out.println(nodes.get(current).getEdgelist().toString());
+			//System.out.println("end of edgelist");*/
+			////System.out.println("nodes.get(current) "+nodes.get(current)+" end");
+			////System.out.println("EdgeListBeforeFor" + nodes.get(current).getEdgelist()+"EdgeListBeforeForDone");
+			for(Id elem : theGraph.returnNodeById(current).getEdgelist()){	//find all the edges attached to the node
+				if(elem == null) continue;
+				//System.out.println("in the for loop");
+				Edge neighborEdge = theGraph.returnEdgeById(elem);	//pull one edge from the list at a time
+				Id neighborId;	//the ID of the node at the other end of the edge
+				if (neighborEdge.getNodeA() == current){	//if we try and get the ID for the node and it's the same ID
+					neighborId = neighborEdge.getNodeB();	//then it must be the other node in the edge
+				}
+				else {
+					neighborId = neighborEdge.getNodeA();	//otherwise this one must be the neighbor
+				}
+				if(neighborId == null){
+					theGraph.deleteEdge(elem);
+					continue;
+				}
+				float tentativeGScore = gScore.get(current)+theGraph.returnEdgeById(elem).getLength();	//calculate the distance needed to get to the current point	
+				if(visited.contains(neighborId)){				//if we have already been to this neighbor
+					if(gScore.get(neighborId)>tentativeGScore){	//and this route is better than the existing one
+						gScore.put(neighborId, tentativeGScore);//then make this the current best route to this point
+					}
+					else continue;	//otherwise we need to do the while loop again
+				}
+				if(!open.contains(neighborId)){	//if we haven't been to the neighbor yet
+					//System.out.println("adding to open");
+					//System.out.println("Start printing open" + open.toString() + "finished printing open");
+					if(theGraph.returnNodeById(neighborId).isAccessible()){
+						open.add(neighborId);		//add the neighbor to the list of places to go
+					}
+					else continue;
+					
+				}
+				else if(tentativeGScore>gScore.get(neighborId)){	//if this path to this node isn't better than the existing one
+					continue;										//loop again
+				}
+				cameFrom.put(neighborId, current); //if we made it to here it means we found a new best path to this node
+				gScore.put(neighborId, tentativeGScore);   //now we just make it say that
+				fScore.put(neighborId, gScore.get(neighborId)+calcHeuristic(neighborId  , endNode));
+			}
+		}
+
+		
+	}
 	/**
 	 * this calculates the heuristic (length) between the two nodes
 	 * @param current current node
@@ -118,12 +204,14 @@ public class Path {
 				coordB = elem.getCoordinate();
 			}
 		}*/
-		coordA = theGraph.returnNodeById(current).getCoordinate();
-		coordB = theGraph.returnNodeById(destination).getCoordinate();
-
-		float xDist = coordA.getX()-coordB.getX();
-		float yDist = coordA.getY()-coordB.getY();
-		return (float) Math.sqrt(xDist*xDist+yDist*yDist); //return the pythagorean length
+		if(theGraph.returnNodeById(current) != null && theGraph.returnNodeById(destination) != null) {
+			coordA = theGraph.returnNodeById(current).getCoordinate();
+			coordB = theGraph.returnNodeById(destination).getCoordinate();
+			float xDist = coordA.getX()-coordB.getX();
+			float yDist = coordA.getY()-coordB.getY();
+			return (float) Math.sqrt(xDist*xDist+yDist*yDist); //return the pythagorean length
+		}
+		return Float.MAX_VALUE;
 	}
 	
 	/**
@@ -220,6 +308,7 @@ public class Path {
 		int cnt = 0;
 		Coordinate lastcoord = null;
 		float lastangle = -10000.0f;
+		float distFromTurn = 0;
 		//float lastdist = 0.0f; TODO
 		for(Id cur : route){
 			Node n = theGraph.returnNodeById(cur);
@@ -230,21 +319,50 @@ public class Path {
 				float my = thiscoord.getY() - lastcoord.getY();
 				float distsq =  mx * mx + my * my;
 				float dist = (float)Math.sqrt((double)distsq);
-				float angle = (float)Math.atan2(mx, my);
+				float angle = (float) (Math.atan2(mx, my)* 180 / Math.PI);
 				if(lastangle > -180.0f){
 					float dxangle = lastangle - angle;
-					float dangle = Math.abs(dxangle);
-					if(dangle >= 1.0f)
-						res.add("Turn " + " Degrees to the " + ((dxangle >= 0.0f) ? "right. " : "left. "));
+					float degreedangle = Math.abs(dxangle);
+					
+					System.out.println(degreedangle);
+					System.out.println(dxangle);
+					if(Math.abs(degreedangle) <= 10){ //determines magnitude of turn
+						distFromTurn += dist;
+					} else if(degreedangle <= 45){
+						res.add("Walk for " + Math.round(distFromTurn) + " meters");
+						res.add("Make a slight " + (dxangle>=0 ? "right" : "left")+ " turn");
+						distFromTurn = dist;
+					} else if (degreedangle <= 90){
+						res.add("Walk for " + Math.round(distFromTurn) + " meters");
+						res.add("Make a " + (dxangle>=0 ? "right" : "left")+ " turn");
+						distFromTurn = dist;
+					} else if (degreedangle <= 180){
+						res.add("Walk for " + Math.round(distFromTurn) + " meters");
+						res.add("Make a hard " + (dxangle>=0 ? "right" : "left")+ " turn");
+						distFromTurn = dist;
+					} else {
+						res.add("Walk for " + Math.round(distFromTurn) + " meters");
+						res.add("Make a sharp " + (dxangle>=0 ? "right" : "left")+ " turn");
+						distFromTurn = dist;
+					}
 				} else {
-					res.add("Face " + angle + " Degrees. ");
+					if((-45 <= angle && angle < 45)){
+						res.add("Face south");
+					} else if((45 <= angle && angle < 135)){
+						res.add("Face east");
+					} else if((-135 <= angle && angle < 135)){
+						res.add("Face west");
+					} else {
+						res.add("Face north");
+					}
+					distFromTurn = dist;
 				}
 				lastangle = angle;
-				res.add("Walk " + dist + " Meters. ");//TODO North south stuff
 			}
 			lastcoord = thiscoord;
 			cnt++;
 		}
+		res.add("Walk for "+ Math.round(distFromTurn) + " meters");
 		res.add("You have reached your destination");
 		return res;
 	}
