@@ -176,8 +176,13 @@ public class MapDevToolPane extends VBox {
 		selectedMaps.clear();
 		selectedMaps.add(this.selectedMap);
 		maproot.setSelectedMaps(selectedMaps);
+<<<<<<< HEAD
+		maproot.render();
+		setMap(this.selectedMap);
+=======
 		setMap(this.selectedMap);
 		maproot.render();
+>>>>>>> CS3733team7/dev
 		ControllerSingleton.getInstance().getMenuPane().getSearchMenuPane().spinnyZoom(index);
 	}
 
