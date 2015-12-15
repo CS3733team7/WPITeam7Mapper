@@ -1,27 +1,93 @@
-*{
-    -fx-focus-color: Transparent;
-}
 #menuBar{
     -fx-background-color: #AC2B37;
-    -fx-text-fill:#FFFFFF;
 }
 
 .toggle-button{
     -fx-background-color: Transparent;
-    -fx-text-fill: #FFFFFF;
-    -fx-background-radius: 0;
+
 }
 
 .toggle-button:hover{
     -fx-background-color: #CC3341;
 }
 
-#searchMenuRadioButton:selected,
-#directionsMenuRadioButton:selected,
-#favoritesMenuRadioButton:selected,
-#devToolMenuRadioButton:selected,
-#settingsMenuRadioButton:selected,
+#hamburgerToggleButton{
+    -fx-background-image: url("../icons/white/HideWhite.png");
+    -fx-background-size: cover;
+}
+
+#hamburgerToggleButton:hover{
+    -fx-background-color: #CC3341;
+}
+
+/*Search Button States*/
+#searchMenuRadioButton{
+    -fx-background-image: url("../icons/white/MagnifyWhite.png");
+    -fx-background-size: cover;
+}
+
+#searchMenuRadioButton:selected{
+    -fx-background-color: #FFFFFF;
+    -fx-background-image: url("../icons/red/MagnifyRed.png");
+    -fx-background-size: cover;
+}
+
+/*Directions Button States*/
+#directionsMenuRadioButton{
+    -fx-background-image: url("../icons/white/TurnRightArrowWhite.png");
+    -fx-background-size: cover;
+}
+
+#directionsMenuRadioButton:selected{
+    -fx-background-color: #FFFFFF;
+    -fx-background-image: url("../icons/red/TurnRightArrowRed.png");
+    -fx-background-size: cover;
+}
+
+/*Favorites Button States*/
+#favoritesMenuRadioButton{
+    -fx-background-image: url("../icons/white/Favorite.png");
+    -fx-background-size: cover;
+}
+
+#favoritesMenuRadioButton:selected{
+    -fx-background-color: #FFFFFF;
+    -fx-background-image: url("../icons/red/FavoriteRed.png");
+    -fx-background-size: cover;
+}
+
+/*Dev mode Button States*/
+#devToolMenuRadioButton{
+    -fx-background-image: url("../icons/white/DevIcon.png");
+    -fx-background-size: cover;
+}
+
+#devToolMenuRadioButton:selected{
+    -fx-background-color: #FFFFFF;
+    -fx-background-image: url("../icons/red/DevIconRed.png");
+    -fx-background-size: cover;
+}
+
+/*Settings Button States*/
+#settingsMenuRadioButton{
+    -fx-background-image: url("../icons/white/Settings.png");
+    -fx-background-size: cover;
+}
+
+#settingsMenuRadioButton:selected{
+    -fx-background-color: #FFFFFF;
+    -fx-background-image: url("../icons/red/SettingsRed.png");
+    -fx-background-size: cover;
+}
+
+/*Help Button States*/
+#helpMenuRadioButton{
+    -fx-background-image: url("../icons/white/Question.png");
+    -fx-background-size: cover;
+}
+
 #helpMenuRadioButton:selected{
     -fx-background-color: #FFFFFF;
-    -fx-text-fill: #AC2B37;
+    -fx-background-image: url("../icons/red/QuestionRed.png");
+    -fx-background-size: cover;
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <BorderPane fx:id="textFieldButtonContainer" styleClass="textFieldButtonContainer">
+            <center>
+                <TextField fx:id="textField" maxHeight="1.7976931348623157E308" BorderPane.alignment="CENTER" />
+            </center>
+            <right>
+                <Button fx:id="clearButton" alignment="CENTER" maxHeight="1.7976931348623157E308" minHeight="0" mnemonicParsing="false" onAction="#onClearTextBoxButtonClick" text="x" BorderPane.alignment="CENTER" />
+            </right>
+        </BorderPane>
+    </center>
+   <bottom>
+      <Label fx:id="errorLabel" maxWidth="1.7976931348623157E308" minHeight="0.0"  maxHeight="25" prefHeight="0.0" text="! Error" BorderPane.alignment="CENTER_LEFT" />
+   </bottom>
+</fx:root>

@@ -1,0 +1,2 @@
+WPI Red: #AC2B37
+WPI Gray: #A9B0B7

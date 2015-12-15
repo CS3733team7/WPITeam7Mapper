@@ -1,115 +1,218 @@
 package edu.wpi.off.by.one.errors.code.controller;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-
-import java.awt.event.MouseEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.Set;
+import java.util.Timer;
 import java.util.Vector;
-
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import edu.wpi.off.by.one.errors.code.application.EdgeDisplay;
+import edu.wpi.off.by.one.errors.code.application.Icon;
+import edu.wpi.off.by.one.errors.code.application.MarkerDisplay;
+import edu.wpi.off.by.one.errors.code.application.MarkerDisplay.Marker;
 import edu.wpi.off.by.one.errors.code.application.NodeDisplay;
 import edu.wpi.off.by.one.errors.code.application.event.EditorEvent;
 import edu.wpi.off.by.one.errors.code.application.event.SelectEvent;
-import edu.wpi.off.by.one.errors.code.controller.menupanes.devtoolspanes.MapDevToolPane;
-import edu.wpi.off.by.one.errors.code.model.Coordinate;
-import edu.wpi.off.by.one.errors.code.model.Display;
-import edu.wpi.off.by.one.errors.code.model.Edge;
-import edu.wpi.off.by.one.errors.code.model.FileIO;
-import edu.wpi.off.by.one.errors.code.model.Graph;
-import edu.wpi.off.by.one.errors.code.model.Id;
-import edu.wpi.off.by.one.errors.code.model.Map;
-import edu.wpi.off.by.one.errors.code.model.Node;
-import edu.wpi.off.by.one.errors.code.model.Path;
+import edu.wpi.off.by.one.errors.code.model.*;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Transform;
+import javafx.scene.transform.Translate;
+import javafx.util.Duration;
 
 /**
  * Created by jules on 11/28/2015.
  * Edited by Kelly on 11/30/2015.
  */
 public class MapRootPane extends AnchorPane{
-
-	@FXML MainPane mainPane;
-	
-	@FXML StackPane mapPane;
-	@FXML ImageView mapView;
 	@FXML Button zoomInButton;
 	@FXML Button zoomOutButton;
-	@FXML VBox editorPane;
-	@FXML Button drawPathDisplayButton;
-	StackPane pathPane = new StackPane();
-
+	@FXML Button rotateLeftButton;
+	@FXML Button rotateRightButton;
+	
+	@FXML StackPane mapPane;
+	@FXML StackPane nodeLayer;
+	@FXML Pane edgeLayer;
+	@FXML Pane pathPane;
+	@FXML Pane iconLayer;
+	@FXML Pane markerPane;
+	
+	public Coordinate translate = new Coordinate(0.0f, 0.0f, 1.0f);;
+	Coordinate release = new Coordinate(0, 0, 0);
+	public float rot = 0.0f;
+	public float zoom = 2.0f;
+	public Matrix view;
+	Matrix invview;
+	Matrix lastview;
+	
+	@FXML public Canvas canvas;
+	public IntegerProperty currentLevel = new SimpleIntegerProperty(1);
+	private Path p;
+	private MarkerDisplay startMarker = null;
+	private MarkerDisplay endMarker = null;
 	//Where all the images and txt files should be
 	String resourceDir = "/edu/wpi/off/by/one/errors/code/resources/";
-	Bounds localBounds;
-	Display display;												//Current display
-	HashMap<String, Display> displayList;
-    Queue<NodeDisplay> nodeQueue = new LinkedList<NodeDisplay>();	//Selected node queue
-    Queue<EdgeDisplay> edgeQueue = new LinkedList<EdgeDisplay>();
-    
-    boolean isMapEditor = false;
-    boolean isNodeEditor = false;
-    boolean isEdgeEditor = false;
-    boolean isEditMode = false;
-    boolean isAddMode = false;		//Is editor currently adding nodes?
-    boolean isDeleteMode = false;	//Is editor currently deleting nodes?
-
+	private String filePath = "src" + resourceDir + "maps/txtfiles/fullCampusMap.txt";
 	
+	Display display;												//Current display
+	
+	Queue<NodeDisplay> nodeQueue = new LinkedList<NodeDisplay>();	//Selected node queue
+    Queue<EdgeDisplay> edgeQueue = new LinkedList<EdgeDisplay>();
+    ArrayList<Map> selectedMaps = new ArrayList<Map>();
+    ArrayList<Id> currentRoute = new ArrayList<Id>();
+    public NodeDisplay currentPivot = null;
+    boolean isMapEditor = false;
+    public boolean isNodeEditor = false;
+    public boolean isEdgeEditor = false;
+    public boolean isEditMode = false;
+    public boolean isAddMode = false;		//Is editor currently adding nodes?
+    public boolean isDeleteMode = false;	//Is editor currently deleting nodes?
+    public boolean isMultiSelectNodes = false;
+    public boolean isPirateMode = false;
+    public boolean isAccessibleMode = false;
+    public boolean isEyedrop = false;
+    boolean isZooming = false;
+	Image pirateX = null;
+    Image endNode = null;
+    Image endImg = null;
+    Image compass_ring = new Image(Icon.compass_ring);
+    Image compass = new Image(Icon.compass);
+    Image compass_pirate = new Image(Icon.compass_pirate);
+    boolean isctrl = false;
+
+    
     public MapRootPane() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/MapRootPane.fxml"));
-
+        
         loader.setRoot(this);
         loader.setController(this);
         try {
             loader.load();
-            initialize();
         } catch (IOException excpt) {
             throw new RuntimeException(excpt);
         }
+        ControllerSingleton.getInstance().registerMapRootPane(this);
+        //canvas.widthProperty().bind(this.widthProperty());
+        //canvas.heightProperty().bind(this.heightProperty());
+        initialize();
+
+        
     }
     
-    public void setMainPane(MainPane m) { this.mainPane = m; }
     public MapRootPane getMapRootPane() { return this; }
-    public HashMap<String, Display> getAllDisplays() {return displayList; }
+    public ArrayList<Map> getSelectedMaps() { return this.selectedMaps; }
+    public void setSelectedMaps(ArrayList<Map> maps) { this.selectedMaps = maps; }
+    public Queue<NodeDisplay> getSelectedNodes() { return this.nodeQueue; }
+    public Queue<EdgeDisplay> getSelectedEdges() { return this.edgeQueue; }
+    public String getFilePath() {return this.filePath; }
+    
+    public void updateCanvasSize(double width, double height){
+    	//mapPane.setPrefSize(width, height);
+    	canvas.setHeight(height);
+    	canvas.setWidth(width);
+    	render();
+    }
     
     private void initialize(){
-    	System.out.print("Main Controller Initialized.");
-		//Load all displays into application
-		loadDisplays();
-		//Load campus map from display list
-        display = displayList.get("Campus Map");
-        mapPane.getChildren().add(0, pathPane);
+    	//Load campus map from display list
+		display = FileIO.load("src" + resourceDir + "maps/txtfiles/fullCampusMap.txt", display);
+		// Put all these sets into fxml
+        pathPane.setMouseTransparent(true);
+        markerPane.setMouseTransparent(false);
+        markerPane.setPickOnBounds(true);
+        edgeLayer.setPickOnBounds(false);
+        nodeLayer.setPickOnBounds(false);
+		nodeLayer.setAlignment(Pos.TOP_LEFT);
+		iconLayer.setMouseTransparent(true);
 		//Set map image
-        mapView.setImage(new Image(resourceDir + "maps/images/" + display.getMap().getImgUrl()));
-		mapView.preserveRatioProperty().set(true);
-		//Update local bounds of the map view
-		localBounds = mapView.getBoundsInLocal();
-		//Updates display with nodes/edges
+		Coordinate lastdragged = new Coordinate(0);
+		Coordinate mydragged = new Coordinate(0);
 		updateDisplay(display.getGraph());
-		// center the mapScrollPane contents.
         
         //Setup event listeners for map
         setListeners();
+        ControllerSingleton.getInstance().getMenuPane().searchMenuPane.updateMapList(display.getMaps());
+
+		mapPane.setOnMousePressed(e -> {
+			if(!e.isSecondaryButtonDown()) return;
+			 lastview = invview;
+			 Coordinate in = new Coordinate((float)e.getX(), (float)e.getY());
+			 Coordinate sin = lastview.transform(in);
+			 mydragged.setAll(in.getX(), in.getY(), 0);
+			 lastdragged.setAll(sin.getX(), sin.getY(), 0);
+	     });
+		mapPane.setOnMouseDragged(e -> {
+			if(!e.isSecondaryButtonDown()) return;
+			Coordinate sin = new Coordinate((float)e.getX(), (float)e.getY());
+			Coordinate in = lastview.transform(sin);
+			if(e.isControlDown()){
+				zoom *= (1.0f - 0.01*(sin.getY() - mydragged.getY()));
+				render();
+				lastview = invview;
+			}
+			else if (e.isAltDown()){
+				rot += (0.4*(sin.getX() - mydragged.getX()));
+				render();
+				lastview = invview;
+			} else {
+				Coordinate delta = new Coordinate(in.getX() - lastdragged.getX(), in.getY() - lastdragged.getY());
+				translate.setAll((float) translate.getX() + delta.getX(), (float)translate.getY() + delta.getY(), translate.getZ());
+				render();
+			}
+			lastdragged.setAll(in.getX(), in.getY(), 0);
+			mydragged.setAll(sin.getX(), sin.getY(), 0);
+			
+		});
+		
+		mapPane.setOnMouseReleased(e -> {
+	    	 release.setAll((float)e.getX(), (float)e.getY(), 0);
+	     });
+		
+		mapPane.setOnScroll(v -> {
+			if(v.getDeltaY() > 0) {
+				zoom*=1.1; render();
+			}
+			else { zoom*=0.9; render(); }
+		});
+		
+		currentLevel.addListener(e -> {
+			ControllerSingleton.getInstance().getMainPane().setFloorSlider(currentLevel.get());
+		});
+		
+		view = new Matrix();
+		invview = new Matrix();
+        render();
     }
     
     /**
@@ -127,24 +230,295 @@ public class MapRootPane extends AnchorPane{
 	 * @param option Additional options to clear first or append onto current
 	 */
 	public void updateDisplay(Display newdisplay, String option){
-		// If the option is to clear the map first, do so
-		// otherwise, keep current content and just append
-		if(option.equals("NEW")){
-			mapPane.getChildren().clear();
-			//Update the current map image
-			updateMap(newdisplay.getMap());
-            mapPane.getChildren().addAll(pathPane, mapView);
-            localBounds = mapView.getBoundsInLocal();
+		updateDisplay(this.display.getGraph());
+	}
+
+
+	double renderavg1 = 0.0;
+	double renderavg2 = 0.0;
+	double renderavg3 = 0.0;
+	double renderavg4 = 0.0;
+	double renderavg5 = 0.0;
+
+
+	int renderavgcount = 0;
+	float almostIdentity( float x, float m, float n )
+	{
+	    if( x>m ) return x;
+
+	    float a = 2.0f*n - m;
+	    float b = 2.0f*m - 3.0f*n;
+	    float t = x/m;
+
+	    return (a*t + b)*t*t + n;
+	}
+	/**
+	 * Handles all the zoom/rotation/translation of objects on the map
+	 * and draws them onto map
+	 */
+	public void render(){
+		long time1 = System.nanoTime();
+		if(zoom < 0.4f) zoom = Math.abs(zoom);
+		if(zoom < 0.4f) zoom = 0.4f;
+		else if(zoom > 11.4f) zoom = 11.4f;
+		view = new Matrix().translate(new Coordinate((float)canvas.getWidth()/2.0f, (float)canvas.getHeight()/2.0f)).rotate(rot, 0.0f, 0.0f, 1.0f).scale(zoom).translate(new Coordinate(translate.getX(), translate.getY(), translate.getZ()));
+		invview = new Matrix(new Coordinate(-1.0f * translate.getX(), -1.0f *translate.getY(), -1.0f * translate.getZ())).scale(1.0/zoom).rotate(-rot, 0.0, 0.0, 1.0).translate(new Coordinate((float)canvas.getWidth()/-2.0f, (float)canvas.getHeight()/-2.0f));
+		long time2 = System.nanoTime();
+		//grab graphics context
+		GraphicsContext mygc = canvas.getGraphicsContext2D();
+		mygc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		mygc.setFill(Color.rgb(173, 221, 116));
+		mygc.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
+		long time3 = System.nanoTime();
+		ArrayList<Map> mlist = display.getMaps();
+		for(Map m : mlist){
+			
+			mygc.save();
+			if(m == null) continue;
+			if(m.getImage() == null) continue;
+			if(currentLevel.get() != 1 && m.getName().equals("Campus Map")) mygc.setGlobalAlpha(0.4);
+			else mygc.setGlobalAlpha(1);
+			
+			if(translate.getZ() > m.getCenter().getZ() + 0.1 || translate.getZ() < m.getCenter().getZ() - 0.1){
+				if(!m.getName().equals("Campus Map")) continue;
+			}
+			Coordinate c = view.transform(m.getCenter());
+			Rotate r = new Rotate(m.getRotation() + rot, 0, 0);
+			mygc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx() + c.getX(), r.getTy() + c.getY());
+			mygc.scale(zoom * m.getScale(), zoom * m.getScale());
+			
+			if(selectedMaps.contains(m) && isEditMode){
+				mygc.setGlobalAlpha(1);
+				DropShadow ds = new DropShadow();
+				ds.setColor(Color.RED);
+				ds.setRadius(50 / m.getScale());
+				ds.setSpread(0.5);
+				mygc.setEffect(ds);
+			}
+			mygc.drawImage(m.getImage(), 0, 0);
+			mygc.restore();
 		}
-		String mapName = newdisplay.getMap().getName();
-		if(mapName == null) mapName = newdisplay.getMap().getImgUrl();
-		//Put the new display into the display list. Replace current if it already exists
-		displayList.put(mapName, newdisplay);
-		//Current display is now the new one
-		this.display = newdisplay;
-		Graph g = newdisplay.getGraph();
-		//Draw new points onto map
-		updateDisplay(g);
+		long time4 = System.nanoTime();
+
+		for(javafx.scene.Node np: nodeLayer.getChildren()){
+			mygc.save();
+			NodeDisplay nd = (NodeDisplay)np;
+			if(nd == null) continue;
+			Node n = display.getGraph().returnNodeById(nd.getNode());
+			if(n == null) continue;
+			if(translate.getZ() > n.getCoordinate().getZ() + 0.1 || translate.getZ() < n.getCoordinate().getZ() - 0.1){
+				np.setVisible(false);
+				np.setMouseTransparent(true);
+				continue;
+			} else {
+				if(isEditMode){
+					np.setVisible(true);
+					np.setMouseTransparent(false);
+					if(n == null){ nodeLayer.getChildren().remove(np); continue; }
+					Coordinate nc = view.transform(n.getCoordinate());
+					nd.setCenterX(nc.getX()- 5.0f);
+					nd.setCenterY(nc.getY()- 5.0f);
+				}
+				else {
+					Image icon = null;
+					if(n.isMens()) icon = new Image(Icon.m_bathroom);
+					else if(n.isWomens()) icon = new Image(Icon.f_bathroom);
+					Coordinate c = view.transform(n.getCoordinate());
+					if(icon != null) {
+						Rotate r = new Rotate(0, 0, 0);
+						mygc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx() + c.getX(), r.getTy() + c.getY());
+						System.out.println("Zoom: " + zoom);
+//						if(zoom > max) mygc.scale(max/2, max/2);
+//						else if(zoom < min) mygc.scale(min/2, min/2);
+//						else mygc.scale((zoom/2), (zoom/2));
+						mygc.scale(almostIdentity(zoom, 5, (float)3)/25, almostIdentity(zoom, 5, (float)3)/25);
+						mygc.drawImage(icon, -(icon.getWidth()/2), -(icon.getHeight())/2);
+					}
+				}
+				mygc.restore();
+			}
+		}
+		
+		if(isEditMode){
+			markerPane.setMouseTransparent(false);
+			markerPane.setVisible(false);
+			edgeLayer.setVisible(true);
+			nodeLayer.setVisible(true);
+			nodeLayer.setMouseTransparent(false);
+			iconLayer.setMouseTransparent(true);
+			mygc.save();
+
+			Set<EdgeDisplay> toRemove = new HashSet<>();
+			for(javafx.scene.Node ep: edgeLayer.getChildren()){
+				EdgeDisplay ed = (EdgeDisplay)ep;
+				if(ed == null) continue;
+				Edge e = display.getGraph().returnEdgeById(ed.getEdge());
+				if(e == null){ toRemove.add((EdgeDisplay) ep); continue; }
+				Node A = display.getGraph().returnNodeById(e.getNodeA());
+				Node B = display.getGraph().returnNodeById(e.getNodeB());
+				if(A == null || B == null){
+					display.getGraph().deleteEdge(e.getId());
+					toRemove.add((EdgeDisplay) ep); 
+					continue; 
+				}
+				if((translate.getZ() > A.getCoordinate().getZ() + 0.1 || translate.getZ() < A.getCoordinate().getZ() - 0.1) && (translate.getZ() > B.getCoordinate().getZ() + 0.1 || translate.getZ() < B.getCoordinate().getZ() - 0.1)){
+					ep.setVisible(false);
+					ep.setMouseTransparent(true);
+					continue;
+				} else {
+					ep.setVisible(true);
+					ep.setMouseTransparent(false);
+					Coordinate ac = view.transform(A.getCoordinate());
+					Coordinate bc = view.transform(B.getCoordinate());
+					ed.setStartX(ac.getX());
+					ed.setStartY(ac.getY());
+					ed.setEndX(bc.getX());
+					ed.setEndY(bc.getY());
+				}
+			}
+			edgeLayer.getChildren().removeAll(toRemove);
+			mygc.restore();
+		} else { 
+			markerPane.setVisible(true);
+			markerPane.setMouseTransparent(false);
+			edgeLayer.setVisible(false); 
+			nodeLayer.setVisible(false); 
+		
+			Node last = null;
+
+			if(currentRoute != null){
+				for(Id id : currentRoute){
+					mygc.save();
+					boolean difflevel = false;
+					Node A = display.getGraph().returnNodeById(id);
+					if(A == null) continue;
+					if(last == null){
+						last = A;
+						continue;
+					}
+					Coordinate ac = view.transform(A.getCoordinate());
+					Coordinate bc = view.transform(last.getCoordinate());
+					if(last.getCoordinate().getZ() > A.getCoordinate().getZ()) {
+						Image icon = new Image(Icon.stairsDown);
+						mygc.drawImage(icon, (ac.getX() + bc.getX())/2, (ac.getY() + bc.getY())/2 -(icon.getHeight()/2));//add going down icon
+					}
+					else if (last.getCoordinate().getZ() < A.getCoordinate().getZ()) {
+						Image icon = new Image(Icon.stairsUp);
+						mygc.drawImage(icon, (ac.getX() + bc.getX())/2, (ac.getY() + bc.getY())/2); //add going up icon
+					}
+					if((translate.getZ() > A.getCoordinate().getZ() + 0.1 || translate.getZ() < A.getCoordinate().getZ() - 0.1) && (translate.getZ() > last.getCoordinate().getZ() + 0.1 || translate.getZ() < last.getCoordinate().getZ() - 0.1)){
+						difflevel = true;
+						
+						last = A;
+						continue;
+					}
+					mygc.setLineWidth(5.0f);
+	                if(isPirateMode) {
+	                    mygc.setFill(Color.RED);
+	                    if(difflevel) mygc.setStroke(Color.RED.deriveColor(0.5, 1, 0.9, 0.4));
+	                    else mygc.setStroke(Color.RED);
+	                    mygc.setLineDashes(10);
+	                } else {
+	                    mygc.setFill(Color.BLUE);
+	                    if(difflevel) mygc.setStroke(Color.BLUE.deriveColor(0.5, 1, 0.9, 0.4));
+	                    else mygc.setStroke(Color.BLUE);
+	                    mygc.setLineDashes(null);
+	                }
+					mygc.strokeLine(ac.getX(), ac.getY(), bc.getX(), bc.getY());
+					
+					last = A;
+					mygc.restore();
+				}
+			}
+
+			for(javafx.scene.Node mp: markerPane.getChildren()){
+				MarkerDisplay md = (MarkerDisplay)mp;
+				mp.setOpacity(1.0);
+				if(mp == null) continue;
+				if(translate.getZ() > md.z + 0.1 || translate.getZ() < md.z - 0.1){
+					//mp.setVisible(false);
+					mp.setOpacity(0.4);
+					mp.setMouseTransparent(true);
+					//continue;
+				}
+					//mp.setVisible(true);
+					mp.setMouseTransparent(false);
+					Coordinate c = view.transform(new Coordinate((float)md.x, (float)md.y, (float)md.z));
+					mp.setScaleX(0.6);
+					mp.setScaleY(0.6);
+					mp.setTranslateX(c.getX() - (md.getImage().getWidth()/2));
+					mp.setTranslateY(c.getY() - md.getImage().getHeight()/1.25);
+				
+			}
+
+
+			//render big red X
+			if(currentRoute != null){
+				mygc.save();
+				Node mest = null;
+				int i = currentRoute.size()-1;
+				if(i >= 0)for(mest = display.getGraph().returnNodeById(currentRoute.get(i)); mest == null && i >= 0; i--);
+				if(mest != null) {
+					Id endPointId = currentRoute.get(i);
+					Coordinate endPoint = display.getGraph().returnNodeById(endPointId).getCoordinate();
+					if(!(translate.getZ() > endPoint.getZ() + 0.1 || translate.getZ() < endPoint.getZ() - 0.1)){
+						Coordinate c = view.transform(mest.getCoordinate());
+						mygc.save();
+						mygc.setGlobalAlpha(1);
+						//Rotate r = new Rotate(rot, 0, 0);
+						//mygc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx() + c.getX(), r.getTy() + c.getY());
+						Rotate r = new Rotate(0, 0, 0);
+						mygc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx() + c.getX(), r.getTy() + c.getY());
+						endImg = new Image(MarkerDisplay.endImg);
+						if(isPirateMode) endImg = new Image(MarkerDisplay.pirate_endImg);
+						mygc.scale(0.5, 0.5);
+						//mygc.drawImage(endImg, c.getX() - endImg.getWidth() / 2.0, c.getY() - endImg.getHeight() / 2.0);
+						mygc.drawImage(endImg, -endImg.getWidth() / 2.0, -endImg.getHeight() / 2.0);
+						mygc.restore();
+					}
+					else mygc.setGlobalAlpha(0.4);
+				}
+				mygc.restore();
+			}
+			mygc.save();
+			Image c;
+			mygc.setGlobalAlpha(1.0);
+			mygc.translate(canvas.getWidth()/1.15, 0); //guess on these lol
+			mygc.translate(compass_ring.getWidth()/2, 129.21); //129.21 is the center of the circle on image
+			mygc.rotate(rot);
+			mygc.drawImage(compass_ring, -compass_ring.getWidth()/2, -129.21);
+			mygc.restore();
+			if(isPirateMode) c = compass_pirate;
+			else c = compass;
+			mygc.save();
+			mygc.translate(canvas.getWidth()/1.152, 0);
+			mygc.drawImage(c, 0, 0);
+			mygc.restore();
+		}
+		long time10 = System.nanoTime();
+		renderavg1 += (double)(time10 - time1);
+		renderavg2 += (double)(time2 - time1);
+		renderavg3 += (double)(time3 - time2);
+		renderavg4 += (double)(time4 - time3);
+		renderavg5 += (double)(time10 - time4);
+
+		renderavgcount++;
+//		if(renderavgcount >= 100){
+//			System.out.println("Render averages in ms: ");
+//			System.out.println("Avg1 " + (renderavg1 * 0.001) / (double) renderavgcount);
+//			System.out.println("Avg2 " + (renderavg2 * 0.001) / (double) renderavgcount);
+//			System.out.println("Avg3 " + (renderavg3 * 0.001) / (double) renderavgcount);
+//			System.out.println("Avg4 " + (renderavg4 * 0.001) / (double) renderavgcount);
+//			System.out.println("Avg5 " + (renderavg5 * 0.001) / (double) renderavgcount);
+//
+//			renderavg1 = 0.0;
+//			renderavg2 = 0.0;
+//			renderavg3 = 0.0;
+//			renderavg4 = 0.0;
+//			renderavg5 = 0.0;
+//
+//			renderavgcount = 0;
+//		}
 	}
 	/**
 	 * Internal updater/Helper function
@@ -152,75 +526,42 @@ public class MapRootPane extends AnchorPane{
 	 * @param g 
 	 */
 	private void updateDisplay(Graph g){
-		addEdgeDisplayFromList(g, g.getEdges());
 		addNodeDisplayFromList(g.getNodes());
+		addEdgeDisplayFromList(g, g.getEdges());
 	}
 
-	/**
-	 * Updates the map and the current map view
-	 * TODO Figure out a cleaner way to manage maps
-	 * @param newmap
-	 */
-	private void updateMap(Map newmap){
-		if(newmap.getImgUrl() != display.getMap().getImgUrl()){
-			mapView.setImage(new Image(resourceDir + "maps/images/" +  newmap.getImgUrl()));
-        }
+	public void placeMarker(Node n){
+		markerPane.getChildren().clear();
+		currentRoute = null;
+		Coordinate nc = n.getCoordinate();
+		markerPane.getChildren().add(new MarkerDisplay(nc.getX(), nc.getY(), nc.getZ(), Marker.SELECT));
+		render();
 	}
 	
-	/**
-	 * Preloads all the txt files in resources package and
-	 * stores them as display objects
-	 */
-	private void loadDisplays(){
-		
-		displayList = new HashMap<String, Display>();
-		// TODO the best way to do this is to look at a folder in the resources directory that holds all the txt files
-		// get each file name, and then store them in a string array. Then begin to load the display objects into a Hash
-		String[] fileNames = {"fullCampusMap", "projCenterFloorOne", "projCenterFloorTwo3"};
-		//This should be done in FileIO...?
-		File resources = new File("src" + resourceDir + "maps/txtfiles");
-		String[] lof = resources.list();
-		System.out.println(lof);
-		for(String file : lof){
-			String path = "src" + resourceDir + "maps/txtfiles/" + file;
-			Display d = FileIO.load(path, null);
-			String mapName = d.getMap().getName();
-			if(mapName == null) mapName = d.getMap().getImgUrl();
-			displayList.put(mapName, d);
-		}
+	public void placeStartMarker(Node n){
+		markerPane.getChildren().clear();
+		currentRoute = null;
+		Coordinate nc = n.getCoordinate();
+		startMarker = new MarkerDisplay(nc.getX(), nc.getY(), nc.getZ(), Marker.START);
+		startMarker.setNodePoint(n.getId());
+		System.out.println("start set");
+		//nodeQueue.clear();
+		//nodeQueue.add(e)
+		markerPane.getChildren().add(startMarker);
+		render();
 	}
 	
-    /**
-     * "Zoom" into map by pressing the "+" button
-     * TODO scaling cuts off map at a certain point.
-     * TODO Make it so that this works with scrolling on map
-     * @param e event
-     */
-    /*
-	@FXML
-    private void zoomInAction(ActionEvent e){
-    	//mapPane.setPrefSize(mapPane.getWidth() * 1.2, mapPane.getHeight() * 1.2);
-    	mapScrollPane.setVmax(mapScrollPane.getHeight() * 1.1);
-    	mapScrollPane.setHmax(mapScrollPane.getWidth() * 1.1);
-    	mapPane.setScaleY(mapPane.getScaleY() * 1.1);
-    	mapPane.setScaleX(mapPane.getScaleX() * 1.1);
-    }
-    /**
-     * "Zoom" out of map by pressing the "-" button
-     * TODO scaling cuts off map at a certain point.
-     * TODO Make it so that this works with scrolling on map
-     * @param e event
-     */
-    @FXML
-    /*
-    private void zoomOutAction(ActionEvent e){
-    	//mapPane.setPrefSize(mapPane.getWidth() * 0.8, mapPane.getHeight() * 0.8);
-    	mapScrollPane.setVmax(mapScrollPane.getHeight() * 0.9);
-    	mapScrollPane.setHmax(mapScrollPane.getWidth() * 0.9);
-    	mapPane.setScaleY(mapPane.getScaleY() * 0.9);
-    	mapPane.setScaleX(mapPane.getScaleX() * 0.9);
-    }
-    */
+	public void placeEndMarker(Node n){
+//		markerPane.getChildren().clear();
+//		currentRoute = null;
+//		Coordinate nc = n.getCoordinate();
+//		startMarker = new MarkerDisplay(nc.getX(), nc.getY(), nc.getZ(), Marker.START);
+//		startMarker.setNodePoint(n.getId());
+//		markerPane.getChildren().add(startMarker);
+		drawPath(startMarker.getNodePoint(), n.getId());
+		render();
+	}
+	
     /**
      * Sets up event listener functions for whenever user does something on the mapPane/mapView
      * 
@@ -231,83 +572,141 @@ public class MapRootPane extends AnchorPane{
      */
     private void setListeners(){
     	// Listen to when the user clicks on the map
-    	mapView.setOnMouseClicked(e -> {
+    	Coordinate lastdragged = new Coordinate(0);
+		Coordinate mydragged = new Coordinate(0);
+    	canvas.setOnMousePressed(e -> {
+    		Map nearestMap = null;
+    		if(!selectedMaps.isEmpty() && ControllerSingleton.getInstance().getMapDevToolPane().isVisible()) nearestMap = selectedMaps.get(0);
+    		else selectedMaps.clear();
+    		Coordinate click = invview.transform(new Coordinate((float)e.getX(), (float)e.getY()));
+			//nearestMap = display.getNearestMap(click, currentLevel);
+			if(e.getButton() == MouseButton.PRIMARY && isEditMode && ControllerSingleton.getInstance().getMapDevToolPane().isVisible()){
+				//select map
+				lastview = invview;
+				if(!e.isShiftDown()) selectedMaps.clear();
+				if(nearestMap == null) return;
+				if(isEyedrop){
+					System.out.println("EYEDROP");
+					int eyedroppedColor = 0;//nearestMap.getColor(click);
+					//ControllerSingleton.getInstance().getMapDevToolPane().setEyedroppedColor(eyedroppedColor);
+				} else {
+					
+	    			if(selectedMaps.contains(nearestMap)) selectedMaps.remove(nearestMap);
+	    			else if(nearestMap != null) selectedMaps.add(nearestMap);
+	    			ControllerSingleton.getInstance().getMenuPane().getDevToolsMenuPane().getMapDevToolPane().setMap(nearestMap);
+	    			
+		   			 Coordinate in = new Coordinate((float)e.getX(), (float)e.getY());
+		   			 Coordinate sin = lastview.transform(in);
+		   			 mydragged.setAll(in.getX(), in.getY(), 0);
+		   			 lastdragged.setAll(sin.getX(), sin.getY(), 0);
+				}
+    			
+			}
+    		
+	     });
+		canvas.setOnMouseDragged(e -> {
+			if(e.getButton() == MouseButton.PRIMARY && isEditMode && ControllerSingleton.getInstance().getMapDevToolPane().isVisible()){
+				Coordinate sin = new Coordinate((float)e.getX(), (float)e.getY());
+				Coordinate in = lastview.transform(sin);
+				Coordinate delta = new Coordinate(0);
+				float deltaZoom = 0;
+				float deltaRot = 0;
+				if(e.isControlDown()){
+					deltaZoom += (0.001*(sin.getY() - mydragged.getY()));
+					render();
+					lastview = invview;
+				}
+				else if (e.isAltDown()){
+					deltaRot += (0.4*(sin.getX() - mydragged.getX()));
+					render();
+					lastview = invview;
+				} else {
+					delta = new Coordinate(in.getX() - lastdragged.getX(), in.getY() - lastdragged.getY());
+					
+				}
+				for(Map m : selectedMaps){
+					Coordinate c = m.getCenter();
+					m.setRotation(m.getRotation() + deltaRot);
+					m.setScale(m.getScale() + deltaZoom);
+					m.getCenter().setAll((float) c.getX() + delta.getX(), (float)c.getY() + delta.getY(), c.getZ());
+					render();
+				}
+				lastdragged.setAll(in.getX(), in.getY(), 0);
+				mydragged.setAll(sin.getX(), sin.getY(), 0);
+			}
+
+		});
+		
+		canvas.setOnMouseReleased(e -> {
+			if(e.getButton() == MouseButton.PRIMARY && isEditMode){
+				release.setAll((float)e.getX(), (float)e.getY(), 0);
+			}
+	     });
+    	canvas.setOnMouseClicked(e -> {
     		//If user did not click-drag on map
     		if(e.isStillSincePress()){
-    			//TODO Add marker on map
-    			
-    			if (isAddMode && isNodeEditor && e.getButton() == MouseButton.PRIMARY) {
-	                addNodeDisplay(e.getX(), e.getY());
+       			if (isEditMode && e.getButton() == MouseButton.PRIMARY && !ControllerSingleton.getInstance().getMapDevToolPane().isVisible()) {
+    				addNodeDisplay(e.getX(), e.getY());
 	            }
-	    		else if (isEditMode && isNodeEditor){
-	    			if(!nodeQueue.isEmpty()){
-	    				System.out.println("Editing node");
-	    				NodeDisplay n = nodeQueue.poll();
-	    				Graph g = display.getGraph();
-	    				//Coordinate currentCoord = g.returnNodeById(n.getNode()).getCoordinate();
-	    				//Matrix transform = new Matrix(currentCoord);
-	    				//Coordinate newCoord = transform.transform(new Coordinate((float) e.getX(), (float) e.getY()));
-	    				//n.setCenterX(newCoord.getX());
-	    				//n.setCenterY(newCoord.getY());
-	    				n.setCenterX(e.getX() - localBounds.getMaxX()/2);
-	    				n.setCenterY(e.getY() - localBounds.getMaxY()/2);
-	    				display.getGraph().editNode(n.getNode(),
-	    						new Coordinate((float) e.getX(), (float)e.getY()));
-	    				SelectEvent selectNodeEvent = new SelectEvent(SelectEvent.NODE_DESELECTED);
-	    				n.fireEvent(selectNodeEvent);
-	    			}
+       			/* Single click event always fires so it does that and then the zoom
+	    		else if(e.getClickCount() == 2){
+	    			e.consume();
+	    			//TODO if on building -> zoomyspin onto building
+	    			//else, standard zoom in
+	    			isZooming = true;
+	    			nodeQueue.clear();
+	    			ControllerSingleton.getInstance().getMainPane().zitl.setCycleCount(10);
+	    			ControllerSingleton.getInstance().getMainPane().zitl.setOnFinished(ev -> {
+	    				currentRoute = null;
+	    				isZooming = false;
+	    			});
+	    			ControllerSingleton.getInstance().getMainPane().zitl.play();
+	    			ControllerSingleton.getInstance().getMainPane().zitl.setCycleCount(Timeline.INDEFINITE);
+	    			
+	    			render();
 	    		}
-    		}
-    		//If user double-click
-    		else{
-
+	    		*/
     		}
     	});
-    	//Listen if editor pane sent out an Add/Edit/Delete event
-    	//TODO remove later to work with new way
-    	mapPane.addEventFilter(EditorEvent.EDIT_ELEMENT, e -> {
-    		String eventName = e.getEventType().getName();
-    		if(eventName == "ADD") isAddMode = true;
-    		else isAddMode = false;
-    		if(eventName == "EDIT") isEditMode = true;
-    		else isEditMode = false;
-    		if(eventName == "DELETE") isDeleteMode = true;
-    		else isDeleteMode = false;
-    		System.out.println(e.getEventType());
+    	
+    	markerPane.setOnMouseClicked(e -> {
+    		if (e.getClickCount() == 2) e.consume();
+    		else if (!isEditMode && e.getButton() == MouseButton.PRIMARY) {
+    			//Select nearest node on map
+    			int level = currentLevel.getValue().intValue();
+    			Coordinate click = invview.transform(new Coordinate((float)e.getX(), (float)e.getY()));
+    			Id nearestNodeId = display.getGraph().GetNearestNode(click, currentLevel.getValue().intValue());
+    			Node nearestNode = display.getGraph().returnNodeById(nearestNodeId);
+    			if (endMarker != null && startMarker != null){
+    				startMarker = null;
+    				endMarker = null;
+    				if(currentRoute != null) currentRoute.clear();
+    				markerPane.getChildren().clear();
+    			}
+    			if(startMarker != null && endMarker == null) {
+    				endMarker = new MarkerDisplay(nearestNode.getCoordinate().getX(), nearestNode.getCoordinate().getY(), level, Marker.END);
+    				endMarker.setNodePoint(nearestNodeId);
+    				drawPath(startMarker.getNodePoint(), endMarker.getNodePoint());
+    				//markerPane.getChildren().add(endMarker);
+    			}
+    			if(startMarker == null && nodeQueue.size() == 0) {
+    				//snap to nearest available node
+    				markerPane.getChildren().clear();
+    				startMarker = new MarkerDisplay(nearestNode.getCoordinate().getX(), nearestNode.getCoordinate().getY(), level, Marker.START);
+    				startMarker.setNodePoint(nearestNodeId);
+    				markerPane.getChildren().add(startMarker);
+    				currentRoute.clear();
+    				
+    			} else { nodeQueue.clear(); }
+    			render();
+    		}
     	});
-    	//Listen if editor pane sent out an Map/Node/Edge event
-    	//TODO do something with it. right now it only gets the name
-    	//		remove later to work with new way
-    	mapPane.addEventFilter(EditorEvent.DISPLAY_ITEM, e -> {
-    		String eventName = e.getEventType().getName();
-    		if(eventName == "MAP") isMapEditor = true;
-    		else isMapEditor = false;
-    		if(eventName == "NODE") isNodeEditor = true;
-    		else isNodeEditor = false;
-    		if(eventName == "EDGE") isEdgeEditor = true;
-    		else isEdgeEditor = false;
-
-    	});
-
-    	mapPane.addEventFilter(EditorEvent.DRAW_EDGES, e -> {
+    	
+    	edgeLayer.addEventFilter(EditorEvent.DRAW_EDGES, e -> {
     		if(isEdgeEditor) addEdgeDisplayFromQueue();
     	});
     }
-
-    /**
-     * Re-translates whatever object to it's intended place on the map
-     * @param x
-     * @param y
-     */
-    public void move(javafx.scene.Node obj, double x, double y){
-        Bounds localBounds = mapView.getBoundsInLocal();
-        System.out.println("MOVING");
-        System.out.println(localBounds.getMinX() + " " + localBounds.getMinY());
-        System.out.println(localBounds.getMaxX() + " " + localBounds.getMaxY());
-        obj.setTranslateX(x - localBounds.getMaxX() / 2);
-        obj.setTranslateY(y - localBounds.getMaxY() / 2);
-
-    }
+    
 
 	/**
 	 * Add a NodeDisplay using existing Node
@@ -317,56 +716,15 @@ public class MapRootPane extends AnchorPane{
 		Node[] nodeArr = new Node[nodes.size()];
 		nodes.toArray(nodeArr); // To avoid ConcurrentModificationException
 		for(Node n : nodeArr){
-			Coordinate c = null;
-			try{
-				c = n.getCoordinate();
-			} catch (NullPointerException e){
-				continue;
-			}
-			 
-			//addNodeDisplay(c.getX(), c.getY());
-			
-			double tx = c.getX() - localBounds.getMaxX()/2;
-			double ty = c.getY() - localBounds.getMaxY()/2;
-			
+			if(n == null) continue;
+			Coordinate c = n.getCoordinate();
 			NodeDisplay newNode = new NodeDisplay(display, n.getId(),
-					new SimpleDoubleProperty(tx), 
-					new SimpleDoubleProperty(ty),
-					new SimpleDoubleProperty(0));
-			newNode.setTranslateX(tx);
-			newNode.setTranslateY(ty);
-		    newNode.centerXProperty().addListener(e -> {
-		    	newNode.setTranslateX(newNode.getCenterX());
-		    });
-		    newNode.centerYProperty().addListener(e -> {
-		    	newNode.setTranslateY(newNode.getCenterY());
-		    });
-	        newNode.addEventFilter(SelectEvent.NODE_SELECTED, event -> {
-	           System.out.println("Node Selected");
-		       newNode.selectNode();
-			   nodeQueue.add(newNode);
-			   // Add selected node to selected node queue
-			   mainPane.getNodeTool().displayNodeInfo(newNode);
-	        });
-	        
-	        newNode.addEventFilter(SelectEvent.NODE_DESELECTED, event -> {
-	            nodeQueue.remove(newNode);
-	        });
-	        
-	        newNode.addEventFilter(EditorEvent.DELETE_NODE, event -> {
-	        	System.out.println("Node deleted");
-	        	Graph g = display.getGraph();
-	        	Id id = newNode.getNode();
-	        	Vector<Id> edges = g.returnNodeById(id).getEdgelist();
-	        	//for(int i = 0; i < edges.size(); i++)  g.deleteEdge(edges.get(i));
-	        	g.deleteNode(id);
-	        	mapPane.getChildren().remove(newNode);
-	        	//remove edge display as well
-	        	//right now this throws nullpointerexception.
-	        	updateDisplay(this.display, "NEW");
-	        	//mapPane.getChildren().remove();
-	        });
-	        mapPane.getChildren().add(newNode);
+					new SimpleDoubleProperty(c.getX()), 
+					new SimpleDoubleProperty(c.getY()),
+					new SimpleDoubleProperty(c.getZ()));
+			addNodeDisplayListeners(newNode);
+	        nodeLayer.getChildren().add(newNode);
+	        render();
 	    }
 	}
 
@@ -377,139 +735,152 @@ public class MapRootPane extends AnchorPane{
 	 * @param y
 	 */
 	void addNodeDisplay(double x, double y){
-		System.out.println("Added Node");
-		double tx = x - (localBounds.getMaxX() / 2);
-        double ty = y - (localBounds.getMaxY() / 2);
-		
+		float tx = (float) x;
+        float ty = (float) y;
+		Coordinate c = invview.transform(new Coordinate(tx, ty));
 		NodeDisplay newNode = new NodeDisplay(display, 
-				new SimpleDoubleProperty(tx), 
-				new SimpleDoubleProperty(ty),
-				new SimpleDoubleProperty(0));
-		newNode.setTranslateX(tx);
-		newNode.setTranslateY(ty);
-	    newNode.centerXProperty().addListener(e -> {
-	    	newNode.setTranslateX(newNode.getCenterX());
-	    });
-	    newNode.centerYProperty().addListener(e -> {
-	    	newNode.setTranslateY(newNode.getCenterY());
-	    });
-
-	    newNode.addEventFilter(SelectEvent.NODE_SELECTED, event -> {
-	    	
-	        if(isDeleteMode && isNodeEditor){
-	        	System.out.println("Node deleted");
-	        	Id id = newNode.getNode();
-	        	display.getGraph().deleteNode(id);
-	        	mapPane.getChildren().remove(newNode);
-	        	System.out.println(display.getGraph().getNodes().size());
-	        } else {
-	        	System.out.println("Node Selected");
-	        	newNode.selectNode();
-		        nodeQueue.add(newNode);
-		        System.out.println(newNode.getCenterX() + " " + newNode.getCenterY());
-		        // Add selected node to selected node queue
-		        mainPane.getNodeTool().displayNodeInfo(newNode);
-	        }
-
-	        //TODO stuff regarding info about the node clicked
-	        //if double-clicked
-	        //if in edit mode
-	        //if in add edge mode
-	        //	if 2 nodes are already selected when add edge is pressed,
-	        //	then create an edge between those two nodes
-	        //	if >2 nodes are selected, then edges will be added in order
-	        //	of selection
-	    });
-
-	    newNode.addEventFilter(SelectEvent.NODE_DESELECTED, event -> {
-	        nodeQueue.remove(newNode);
-	    });
-
-	    //newNode.visibleProperty().bind(showNodes.selectedProperty());
-
-	    // Add to the scene
-	    mapPane.getChildren().add(newNode);
+				new SimpleDoubleProperty(c.getX()), 
+				new SimpleDoubleProperty(c.getY()),
+				new SimpleDoubleProperty(currentLevel.doubleValue()));
+		addNodeDisplayListeners(newNode);
+	    nodeLayer.getChildren().add(newNode);
+	    render();
 	}
 
+	private void addNodeDisplayListeners(NodeDisplay nd){
+		Coordinate lastdragged = new Coordinate(0);
+		Coordinate mydragged = new Coordinate(0);
+		
+		nd.centerXProperty().addListener(e -> {
+	    	nd.setTranslateX(nd.getCenterX());
+	    });
+	    nd.centerYProperty().addListener(e -> {
+	    	nd.setTranslateY(nd.getCenterY());
+	    });
+	    
+	    nd.setOnMousePressed(e -> {
+	    	if(e.getButton() == MouseButton.PRIMARY && isEditMode){
+	    		lastview = invview;
+	   			 Coordinate in = new Coordinate((float)e.getX(), (float)e.getY());
+	   			 Coordinate sin = lastview.transform(in);
+	   			 mydragged.setAll(in.getX(), in.getY(), 0);
+	   			 lastdragged.setAll(sin.getX(), sin.getY(), 0);
+    		}
+	    });
+	    
+	    nd.setOnMouseDragged(e -> {
+	    	if(e.getButton() == MouseButton.PRIMARY && isEditMode){
+				Coordinate sin = new Coordinate((float)e.getX(), (float)e.getY());
+				Coordinate in = invview.transform(sin);
+				Graph g = display.getGraph();
+				
+				NodeDisplay[] list = new NodeDisplay[nodeQueue.size()];
+				nodeQueue.toArray(list);
+				for(NodeDisplay n : list){
+					if(n == null) continue;
+					if(n.getNode() == null) continue;
+					Node node = g.returnNodeById(nd.getNode());
+					if(node == null) continue;
+					Coordinate c = node.getCoordinate();
+					node.setCoordinate(new Coordinate(in.getX(), in.getY(), c.getZ()));
+				}
+				render();
+				lastdragged.setAll(in.getX(), in.getY(), 0);
+				mydragged.setAll(sin.getX(), sin.getY(), 0);
+			}
+	    });
+	    
+	    nd.setOnMouseReleased(e -> {
+			if(e.getButton() == MouseButton.PRIMARY && isEditMode){
+				release.setAll((float)e.getX(), (float)e.getY(), 0);
+			}
+			render();
+	     });
+	    
+	    nd.addEventFilter(SelectEvent.NODE, event -> {
+	    	
+	    	if(event.getEventType() == SelectEvent.PIVOT_NODE_SELECTED) {
+	    		if(currentPivot != null) currentPivot.deselectNode();
+	    		nd.selectPivot();
+	    		currentPivot = nd;
+	    	}
+	    	else if (event.getEventType() == SelectEvent.NODE_SELECTED){
+	    		nd.selectNode();
+		    	if(!isMultiSelectNodes && isEditMode){
+		    		NodeDisplay[] ndList = new NodeDisplay[nodeQueue.size()];
+		    		nodeQueue.toArray(ndList);
+		    		for(NodeDisplay n : ndList) {
+		    			n.fireEvent(new SelectEvent(SelectEvent.NODE_DESELECTED));
+		    		}
+		    		nodeQueue.clear();
+		    	}
+		    	
+			    nodeQueue.add(nd);
+			    if(nodeQueue.size() == 2 && !isEditMode){
+			    	//drawPath();
+			    	nodeQueue.clear();
+			    	nd.fireEvent(new SelectEvent(SelectEvent.NODE_DESELECTED));
+			    }
+	    	}
+		   
+		    ControllerSingleton.getInstance().displayInDev(nd);
+	    });
+	    
+	    nd.addEventFilter(SelectEvent.NODE_DESELECTED, event -> {
+	        nodeQueue.remove(nd);
+	    });
+
+	    nd.addEventFilter(EditorEvent.DELETE_NODE, event -> {
+        	if(isEditMode){
+	        	Graph g = display.getGraph();
+	        	Id id = nd.getNode();
+	        	g.deleteNode(id);
+	        	nodeLayer.getChildren().remove(nd);
+	        	render();
+        	}
+        });
+	}
+	
 	/**
 	 * Add EdgeDisplays from selected NodeQueue
 	 * Use to add a non-existing EdgeDisplay and Edge to the display
 	 */
-	void addEdgeDisplayFromQueue(){
+	public boolean addEdgeDisplayFromQueue(){
 		SelectEvent selectNodeEvent = new SelectEvent(SelectEvent.NODE_DESELECTED);
-	    if(!nodeQueue.isEmpty()){
-	        //System.out.println(nodeQueue.size());
-	        while(nodeQueue.size() > 1){
-	            NodeDisplay aND = nodeQueue.poll();
-	            NodeDisplay bND = nodeQueue.peek();
-	            Graph g = display.getGraph();
-	            Node a = g.returnNodeById(aND.getNode());
-	            Node b = g.returnNodeById(bND.getNode());
-	            DoubleProperty aLocX, aLocY, bLocX, bLocY;
-	            try{
-	            	aLocX = aND.centerXProperty();
-	                aLocY = aND.centerYProperty();
-	                bLocX = bND.centerXProperty();
-	                bLocY = bND.centerYProperty();
-	            }
-	            catch(NullPointerException exception){
-	                System.out.println("a thing broke");
-	                break;
-	            }
+		boolean addFromPivot = false;
+		int pollSize = 1;
+		if(currentPivot != null) { addFromPivot = true; pollSize = 0; }
+		else if(nodeQueue.isEmpty()) return false;
+        while(nodeQueue.size() > pollSize){
+        	NodeDisplay aND = nodeQueue.poll();
+    		NodeDisplay bND = nodeQueue.peek();
+        	if(addFromPivot) bND = currentPivot;
+            Graph g = display.getGraph();
+            Node a = g.returnNodeById(aND.getNode());
+            Node b = g.returnNodeById(bND.getNode());
 
-
-	            Id newEdge = g.addEdgeRint(a.getId(), b.getId());
-	            EdgeDisplay e = new EdgeDisplay(display, newEdge,
-	        			aLocX, aLocY,
-	                    bLocX, bLocY);
-	            e.setStroke(Color.BLUE);
-	            e.setTranslateX((aLocX.get() + bLocX.get())/2);
-	            e.setTranslateY((aLocY.get() + bLocY.get())/2);
-	            e.startXProperty().addListener(ev -> {
-	            	e.setTranslateX((aLocX.get() + bLocX.get())/2);
-	            });
-	            e.startYProperty().addListener(ev -> {
-	            	e.setTranslateY((aLocY.get() + bLocY.get())/2);
-	            });
-	            e.endXProperty().addListener(ev -> {
-	            	e.setTranslateX((aLocX.get() + bLocX.get())/2);
-	            });
-	            e.endYProperty().addListener(ev -> {
-	            	e.setTranslateY((aLocY.get() + bLocY.get())/2);
-	            });
-	            mapPane.getChildren().add(e);
-	            aND.fireEvent(selectNodeEvent);
-	            
-	            e.addEventFilter(SelectEvent.EDGE_SELECTED, ev -> {
-	            	if(isDeleteMode && isEdgeEditor){
-	            		System.out.println("Edge deleted");
-	    	        	Id id = e.getEdge();
-	    	        	display.getGraph().deleteEdge(id);
-	    	        	mapPane.getChildren().remove(e);
-	            	} else {
-	            		System.out.println("Edge selected");
-		            	e.selectEdge();
-		            	edgeQueue.clear();
-		            	edgeQueue.add(e);
-		            	//TODO @jules find a way to display edge information using new controller
-		            	//ControllerMediator cm = ControllerMediator.getInstance();
-		            	//cm.viewDisplayItem(e);
-	            	}
-	            });
-	            e.addEventFilter(SelectEvent.EDGE_DESELECTED, ev -> {
-	            	//do sth;
-	            	edgeQueue.remove(e);
-	            });
-	            
-	            e.addEventFilter(EditorEvent.DELETE_EDGE, ev -> {
-	            	mapPane.getChildren().remove(e);
-	            	display.getGraph().deleteEdge(e.getEdge());
-	            });
-	        }
-	        nodeQueue.remove().fireEvent(selectNodeEvent);;
-	    } else {
-	    	//TODO: Display message in editor that says no nodes are being selected
-	    }
+            Id newEdge = g.addEdgeRint(a.getId(), b.getId());
+            if(newEdge == null) {
+            	continue;
+            }
+            Coordinate start = view.transform(a.getCoordinate());
+	        Coordinate end = view.transform(b.getCoordinate());
+	        
+            EdgeDisplay e = new EdgeDisplay(display, newEdge, start, end);
+            e.setStartX(start.getX());
+    		e.setStartY(start.getY());
+    		e.setEndX(end.getX());
+    		e.setEndY(end.getY());
+    		
+            setEdgeDisplayListeners(e);
+            edgeLayer.getChildren().add(e);
+            aND.fireEvent(selectNodeEvent);
+        }
+        if(!addFromPivot) { nodeQueue.remove().fireEvent(selectNodeEvent); }
+        else currentPivot.deselectNode();
+        currentPivot = null;
+	    render();
+	    return true;
 	}
 
 	/**
@@ -521,108 +892,190 @@ public class MapRootPane extends AnchorPane{
 		Edge[] edgeArr = new Edge[edges.size()];
 		edges.toArray(edgeArr); // To avoid ConcurrentModificationException
 	    for(Edge edge : edgeArr){
-	    	Id aID, bID;
-	    	Coordinate aLoc, bLoc;
-	    	try{
-	    		aID = edge.getNodeA();
-		    	bID = edge.getNodeB();
-		    	Node a = graph.returnNodeById(aID);
-		        Node b = graph.returnNodeById(bID);
-		    	aLoc = a.getCoordinate();
-		        bLoc = b.getCoordinate();
-	    	} catch (NullPointerException e){
-	    		graph.deleteEdge(edge.getId());
-	    		continue;
-	    	}
-	        DoubleProperty aLocX, aLocY, bLocX, bLocY;
-	        aLocX = new SimpleDoubleProperty(aLoc.getX() - localBounds.getMaxX()/2);
-	        aLocY = new SimpleDoubleProperty(aLoc.getY() - localBounds.getMaxY()/2);
-	        bLocX = new SimpleDoubleProperty(bLoc.getX() - localBounds.getMaxX()/2);
-	        bLocY = new SimpleDoubleProperty(bLoc.getY() - localBounds.getMaxY()/2);
-	        //System.out.println("Edge size" + g.getEdges().size());
-	        EdgeDisplay e = new EdgeDisplay(display, aID, bID,
-	        		aLocX, aLocY, bLocX, bLocY);
-            
-            e.setStroke(Color.BLUE);
-            e.setTranslateX((aLocX.get() + bLocX.get())/2);
-            e.setTranslateY((aLocY.get() + bLocY.get())/2);
-            e.startXProperty().addListener(ev -> {
-            	e.setTranslateX((aLocX.get() + bLocX.get())/2);
-            });
-            e.startYProperty().addListener(ev -> {
-            	e.setTranslateY((aLocY.get() + bLocY.get())/2);
-            });
-            e.endXProperty().addListener(ev -> {
-            	e.setTranslateX((aLocX.get() + bLocX.get())/2);
-            });
-            e.endYProperty().addListener(ev -> {
-            	e.setTranslateY((aLocY.get() + bLocY.get())/2);
-            });
-            mapPane.getChildren().add(e);
-
-            e.addEventFilter(SelectEvent.EDGE_SELECTED, ev -> {
-            	System.out.println("Edge selected");
-            	e.selectEdge();
-            	edgeQueue.clear();
-            	edgeQueue.add(e);
-            	//TODO @jules same thing about viewing selected edge
-            	//ControllerMediator cm = ControllerMediator.getInstance();
-            	//cm.viewDisplayItem(e);
-            });
-
-            e.addEventFilter(SelectEvent.EDGE_DESELECTED, ev -> {
-            	//do sth;
-            	edgeQueue.remove(e);
-            });
-            
-            e.addEventFilter(EditorEvent.DELETE_EDGE, ev -> {
-            	mapPane.getChildren().remove(e);
-            	display.getGraph().deleteEdge(e.getEdge());
-            });
-     
+	    	if(edge == null) continue;
+	    	Id aID = edge.getNodeA();
+		    Id bID = edge.getNodeB();
+		    Node a = graph.returnNodeById(aID);
+		    Node b = graph.returnNodeById(bID);
+		    if(a == null || b == null){
+		    	graph.deleteEdge(edge.getId());
+		    	continue;
+		    }
+	        Coordinate start = a.getCoordinate();
+	        Coordinate end = b.getCoordinate();
+		    EdgeDisplay e = new EdgeDisplay(display, aID, bID, start, end);
+		    e.setStartX(start.getX());
+    		e.setStartY(start.getY());
+    		e.setEndX(end.getX());
+    		e.setEndY(end.getY());
+    		setEdgeDisplayListeners(e);
+		    edgeLayer.getChildren().add(e);
+		    
 	    }
+	   render();
 	}
-    /**
-     * Draws a path from the last two selected nodes
-     */
-	public void drawPath(){
+	
+	private void setEdgeDisplayListeners(EdgeDisplay e){
+		e.setStrokeWidth(5.0f);
+		e.setStroke(Color.AQUA);
+		e.addEventFilter(SelectEvent.EDGE_SELECTED, ev -> {
+        	e.selectEdge();
+        	EdgeDisplay[] edList = new EdgeDisplay[edgeQueue.size()];
+        	edgeQueue.toArray(edList);
+        	for(EdgeDisplay ed : edList) {
+        		ed.fireEvent(new SelectEvent(SelectEvent.EDGE_DESELECTED));
+        	}
+        	edgeQueue.clear();
+        	edgeQueue.add(e);
+        	//TODO display edge data on select
+        	ControllerSingleton.getInstance().displayInDev(e);
+        });
+
+        e.addEventFilter(SelectEvent.EDGE_DESELECTED, ev -> {
+        	edgeQueue.remove(e);
+        });
+        
+        e.addEventFilter(EditorEvent.DELETE_EDGE, ev -> {
+        	display.getGraph().deleteEdge(e.getEdge());
+        	edgeLayer.getChildren().remove(e);
+        	render();
+        });
+	}
+
+	public void drawFoodPath(){
 		pathPane.getChildren().clear();
-        NodeDisplay startNode = nodeQueue.poll();
-        NodeDisplay endNode = nodeQueue.poll();
-        if(startNode != null && endNode != null){
-            //display.drawPath(startNode.node.getId(), endNode.node.getId());
-            int idx = 0;
-            Vector<Node> nodes = display.getGraph().getNodes();
-            //System.out.println(nodes.size());
+		
+        //NodeDisplay startNode = nodeQueue.poll();
+        Id startPoint = startMarker.getNodePoint();
+        //NodeDisplay endNode = nodeQueue.poll();
+        //if(startNode != null && endNode != null && isZooming){
+            
+    	//int idx = 0;
+        //Vector<Node> nodes = display.getGraph().getNodes();
+    	
+        p = new Path(startPoint, null);
 
-            Path p = new Path(startNode.getNode(), endNode.getNode());
-            Graph g = display.getGraph();
-            //System.out.println("Size graph " + g.getEdges().size());
-            p.runAStar(g); //Change this later??
-            ArrayList<Id> idList = p.getRoute();
-            System.out.println("Route size " + idList.size());
-            while(idx < idList.size() - 1){
-            	Node a = g.returnNodeById(idList.get(idx));
-                Node b = g.returnNodeById(idList.get(++idx));
-                Coordinate aLoc = a.getCoordinate();
-                Coordinate bLoc = b.getCoordinate();
-                Line l = new Line(aLoc.getX(), aLoc.getY(),
-                                  bLoc.getX(), bLoc.getY());
-                l.setStrokeWidth(3.0);
-                l.setTranslateX((aLoc.getX() + bLoc.getX()) / 2);
-                l.setTranslateY((aLoc.getY() + bLoc.getY()) / 2);
-       
-                move(l, (aLoc.getX() + bLoc.getX())/2, (aLoc.getY() + bLoc.getY())/2);
-
-                pathPane.getChildren().add(l);
-                pathPane.toFront();
-                pathPane.setMouseTransparent(true);
-            }
-            SelectEvent selectNodeEvent = new SelectEvent(SelectEvent.NODE_DESELECTED);
-            startNode.fireEvent(selectNodeEvent);
-            endNode.fireEvent(selectNodeEvent);
+        Graph g = display.getGraph();
+        p.setEndNode(p.findNearestFood(startPoint, g));
+        if(ControllerSingleton.getInstance().getMapRootPane().isAccessibleMode){
+        	p.runAccessibleAStar(g);
         }
+        else p.runAStar(g); //Change this later??
+        currentRoute = p.getRoute();
+        render();
+
+        //startNode.fireEvent(selectNodeEvent);
+        //endNode.fireEvent(selectNodeEvent);
+        endMarker = null;
+        startMarker = null;
+        showDirections();
+	}
+	public void drawMensRoomPath(){
+		pathPane.getChildren().clear();
+		
+        //NodeDisplay startNode = nodeQueue.poll();
+        Id startPoint = startMarker.getNodePoint();
+        //NodeDisplay endNode = nodeQueue.poll();
+        //if(startNode != null && endNode != null && isZooming){
+            
+    	//int idx = 0;
+        //Vector<Node> nodes = display.getGraph().getNodes();
+    	
+        p = new Path(startPoint, null);
+
+        Graph g = display.getGraph();
+        p.setEndNode(p.findNearestMensRoom(startPoint, g));
+        if(ControllerSingleton.getInstance().getMapRootPane().isAccessibleMode){
+        	p.runAccessibleAStar(g);
+        }
+        else p.runAStar(g); //Change this later??
+        currentRoute = p.getRoute();
+        render();
+
+        //startNode.fireEvent(selectNodeEvent);
+        //endNode.fireEvent(selectNodeEvent);
+        endMarker = null;
+        startMarker = null;
+        showDirections();
+	}
+	public void drawWomensRoomPath(){
+		pathPane.getChildren().clear();
+		
+        //NodeDisplay startNode = nodeQueue.poll();
+        Id startPoint = startMarker.getNodePoint();
+        //NodeDisplay endNode = nodeQueue.poll();
+        //if(startNode != null && endNode != null && isZooming){
+            
+    	//int idx = 0;
+        //Vector<Node> nodes = display.getGraph().getNodes();
+    	
+        p = new Path(startPoint, null);
+
+        Graph g = display.getGraph();
+        p.setEndNode(p.findNearestWomensRoom(startPoint, g));
+        if(ControllerSingleton.getInstance().getMapRootPane().isAccessibleMode){
+        	p.runAccessibleAStar(g);
+        }
+        else p.runAStar(g); //Change this later??
+        currentRoute = p.getRoute();
+        render();
+
+        //startNode.fireEvent(selectNodeEvent);
+        //endNode.fireEvent(selectNodeEvent);
+        endMarker = null;
+        startMarker = null;
+        showDirections();
+	}
+	public void drawGenderNeutralRestroomPath(){
+		pathPane.getChildren().clear();
+		
+        //NodeDisplay startNode = nodeQueue.poll();
+        Id startPoint = startMarker.getNodePoint();
+        //NodeDisplay endNode = nodeQueue.poll();
+        //if(startNode != null && endNode != null && isZooming){
+            
+    	//int idx = 0;
+        //Vector<Node> nodes = display.getGraph().getNodes();
+    	
+        p = new Path(startPoint, null);
+
+        Graph g = display.getGraph();
+        p.setEndNode(p.findNearestGenderNeutralRestroom(startPoint, g));
+        if(ControllerSingleton.getInstance().getMapRootPane().isAccessibleMode){
+        	p.runAccessibleAStar(g);
+        }
+        else p.runAStar(g); //Change this later??
+        currentRoute = p.getRoute();
+        render();
+
+        //startNode.fireEvent(selectNodeEvent);
+        //endNode.fireEvent(selectNodeEvent);
+        endMarker = null;
+        startMarker = null;
+        showDirections();
+	}
+	
+	public void drawPath(Id nodeAId, Id nodeBId){
+		 p = new Path(nodeAId, nodeBId);
+	        Graph g = display.getGraph();
+	        if(ControllerSingleton.getInstance().getMapRootPane().isAccessibleMode){
+	        	p.runAccessibleAStar(g);
+	        }
+	        else p.runAStar(g); //Change this later??
+	        currentRoute = p.getRoute();
+	        render();
+	        showDirections();
 	}
 
-
+    @SuppressWarnings("unchecked")
+	public void showDirections(){
+    	if(p != null && p.getTextual() != null){
+    		ControllerSingleton.getInstance().getMenuPane().showDirections();
+    		ObservableList<String> pathList = FXCollections.observableList(p.getTextual());
+            ControllerSingleton.getInstance().getMenuPane().getDirectionsMenuPane().getdirectionsListView().setItems(pathList);
+    	}
+    }
+	public Path getPath(){
+		return this.p;
+	}
 }

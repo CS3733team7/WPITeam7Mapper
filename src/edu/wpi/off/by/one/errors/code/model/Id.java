@@ -11,5 +11,11 @@ public class Id {
 		indice = -1;
 		unique = -1;
 	}
+	public boolean compare(Id to){
+		return (to.indice == indice && to.unique == unique);
+	}
+	public int getIndice(){
+		return indice;
+	}
 
 }
