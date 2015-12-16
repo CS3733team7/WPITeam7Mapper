@@ -530,7 +530,7 @@ public ArrayList<Step> getSteps(){
 					}else{ 
 						res += ("Walk for " + Math.round(distFromTurn) + " paces " + (!n.getName().isEmpty() ? "towards" : "") + n.getName());
 					}
-					res += (" and make a slight " + (dxangle>=0 ? "right" : "left")+ " turn");
+					res += (" and make a slight " + (dxangle>=0 ? "right" : "left")+ " turn ");
 					Step step = new Step(n, lastNode);
 					step.setInstructions(res);
 					steps.add(step);
@@ -541,7 +541,7 @@ public ArrayList<Step> getSteps(){
 					if(!ControllerSingleton.getInstance().getMapRootPane().isPirateMode){
 						res += ("Walk for " + Math.round(distFromTurn) + " meters");
 					}else res += ("Walk for " + Math.round(distFromTurn) + " paces");
-					res += (" and  make a " + (dxangle>=0 ? "right" : "left")+ " turn");
+					res += (" and  make a " + (dxangle>=0 ? "right" : "left")+ " turn ");
 					distFromTurn = dist;
 					Step step = new Step(n, lastNode);
 					step.setInstructions(res);
@@ -552,7 +552,7 @@ public ArrayList<Step> getSteps(){
 					if(!ControllerSingleton.getInstance().getMapRootPane().isPirateMode){
 						res += ("Walk for " + Math.round(distFromTurn) + " meters");
 					}else res += ("Walk for " + Math.round(distFromTurn) + " paces");
-					res += (" and make a hard " + (dxangle>=0 ? "right" : "left")+ " turn");
+					res += (" and make a hard " + (dxangle>=0 ? "right" : "left")+ " turn ");
 					distFromTurn = dist;
 					Step step = new Step(n, lastNode);
 					step.setInstructions(res);
@@ -563,12 +563,13 @@ public ArrayList<Step> getSteps(){
 					if(!ControllerSingleton.getInstance().getMapRootPane().isPirateMode){
 						res += ("Walk for " + Math.round(distFromTurn) + " meters");
 					}else res += ("Walk for " + Math.round(distFromTurn) + " paces");
-					res += ("and make a sharp " + (dxangle>=0 ? "right" : "left")+ " turn");
+					res += (" and make a sharp " + (dxangle>=0 ? "right" : "left")+ " turn ");
 					distFromTurn = dist;
 					Step step = new Step(n, lastNode);
 					step.setInstructions(res);
 					steps.add(step);
 					lastNode = n;
+					res = "";
 				}
 			} else {
 				if((-45 <= angle && angle < 45)){
