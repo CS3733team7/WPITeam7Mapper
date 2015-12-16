@@ -228,7 +228,7 @@ p 1003.564941 963.959167 1.000000 _ a_ Atwater_Kent
 p 999.113037 960.929504 1.000000 _ a_ Atwater_Kent 
 p 996.542542 959.215820 1.000000 _ a_ Atwater_Kent 
 p 992.259338 957.087402 1.000000 _ a_ Atwater_Kent 
-p 1005.307251 954.974487 1.000000 Pumpkin_Lounge,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent a_ Atwater_Kent 
+p 1005.307251 954.974487 1.000000 Pumpkin_Lounge,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent a_ Atwater_Kent 
 p 992.448730 945.024231 1.000000 _ a_ Atwater_Kent 
 p 991.450684 947.548523 1.000000 _ a_ Atwater_Kent 
 p 986.021118 945.217651 1.000000 _ a_ Atwater_Kent 
@@ -247,7 +247,7 @@ p 1033.297119 943.688843 1.000000 _ a_ Atwater_Kent
 p 1029.707153 949.310120 1.000000 _ a_ Atwater_Kent 
 p 1027.186401 947.510315 1.000000 _ a_ Atwater_Kent 
 p 1026.746704 954.835571 1.000000 _ a_ Atwater_Kent 
-p 1029.638672 956.390320 1.000000 Robotics_Lab,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent a_ Atwater_Kent 
+p 1029.638672 956.390320 1.000000 Robotics_Lab,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent a_ Atwater_Kent 
 p 1029.036499 964.195984 1.000000 _ a_ Atwater_Kent 
 p 1035.181641 966.480713 1.000000 _ a_ Atwater_Kent 
 p 1043.225098 969.057617 1.000000 _ a_ Atwater_Kent 
@@ -284,7 +284,7 @@ p 1037.858276 947.126099 1.000000 _ a_ Atwater_Kent
 p 1041.990356 955.483215 1.000000 _ a_ Atwater_Kent 
 p 1033.583740 948.562622 1.000000 _ a_ Atwater_Kent 
 p 1019.113098 965.471680 1.000000 _ a_ Atwater_Kent 
-p 1015.234802 961.050659 1.000000 ak,Atwater_Kent,Atwater_Kent,Atwater_Kent a_ Atwater_Kent 
+p 1015.234802 961.050659 1.000000 ak,Atwater_Kent,Atwater_Kent,Atwater_Kent,Atwater_Kent,Atwater_Kent,Atwater_Kent a_ Atwater_Kent 
 p 1020.748840 958.262756 1.000000 _ a_ Atwater_Kent 
 p 1012.327942 954.549316 1.000000 _ a_ Atwater_Kent 
 p 1023.338074 952.982422 1.000000 _ a_ Atwater_Kent 
@@ -315,7 +315,7 @@ p 1000.079773 932.204773 2.000000 _ a_ Atwater_Kent
 p 996.386108 930.646362 2.000000 _ a_ Atwater_Kent 
 p 1004.336365 934.777100 2.000000 _ a_ Atwater_Kent 
 p 819.111572 1033.231567 1.000000 _ am_ Campus_Center 
-p 826.567749 1034.547363 1.000000 Women's_Bathroom,cc,Campus_Center,cc,Campus_Center,cc,Campus_Center aw_ Campus_Center 
+p 826.567749 1034.547363 1.000000 Women's_Bathroom,cc,Campus_Center,cc,Campus_Center,cc,Campus_Center,cc,Campus_Center,cc,Campus_Center,cc,Campus_Center aw_ Campus_Center 
 p 822.971252 1033.933228 1.000000 _ a_ Campus_Center 
 p 823.234375 1031.564819 1.000000 _ a_ Campus_Center 
 p 824.287048 1026.564819 1.000000 _ a_ Campus_Center 
@@ -331,13 +331,13 @@ p 820.690552 1020.687683 1.000000 _ a_ Campus_Center
 p 818.848450 1015.249084 1.000000 _ a_ Campus_Center 
 p 819.023865 1013.143799 1.000000 _ a_ Campus_Center 
 p 820.778259 1015.336792 1.000000 _ a_ Campus_Center 
-p 850.982910 1033.147095 1.000000 Octowedge,cc,Campus_Center,octowedge,fireplace,cc,Campus_Center,octowedge,fireplace,cc,Campus_Center,octowedge,fireplace a_ Campus_Center 
+p 850.982910 1033.147095 1.000000 Octowedge,cc,Campus_Center,octowedge,fireplace,cc,Campus_Center,octowedge,fireplace,cc,Campus_Center,octowedge,fireplace,cc,Campus_Center,octowedge,fireplace,cc,Campus_Center,octowedge,fireplace,cc,Campus_Center,octowedge,fireplace a_ Campus_Center 
 p 835.829651 1053.567017 1.000000 _ a_ 
 p 839.043396 1035.192261 1.000000 _ a_ Campus_Center 
 p 839.776978 1028.406494 1.000000 _ a_ Campus_Center 
 p 829.020691 1016.955322 1.000000 _ a_ Campus_Center 
 p 841.433228 1020.827148 1.000000 _ a_ Campus_Center 
-p 834.120178 1022.298157 1.000000 Helpdesk,cc,Campus_Center,helpdesk,infodesk,cc,Campus_Center,helpdesk,infodesk,cc,Campus_Center,helpdesk,infodesk a_ Campus_Center 
+p 834.120178 1022.298157 1.000000 Helpdesk,cc,Campus_Center,helpdesk,infodesk,cc,Campus_Center,helpdesk,infodesk,cc,Campus_Center,helpdesk,infodesk,cc,Campus_Center,helpdesk,infodesk,cc,Campus_Center,helpdesk,infodesk,cc,Campus_Center,helpdesk,infodesk a_ Campus_Center 
 p 831.412048 1027.545898 1.000000 _ a_ Campus_Center 
 p 825.085144 1026.508545 1.000000 _ a_ Campus_Center 
 p 825.786926 1022.648926 1.000000 _ a_ Campus_Center 
@@ -348,9 +348,9 @@ p 827.892212 1008.701599 1.000000 _ a_ Campus_Center
 p 829.295715 1006.333130 1.000000 _ a_ Campus_Center 
 p 830.260620 1032.912109 1.000000 _ a_ Campus_Center 
 p 843.593933 1011.947205 1.000000 _ a_ Campus_Center 
-p 851.225464 978.526184 1.000000 Dunkin'_Donuts,cc,Campus_Center,dunkin_donuts,cc,Campus_Center,dunkin_donuts,cc,Campus_Center,dunkin_donuts a_ Campus_Center 
+p 851.225464 978.526184 1.000000 Dunkin'_Donuts,cc,Campus_Center,dunkin_donuts,cc,Campus_Center,dunkin_donuts,cc,Campus_Center,dunkin_donuts,cc,Campus_Center,dunkin_donuts,cc,Campus_Center,dunkin_donuts,cc,Campus_Center,dunkin_donuts a_ Campus_Center 
 p 846.268005 986.148438 1.000000 _ af_ Campus_Center 
-p 855.660156 987.674683 1.000000 Bookstore,barnes&noble,bookstore,cc,Campus_Center,barnes&noble,bookstore,cc,Campus_Center,barnes&noble,bookstore,cc,Campus_Center a_ Campus_Center 
+p 855.660156 987.674683 1.000000 Bookstore,barnes&noble,bookstore,cc,Campus_Center,barnes&noble,bookstore,cc,Campus_Center,barnes&noble,bookstore,cc,Campus_Center,barnes&noble,bookstore,cc,Campus_Center,barnes&noble,bookstore,cc,Campus_Center,barnes&noble,bookstore,cc,Campus_Center a_ Campus_Center 
 p 982.599182 943.586487 1.000000 _ a_ Atwater_Kent 
 p 980.878540 936.621643 1.000000 _ a_ Atwater_Kent 
 p 986.079895 937.557617 1.000000 _ a_ Atwater_Kent 
@@ -375,13 +375,13 @@ p 977.005737 925.428589 1.000000 _ a_ Atwater_Kent
 p 989.322998 918.415222 1.000000 _ a_ Atwater_Kent 
 p 998.502136 923.599976 1.000000 _ a_ Atwater_Kent 
 p 998.824524 920.455872 1.000000 _ a_ Atwater_Kent 
-p 1001.572693 915.496948 1.000000 ak116,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent a_ Atwater_Kent 
-p 986.030029 907.212402 1.000000 Atwater_Kent,ak116,ak116,ak116 a_ Atwater_Kent 
+p 1001.572693 915.496948 1.000000 ak116,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent,ak,Atwater_Kent a_ Atwater_Kent 
+p 986.030029 907.212402 1.000000 Atwater_Kent,ak116,ak116,ak116,ak116,ak116,ak116 a_ Atwater_Kent 
 p 984.358887 911.300293 1.000000 _ a_ Atwater_Kent 
 p 976.186646 907.156250 1.000000 _ a_ Atwater_Kent 
 p 981.803406 914.533142 1.000000 _ a_ Atwater_Kent 
 p 988.130554 917.497131 1.000000 _ a_ Atwater_Kent 
-p 1001.432068 902.522644 1.000000 AK116,ak,Atwater_Kent,ak116,lecture_hall,Newell_Lecture_Hall,electronic_classroom,ak,Atwater_Kent,ak116,lecture_hall,Newell_Lecture_Hall,electronic_classroom,ak,Atwater_Kent,ak116,lecture_hall,Newell_Lecture_Hall,electronic_classroom a_ Atwater_Kent 
+p 1001.432068 902.522644 1.000000 AK116,ak,Atwater_Kent,ak116,lecture_hall,Newell_Lecture_Hall,electronic_classroom,ak,Atwater_Kent,ak116,lecture_hall,Newell_Lecture_Hall,electronic_classroom,ak,Atwater_Kent,ak116,lecture_hall,Newell_Lecture_Hall,electronic_classroom,ak,Atwater_Kent,ak116,lecture_hall,Newell_Lecture_Hall,electronic_classroom,ak,Atwater_Kent,ak116,lecture_hall,Newell_Lecture_Hall,electronic_classroom,ak,Atwater_Kent,ak116,lecture_hall,Newell_Lecture_Hall,electronic_classroom a_ Atwater_Kent 
 p 950.852966 1082.933105 1.000000 _ a_ Project_Center 
 p 944.449463 1083.284058 1.000000 _ a_ Project_Center 
 p 959.624878 1093.108643 1.000000 _ a_ Project_Center 
@@ -776,12 +776,12 @@ p 1067.775269 1009.521729 1.000000 _ a_ Fuller_Labs
 p 1068.779175 995.845337 1.000000 _ a_ Fuller_Labs 
 p 1072.403931 995.214966 1.000000 _ a_ Fuller_Labs 
 p 1076.028809 992.220581 1.000000 _ a_ Fuller_Labs 
-p 1079.653564 991.117371 1.000000 _ a_ Fuller_Labs 
-p 1083.751099 988.753418 1.000000 _ a_ Fuller_Labs 
-p 1090.263428 984.790649 0.000000 _ a_ Fuller_Labs 
-p 1093.255737 983.558533 0.000000 _ a_ Fuller_Labs 
+p 1079.653564 991.117371 1.000000 _ s_ Fuller_Labs 
+p 1083.751099 988.753418 1.000000 _ s_ Fuller_Labs 
+p 1090.263428 984.790649 0.000000 _ s_ Fuller_Labs 
+p 1093.255737 983.558533 0.000000 _ s_ Fuller_Labs 
 p 1074.707153 989.003479 1.000000 _ a_ Fuller_Labs 
-p 1098.536377 980.742188 0.000000 _ a_ Fuller_Labs 
+p 1098.536377 980.742188 0.000000 _ s_ Fuller_Labs 
 p 1106.809326 975.637573 -1.000000 _ a_ Fuller_Labs 
 p 1108.569580 974.757446 -1.000000 _ a_ Fuller_Labs 
 p 1113.694824 974.411926 1.000000 _ a_ Fuller_Labs 
@@ -821,7 +821,7 @@ p 1086.430298 943.995422 1.000000 _ a_ Fuller_Labs
 p 1090.685425 948.092957 1.000000 _ a_ Fuller_Labs 
 p 1091.788574 951.244934 1.000000 _ a_ Fuller_Labs 
 p 1071.773560 997.736511 1.000000 _ a_ Fuller_Labs 
-p 1074.610352 1006.089233 1.000000 IMGD_Lab,fuller,fuller_labs,fuller,fuller_labs,fuller,fuller_labs a_ Fuller_Labs 
+p 1074.610352 1006.089233 1.000000 IMGD_Lab,fuller,fuller_labs,fuller,fuller_labs,fuller,fuller_labs,fuller,fuller_labs,fuller,fuller_labs,fuller,fuller_labs a_ Fuller_Labs 
 p 1093.837402 986.862244 1.000000 _ a_ Fuller_Labs 
 p 1097.146973 991.905396 1.000000 _ a_ Fuller_Labs 
 p 1093.049438 993.481323 1.000000 _ a_ Fuller_Labs 
@@ -1046,8 +1046,8 @@ p 1094.901733 983.158630 0.000000 _ a_ Fuller_Labs
 p 1093.565796 980.853882 0.000000 _ a_ Fuller_Labs 
 p 1096.671509 976.827576 0.000000 _ a_ Fuller_Labs 
 p 1074.173584 992.752747 1.000000 _ a_ Fuller_Labs 
-p 1071.917603 989.669556 1.000000 Fuller_Upper_Lecture_Hall,flupper,fuller_labs,fuller,flupper,fuller_labs,fuller,flupper,fuller_labs,fuller a_ Fuller_Labs 
-p 1060.255249 991.367432 1.000000 Fuller_Commons,fuller_labs,fuller_labs,fuller_labs a_ Fuller_Labs 
+p 1071.917603 989.669556 1.000000 Fuller_Upper_Lecture_Hall,flupper,fuller_labs,fuller,flupper,fuller_labs,fuller,flupper,fuller_labs,fuller,flupper,fuller_labs,fuller,flupper,fuller_labs,fuller,flupper,fuller_labs,fuller a_ Fuller_Labs 
+p 1060.255249 991.367432 1.000000 Fuller_Commons,fuller_labs,fuller_labs,fuller_labs,fuller_labs,fuller_labs,fuller_labs a_ Fuller_Labs 
 p 1067.529785 971.615784 1.000000 _ a_ Fuller_Labs 
 p 1075.207764 971.010010 1.000000 _ a_ Fuller_Labs 
 p 1081.322388 983.311340 1.000000 _ a_ Fuller_Labs 
@@ -1058,8 +1058,8 @@ p 1061.777344 1109.939819 1.000000 _ a_
 p 1079.116455 1113.068848 1.000000 _ a_ Gordon_Library 
 p 1090.336914 1115.346680 1.000000 _ a_ Gordon_Library 
 p 1100.244141 1118.993896 1.000000 _ a_ Gordon_Library 
-p 1100.707397 1114.275146 1.000000 Print_Center,library,Gordon_Library,library,Gordon_Library,library,Gordon_Library a_ Gordon_Library 
-p 1081.718872 1123.418579 1.000000 Helpdesk,library,Gordon_Library,library,Gordon_Library,library,Gordon_Library a_ Gordon_Library 
+p 1100.707397 1114.275146 1.000000 Print_Center,library,Gordon_Library,library,Gordon_Library,library,Gordon_Library,library,Gordon_Library,library,Gordon_Library,library,Gordon_Library a_ Gordon_Library 
+p 1081.718872 1123.418579 1.000000 Helpdesk,library,Gordon_Library,library,Gordon_Library,library,Gordon_Library,library,Gordon_Library,library,Gordon_Library,library,Gordon_Library a_ Gordon_Library 
 p 1003.578491 1055.486084 1.000000 _ a_ Salisbury_Labs 
 p 1014.482605 1058.109009 1.000000 _ a_ Salisbury_Labs 
 p 1013.626892 1065.534424 1.000000 _ a_ Salisbury_Labs 
@@ -1116,7 +1116,7 @@ p 927.060364 1163.204956 1.000000 _ a_ Stratton_Hall
 p 922.700317 1162.168945 1.000000 _ a_ 
 p 921.730713 1168.678467 1.000000 _ a_ 
 p 925.734924 1169.206299 1.000000 _ a_ Stratton_Hall 
-p 790.864807 1191.789795 1.000000 Bartlett_Center,Admission's_Office,Admission's_Office,Admission's_Office a_ Bartlett_Center 
+p 790.864807 1191.789795 1.000000 Bartlett_Center,Admission's_Office,Admission's_Office,Admission's_Office,Admission's_Office,Admission's_Office,Admission's_Office a_ Bartlett_Center 
 p 755.961670 1215.980713 1.000000 _ a_ 
 p 771.487976 1181.945557 1.000000 _ a_ Bartlett_Center 
 p 769.382690 1196.506958 1.000000 _ a_ Bartlett_Center 
@@ -1415,20 +1415,20 @@ p 1092.224731 943.103577 0.000000 _ a_ Fuller_Labs
 p 1093.901855 945.411865 0.000000 _ a_ Fuller_Labs 
 p 1111.138550 1090.199463 1.000000 _ a_ Gordon_Library 
 p 1097.331055 1092.552979 1.000000 _ a_ Gordon_Library 
-p 998.889404 1060.354736 2.000000 SL228,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 998.889404 1060.354736 2.000000 SL228,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1097.467773 1101.611084 2.000000 _ a_ Gordon_Library 
 p 1110.925171 1101.019531 2.000000 _ am_ Gordon_Library 
-p 987.016113 1051.751465 1.000000 Humanities_&_Arts_Department,Salisbury_Labs,SL,HUA_Dept. a_ Salisbury_Labs 
+p 987.016113 1051.751465 1.000000 Humanities_&_Arts_Department,Salisbury_Labs,SL,HUA_Dept.,Salisbury_Labs,SL,HUA_Dept. a_ Salisbury_Labs 
 p 986.190918 1055.877319 1.000000 _ aw_ Salisbury_Labs 
 p 988.784363 1056.348877 1.000000 _ a_ Salisbury_Labs 
 p 986.780334 1067.312012 1.000000 _ a_ Salisbury_Labs 
 p 986.763306 1065.038940 1.000000 _ a_ Salisbury_Labs 
 p 983.166809 1062.933594 2.000000 _ a_ Salisbury_Labs 
-p 981.711365 1050.690430 1.000000 SL125,Salisbury_Labs,SL,Boudreau a_ Salisbury_Labs 
-p 980.532471 1057.881348 1.000000 SL124,Salisbury_Labs,SL a_ Salisbury_Labs 
+p 981.711365 1050.690430 1.000000 SL125,Salisbury_Labs,SL,Boudreau,Salisbury_Labs,SL,Boudreau a_ Salisbury_Labs 
+p 980.532471 1057.881348 1.000000 SL124,Salisbury_Labs,SL,Salisbury_Labs,SL a_ Salisbury_Labs 
 p 982.772278 1045.621460 1.000000 _ a_ Salisbury_Labs 
 p 983.715332 1042.438599 1.000000 _ a_ Salisbury_Labs 
-p 979.117920 1041.377686 1.000000 SL129,Salisbury_Labs,SL a_ Salisbury_Labs 
+p 979.117920 1041.377686 1.000000 SL129,Salisbury_Labs,SL,Salisbury_Labs,SL a_ Salisbury_Labs 
 p 981.947083 1042.320679 1.000000 _ a_ Salisbury_Labs 
 p 1023.222168 1018.832458 1.000000 _ as_ Salisbury_Labs 
 p 983.008057 1033.715210 1.000000 _ a_ Salisbury_Labs 
@@ -1438,23 +1438,23 @@ p 979.589417 1027.938965 1.000000 _ a_ Salisbury_Labs
 p 979.353638 1029.353516 1.000000 _ a_ Salisbury_Labs 
 p 983.046692 1029.709595 1.000000 _ a_ Salisbury_Labs 
 p 983.125916 1025.699097 1.000000 _ a_ Salisbury_Labs 
-p 983.715332 1023.223572 1.000000 SL121B,Salisbury_Labs,SL a_ Salisbury_Labs 
-p 980.768250 1025.109741 1.000000 SL121A,Salisbury_Labs,SL a_ Salisbury_Labs 
+p 983.715332 1023.223572 1.000000 SL121B,Salisbury_Labs,SL,Salisbury_Labs,SL a_ Salisbury_Labs 
+p 980.768250 1025.109741 1.000000 SL121A,Salisbury_Labs,SL,Salisbury_Labs,SL a_ Salisbury_Labs 
 p 987.133972 1026.760132 1.000000 _ a_ Salisbury_Labs 
-p 987.841309 1023.459351 1.000000 SL121C,Salisbury_Labs,SL a_ Salisbury_Labs 
-p 986.426697 1030.178711 1.000000 SL121,Salisbury_Labs,SL a_ Salisbury_Labs 
+p 987.841309 1023.459351 1.000000 SL121C,Salisbury_Labs,SL,Salisbury_Labs,SL a_ Salisbury_Labs 
+p 986.426697 1030.178711 1.000000 SL121,Salisbury_Labs,SL,Salisbury_Labs,SL a_ Salisbury_Labs 
 p 990.670471 1029.707153 1.000000 _ a_ Salisbury_Labs 
 p 992.320862 1030.060791 1.000000 _ a_ Salisbury_Labs 
 p 991.377808 1035.011963 1.000000 _ a_ Salisbury_Labs 
 p 995.150085 1035.954956 1.000000 _ a_ Salisbury_Labs 
 p 997.154114 1027.703125 1.000000 _ a_ Salisbury_Labs 
-p 1000.454834 1028.410400 1.000000 SL,Salisbury_Labs,Lecture_Hall a_ Salisbury_Labs 
+p 1000.454834 1028.410400 1.000000 SL,Salisbury_Labs,Lecture_Hall,Salisbury_Labs,Lecture_Hall a_ Salisbury_Labs 
 p 991.116882 1057.165771 1.000000 _ a_ Salisbury_Labs 
 p 994.207031 1040.788208 1.000000 _ a_ Salisbury_Labs 
 p 989.963196 1039.963013 1.000000 _ a_ Salisbury_Labs 
-p 989.609558 1042.792236 1.000000 SL108,Salisbury_Labs,SL a_ Salisbury_Labs 
+p 989.609558 1042.792236 1.000000 SL108,Salisbury_Labs,SL,Salisbury_Labs,SL a_ Salisbury_Labs 
 p 993.381836 1045.975098 1.000000 _ a_ Salisbury_Labs 
-p 999.158142 1046.682373 1.000000 Salisbury_Lounge,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 999.158142 1046.682373 1.000000 Salisbury_Lounge,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1006.702698 1042.320679 1.000000 _ a_ Salisbury_Labs 
 p 1004.580750 1051.515625 1.000000 _ a_ Salisbury_Labs 
 p 1015.190308 1053.401733 1.000000 _ a_ Salisbury_Labs 
@@ -1465,20 +1465,20 @@ p 1019.434143 1033.597290 1.000000 SL115 a_ Salisbury_Labs
 p 1018.962585 1036.780151 1.000000 _ a_ Salisbury_Labs 
 p 1022.257202 1036.639526 1.000000 _ a_ Salisbury_Labs 
 p 1024.274780 1037.165771 1.000000 _ a_ Salisbury_Labs 
-p 1026.082642 1037.173462 1.000000 SL106,SL,Salisbury_Labs,DiMassa a_ Salisbury_Labs 
+p 1026.082642 1037.173462 1.000000 SL106,SL,Salisbury_Labs,DiMassa,SL,Salisbury_Labs,DiMassa a_ Salisbury_Labs 
 p 1025.151978 1034.709717 1.000000 _ a_ Salisbury_Labs 
 p 1030.765991 1035.937744 1.000000 _ a_ Salisbury_Labs 
-p 1031.292236 1033.744751 1.000000 SL109,SL,Salisbury_Labs,Boucher-Yip a_ Salisbury_Labs 
+p 1031.292236 1033.744751 1.000000 SL109,SL,Salisbury_Labs,Boucher-Yip,SL,Salisbury_Labs,Boucher-Yip a_ Salisbury_Labs 
 p 1030.765991 1038.569336 1.000000 _ a_ Salisbury_Labs 
-p 1033.222046 1039.358765 1.000000 SL107,SL,Salisbury_Labs,Hansen a_ Salisbury_Labs 
-p 1034.011597 1036.464111 1.000000 SL108,SL,Salisbury_Labs,Smith a_ Salisbury_Labs 
-p 1034.976440 1022.692139 1.000000 SL112,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1033.222046 1039.358765 1.000000 SL107,SL,Salisbury_Labs,Hansen,SL,Salisbury_Labs,Hansen a_ Salisbury_Labs 
+p 1034.011597 1036.464111 1.000000 SL108,SL,Salisbury_Labs,Smith,SL,Salisbury_Labs,Smith a_ Salisbury_Labs 
+p 1034.976440 1022.692139 1.000000 SL112,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1024.274780 1026.639526 1.000000 _ a_ Salisbury_Labs 
 p 1024.713379 1024.007935 1.000000 _ as_ Salisbury_Labs 
 p 1033.836182 1017.078064 1.000000 _ a_ Salisbury_Labs 
 p 1029.362427 1016.376343 1.000000 _ a_ Salisbury_Labs 
 p 1034.187012 1015.060547 1.000000 _ a_ Salisbury_Labs 
-p 1029.983521 1013.656616 1.000000 SL113,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1029.983521 1013.656616 1.000000 SL113,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1025.327393 1020.937744 1.000000 _ a_ Salisbury_Labs 
 p 1022.871216 1020.762268 1.000000 _ a_ Salisbury_Labs 
 p 1021.906311 1024.183350 1.000000 _ as_ Salisbury_Labs 
@@ -1494,18 +1494,18 @@ p 1030.279419 1072.852539 1.000000 _ a_ Salisbury_Labs
 p 1012.832642 1071.555908 1.000000 _ a_ Salisbury_Labs 
 p 1015.426086 1071.791626 1.000000 _ a_ Salisbury_Labs 
 p 1011.064392 1073.559937 1.000000 _ a_ Salisbury_Labs 
-p 1010.795593 1075.847900 1.000000 SL134,Salisbury_Labs,SL a_ Salisbury_Labs 
+p 1010.795593 1075.847900 1.000000 SL134,Salisbury_Labs,SL,Salisbury_Labs,SL a_ Salisbury_Labs 
 p 1007.728210 1072.758179 1.000000 _ a_ Salisbury_Labs 
-p 1007.553284 1075.340454 1.000000 SL133,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1007.553284 1075.340454 1.000000 SL133,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1004.219421 1071.880981 1.000000 _ a_ 
 p 1007.409973 1059.649658 1.000000 _ ae_ Salisbury_Labs 
 p 1014.011475 1061.064209 1.000000 _ a_ Salisbury_Labs 
 p 1010.535217 1056.617798 1.000000 _ a_ Salisbury_Labs 
 p 1010.239197 1059.885376 1.000000 _ a_ Salisbury_Labs 
 p 1022.619385 1063.337158 1.000000 _ as_ Salisbury_Labs 
-p 1009.891907 1081.812012 1.000000 SL135,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1009.891907 1081.812012 1.000000 SL135,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 995.523743 1054.160034 1.000000 _ a_ Salisbury_Labs 
-p 994.800781 1057.503540 1.000000 SL101,SL,Salisbury_Labs,Computer_Lab a_ Salisbury_Labs 
+p 994.800781 1057.503540 1.000000 SL101,SL,Salisbury_Labs,Computer_Lab,SL,Salisbury_Labs,Computer_Lab a_ Salisbury_Labs 
 p 977.078369 1044.339111 1.000000 _ a_ Salisbury_Labs 
 p 975.064209 1053.744751 1.000000 _ a_ Salisbury_Labs 
 p 978.042480 1054.255859 1.000000 _ a_ Salisbury_Labs 
@@ -1523,136 +1523,136 @@ p 1021.853333 1046.449463 2.000000 _ a_ Salisbury_Labs
 p 1022.650452 1039.718262 2.000000 _ a_ Salisbury_Labs 
 p 1023.536133 1034.758423 2.000000 _ a_ Salisbury_Labs 
 p 1024.244629 1030.950073 2.000000 _ a_ Salisbury_Labs 
-p 1004.205933 1061.521851 2.000000 SL229,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1004.205933 1061.521851 2.000000 SL229,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1008.476990 1050.222778 2.000000 _ a_ Salisbury_Labs 
 p 1007.494873 1057.407715 2.000000 _ a_ Salisbury_Labs 
 p 997.592651 1062.830444 2.000000 _ a_ Salisbury_Labs 
 p 984.153931 1058.586548 2.000000 _ a_ Salisbury_Labs 
-p 1002.161194 1049.345581 2.000000 SL219,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1002.161194 1049.345581 2.000000 SL219,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1000.068237 1055.993164 2.000000 _ a_ Salisbury_Labs 
 p 1013.887085 1080.885864 2.000000 _ a_ Salisbury_Labs 
 p 1012.922119 1067.903320 2.000000 _ a_ Salisbury_Labs 
-p 1003.427917 1063.855957 2.000000 SL232,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 997.003235 1066.484863 2.000000 SL228A,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1003.427917 1063.855957 2.000000 SL232,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 997.003235 1066.484863 2.000000 SL228A,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1011.869507 1080.798096 2.000000 _ a_ Salisbury_Labs 
-p 1019.413391 1084.043701 2.000000 SL236,SL,Salisbury_Labs,Mott a_ Salisbury_Labs 
-p 1009.652161 1075.915405 2.000000 SL233A,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1018.185303 1078.956055 2.000000 SL241,SL,Salisbury_Labs,Mohamed,Xin,Cullon a_ Salisbury_Labs 
+p 1019.413391 1084.043701 2.000000 SL236,SL,Salisbury_Labs,Mott,SL,Salisbury_Labs,Mott a_ Salisbury_Labs 
+p 1009.652161 1075.915405 2.000000 SL233A,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1018.185303 1078.956055 2.000000 SL241,SL,Salisbury_Labs,Mohamed,Xin,Cullon,SL,Salisbury_Labs,Mohamed,Xin,Cullon a_ Salisbury_Labs 
 p 993.466736 1054.224854 2.000000 _ a_ Salisbury_Labs 
 p 990.755432 1053.753418 2.000000 _ a_ Salisbury_Labs 
-p 990.184387 1046.091431 2.000000 SL221,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 990.184387 1046.091431 2.000000 SL221,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 992.405823 1046.739258 2.000000 _ a_ Salisbury_Labs 
 p 992.146423 1048.813965 2.000000 _ a_ Salisbury_Labs 
-p 989.164001 1048.554565 2.000000 SL220,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 989.164001 1048.554565 2.000000 SL220,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 993.702515 1038.051147 2.000000 _ a_ Salisbury_Labs 
 p 986.983154 1053.046021 2.000000 _ a_ Salisbury_Labs 
-p 982.503540 1052.103027 2.000000 SL223,SL,Salisbury_Labs,Ljungquist a_ Salisbury_Labs 
-p 992.287842 1061.415894 2.000000 SL225,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 982.503540 1052.103027 2.000000 SL223,SL,Salisbury_Labs,Ljungquist,SL,Salisbury_Labs,Ljungquist a_ Salisbury_Labs 
+p 992.287842 1061.415894 2.000000 SL225,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 985.792480 1056.983276 2.000000 _ a_ Salisbury_Labs 
 p 986.275818 1059.176025 2.000000 _ a_ Salisbury_Labs 
 p 1014.214233 1063.066162 2.000000 _ a_ Salisbury_Labs 
-p 0.000000 0.000000 0.000000 SL316,SL,Salisbury_Labs,SL,Salisbury_Labs,SL,Salisbury_Labs,Spanagel,SL,Salisbury_Labs,SL,Salisbury_Labs a_ 
+p 0.000000 0.000000 0.000000 SL316,SL,Salisbury_Labs,SL,Salisbury_Labs,SL,Salisbury_Labs,Spanagel,SL,Salisbury_Labs,SL,Salisbury_Labs,SL,Salisbury_Labs,SL,Salisbury_Labs,SL,Salisbury_Labs,Spanagel,SL,Salisbury_Labs,SL,Salisbury_Labs a_ 
 p 1012.764282 1072.414307 2.000000 _ a_ Salisbury_Labs 
 p 1012.220398 1077.991089 2.000000 _ a_ Salisbury_Labs 
-p 1014.237915 1078.254272 2.000000 SL233,SL,Salisbury_Labs,Eddy a_ Salisbury_Labs 
-p 1011.167786 1082.815674 2.000000 SL234,SL,Salisbury_Labs,Robertson a_ Salisbury_Labs 
-p 1028.536133 1078.780518 2.000000 SL238,SL,Salisbury_Labs,Tina-Marie,Addinson a_ Salisbury_Labs 
-p 1013.536194 1083.429688 2.000000 SL235,SL,Salisbury_Labs,Bullock a_ Salisbury_Labs 
+p 1014.237915 1078.254272 2.000000 SL233,SL,Salisbury_Labs,Eddy,SL,Salisbury_Labs,Eddy a_ Salisbury_Labs 
+p 1011.167786 1082.815674 2.000000 SL234,SL,Salisbury_Labs,Robertson,SL,Salisbury_Labs,Robertson a_ Salisbury_Labs 
+p 1028.536133 1078.780518 2.000000 SL238,SL,Salisbury_Labs,Tina-Marie,Addinson,SL,Salisbury_Labs,Tina-Marie,Addinson a_ Salisbury_Labs 
+p 1013.536194 1083.429688 2.000000 SL235,SL,Salisbury_Labs,Bullock,SL,Salisbury_Labs,Bullock a_ Salisbury_Labs 
 p 1017.483582 1081.324463 2.000000 _ a_ Salisbury_Labs 
 p 1020.285278 1081.880371 2.000000 _ a_ Salisbury_Labs 
-p 1023.887085 1085.008667 2.000000 SL237,Salisbury_Labs,SL,Ephraim a_ Salisbury_Labs 
+p 1023.887085 1085.008667 2.000000 SL237,Salisbury_Labs,SL,Ephraim,Salisbury_Labs,SL,Ephraim a_ Salisbury_Labs 
 p 1023.801819 1049.106445 2.000000 SL211 a_ Salisbury_Labs 
 p 1024.694092 1082.658325 2.000000 _ a_ Salisbury_Labs 
-p 1029.501099 1049.219116 2.000000 SL210,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1029.501099 1049.219116 2.000000 SL210,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1025.601807 1078.249512 2.000000 _ a_ Salisbury_Labs 
 p 1017.862915 1061.363159 2.000000 _ a_ Salisbury_Labs 
 p 1020.933105 1061.889526 2.000000 _ a_ Salisbury_Labs 
 p 1019.754761 1064.127197 2.000000 _ a_ Salisbury_Labs 
 p 1026.768921 1072.803223 2.000000 _ a_ Salisbury_Labs 
-p 990.979431 1042.200684 2.000000 SL222,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 990.979431 1042.200684 2.000000 SL222,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 987.478271 1036.624756 2.000000 _ a_ Salisbury_Labs 
 p 987.607910 1034.031372 2.000000 _ a_ Salisbury_Labs 
 p 989.163940 1025.602661 2.000000 _ a_ Salisbury_Labs 
 p 983.915527 1033.380737 2.000000 _ a_ Salisbury_Labs 
-p 984.625488 1031.001831 2.000000 SL253,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 982.687500 1027.152588 2.000000 SL255,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 987.737610 1022.231201 2.000000 SL254,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 983.389221 1024.871948 2.000000 SL256,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 981.513306 1056.334961 2.000000 SL224,SL,Salisbury,Salisbury_Labs a_ Salisbury_Labs 
+p 984.625488 1031.001831 2.000000 SL253,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 982.687500 1027.152588 2.000000 SL255,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 987.737610 1022.231201 2.000000 SL254,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 983.389221 1024.871948 2.000000 SL256,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 981.513306 1056.334961 2.000000 SL224,SL,Salisbury,Salisbury_Labs,SL,Salisbury,Salisbury_Labs a_ Salisbury_Labs 
 p 1024.776001 1028.470215 2.000000 _ a_ Salisbury_Labs 
 p 1032.127197 1028.204468 2.000000 _ a_ Salisbury_Labs 
-p 1032.658569 1026.344482 2.000000 SL214D,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1035.941772 1027.479980 2.000000 SL214A,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1036.799072 1022.014465 2.000000 SL214B,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1032.658569 1026.344482 2.000000 SL214D,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1035.941772 1027.479980 2.000000 SL214A,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1036.799072 1022.014465 2.000000 SL214B,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1039.478271 1019.228088 2.000000 _ a_ Salisbury_Labs 
 p 1025.218872 1026.875977 2.000000 _ a_ Salisbury_Labs 
-p 1039.212646 1022.270447 2.000000 SL214C,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1039.212646 1022.270447 2.000000 SL214C,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1037.352661 1018.727722 2.000000 _ a_ Salisbury_Labs 
 p 1033.898560 1020.764771 2.000000 _ a_ Salisbury_Labs 
-p 1030.845459 1019.608765 2.000000 SL217,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1030.845459 1019.608765 2.000000 SL217,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1033.101440 1024.218872 2.000000 _ a_ Salisbury_Labs 
-p 976.716736 1055.168701 3.000000 SL316,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 976.716736 1055.168701 3.000000 SL316,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1005.490845 1057.171997 2.000000 _ a_ Salisbury_Labs 
 p 1031.684326 1029.798706 2.000000 _ a_ Salisbury_Labs 
 p 1016.150696 1053.014526 3.000000 _ aw_ Salisbury_Labs 
 p 1016.364990 1055.157837 3.000000 _ a_ Salisbury_Labs 
 p 1017.758179 1060.087524 3.000000 _ a_ Salisbury_Labs 
 p 1018.829834 1052.264282 3.000000 _ a_ Salisbury_Labs 
-p 1021.723328 1052.907349 3.000000 SL306,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1019.794373 1049.370850 3.000000 SL306A,Salisbury_Labs,SL a_ Salisbury_Labs 
-p 1020.973206 1060.730469 3.000000 SL304,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1021.723328 1052.907349 3.000000 SL306,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1019.794373 1049.370850 3.000000 SL306A,Salisbury_Labs,SL,Salisbury_Labs,SL a_ Salisbury_Labs 
+p 1020.973206 1060.730469 3.000000 SL304,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1014.757507 1060.301880 3.000000 _ a_ Salisbury_Labs 
 p 1010.899475 1062.873901 3.000000 _ a_ Salisbury_Labs 
-p 1010.256470 1066.731812 3.000000 SL301A,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1010.256470 1066.731812 3.000000 SL301A,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1014.114502 1064.052734 3.000000 _ a_ Salisbury_Labs 
 p 1017.007996 1064.588501 3.000000 _ a_ Salisbury_Labs 
 p 1020.544495 1064.802856 3.000000 _ a_ Salisbury_Labs 
 p 1017.758179 1068.232178 3.000000 _ a_ Salisbury_Labs 
 p 1024.831177 1065.767334 3.000000 _ a_ Salisbury_Labs 
-p 1023.009338 1072.090210 3.000000 SL326B,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1023.009338 1072.090210 3.000000 SL326B,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1031.475586 1070.482666 3.000000 _ a_ Salisbury_Labs 
-p 1032.761597 1063.945557 3.000000 SL305,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1032.761597 1063.945557 3.000000 SL305,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1032.011353 1067.053345 3.000000 _ a_ Salisbury_Labs 
 p 1027.296021 1070.161255 3.000000 _ a_ Salisbury_Labs 
-p 1028.646606 1073.414307 3.000000 SL334,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1028.646606 1073.414307 3.000000 SL334,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1025.664185 1075.080933 3.000000 _ a_ Salisbury_Labs 
 p 1023.866699 1070.161255 3.000000 _ a_ Salisbury_Labs 
 p 1024.699219 1078.765137 3.000000 _ a_ Salisbury_Labs 
-p 1027.506226 1079.115967 3.000000 SL333,Salisbury_Labs,SL a_ Salisbury_Labs 
+p 1027.506226 1079.115967 3.000000 SL333,Salisbury_Labs,SL,Salisbury_Labs,SL a_ Salisbury_Labs 
 p 1024.085205 1080.958130 3.000000 _ a_ Salisbury_Labs 
-p 1026.979980 1081.923096 3.000000 SL332,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1023.822021 1086.045898 3.000000 SL331,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1026.979980 1081.923096 3.000000 SL332,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1023.822021 1086.045898 3.000000 SL331,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1024.085205 1083.589722 3.000000 _ a_ Salisbury_Labs 
 p 1018.909729 1082.361572 3.000000 _ a_ Salisbury_Labs 
-p 1018.646545 1085.080933 3.000000 SL330,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1018.646545 1085.080933 3.000000 SL330,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1016.629028 1081.923096 3.000000 _ a_ Salisbury_Labs 
-p 1016.102722 1084.642334 3.000000 SL329,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1011.278137 1081.221313 3.000000 SL328,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1016.102722 1084.642334 3.000000 SL329,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1011.278137 1081.221313 3.000000 SL328,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1013.578674 1067.803589 3.000000 _ a_ Salisbury_Labs 
-p 1016.900818 1072.733154 3.000000 SL326A,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1016.900818 1072.733154 3.000000 SL326A,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1013.295715 1072.186157 3.000000 _ a_ Salisbury_Labs 
 p 1004.898071 1056.336670 3.000000 _ a_ Salisbury_Labs 
 p 1005.862549 1051.514160 3.000000 _ a_ Salisbury_Labs 
 p 1013.792969 1057.301147 3.000000 _ a_ Salisbury_Labs 
 p 1009.506226 1057.944214 3.000000 _ a_ Salisbury_Labs 
-p 1003.612061 1061.480713 3.000000 SL322,Salisbury_Labs,SL a_ Salisbury_Labs 
-p 997.610718 1059.765991 3.000000 SL322A,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 994.824341 1059.123047 3.000000 SL321,SL,Salisbury,Salisbury_Labs a_ Salisbury_Labs 
+p 1003.612061 1061.480713 3.000000 SL322,Salisbury_Labs,SL,Salisbury_Labs,SL a_ Salisbury_Labs 
+p 997.610718 1059.765991 3.000000 SL322A,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 994.824341 1059.123047 3.000000 SL321,SL,Salisbury,Salisbury_Labs,SL,Salisbury,Salisbury_Labs a_ Salisbury_Labs 
 p 995.895996 1053.979004 3.000000 _ a_ Salisbury_Labs 
 p 996.860535 1050.120972 3.000000 _ a_ Salisbury_Labs 
-p 1006.505554 1047.548950 3.000000 SL310,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 997.289185 1046.262939 3.000000 SL311,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 989.251648 1044.869751 3.000000 SL312,Salisbury_Labs,SL a_ Salisbury_Labs 
+p 1006.505554 1047.548950 3.000000 SL310,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 997.289185 1046.262939 3.000000 SL311,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 989.251648 1044.869751 3.000000 SL312,Salisbury_Labs,SL,Salisbury_Labs,SL a_ Salisbury_Labs 
 p 987.644165 1053.121704 3.000000 _ a_ Salisbury_Labs 
 p 983.295715 1049.642334 3.000000 _ a_ Salisbury_Labs 
 p 983.734314 1046.747681 3.000000 _ a_ Salisbury_Labs 
 p 986.278137 1057.537109 3.000000 _ a_ Salisbury_Labs 
-p 980.664124 1049.291504 3.000000 SL314,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 980.664124 1049.291504 3.000000 SL314,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 982.681641 1052.624756 3.000000 _ a_ Salisbury_Labs 
 p 974.085144 1051.572144 3.000000 _ a_ Salisbury_Labs 
-p 974.523743 1048.501953 3.000000 SL315,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 976.278137 1058.326538 3.000000 SL317,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 981.453552 1059.379150 3.000000 SL318,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 974.523743 1048.501953 3.000000 SL315,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 976.278137 1058.326538 3.000000 SL317,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 981.453552 1059.379150 3.000000 SL318,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 984.260620 1057.273926 3.000000 _ a_ Salisbury_Labs 
 p 982.067627 1056.396729 3.000000 _ a_ Salisbury_Labs 
 p 1015.867798 1050.973755 4.000000 _ am_ Salisbury_Labs 
@@ -1660,79 +1660,79 @@ p 1015.341492 1054.219360 4.000000 _ a_ Salisbury_Labs
 p 1004.201111 1052.201904 4.000000 _ a_ Salisbury_Labs 
 p 1014.376587 1056.061523 4.000000 _ a_ Salisbury_Labs 
 p 1007.271301 1054.657959 4.000000 _ a_ Salisbury_Labs 
-p 1006.394104 1057.201904 4.000000 SL409,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1018.937988 1056.324707 4.000000 SL402F,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1019.902893 1051.763306 4.000000 SL402E,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1029.288818 1053.605347 4.000000 SL402,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1006.394104 1057.201904 4.000000 SL409,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1018.937988 1056.324707 4.000000 SL402F,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1019.902893 1051.763306 4.000000 SL402E,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1029.288818 1053.605347 4.000000 SL402,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1028.499390 1058.254517 4.000000 _ a_ Salisbury_Labs 
 p 1029.902832 1049.219360 4.000000 _ a_ Salisbury_Labs 
 p 1027.271362 1048.868530 4.000000 _ a_ Salisbury_Labs 
-p 1024.727417 1048.517578 4.000000 SL402C,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1027.622192 1045.184326 4.000000 SL402B,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1024.727417 1048.517578 4.000000 SL402C,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1027.622192 1045.184326 4.000000 SL402B,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1030.867798 1045.096558 4.000000 _ a_ Salisbury_Labs 
-p 1034.199951 1045.794922 4.000000 SL402A,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1034.199951 1045.794922 4.000000 SL402A,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1013.937988 1058.429932 4.000000 _ a_ Salisbury_Labs 
 p 1009.025696 1057.728149 4.000000 _ a_ Salisbury_Labs 
 p 1018.411682 1060.184326 4.000000 _ a_ Salisbury_Labs 
 p 1017.973083 1063.780762 4.000000 _ a_ Salisbury_Labs 
 p 1024.201172 1064.833374 4.000000 _ a_ Salisbury_Labs 
-p 1029.639771 1065.622925 4.000000 SL401,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1029.639771 1065.622925 4.000000 SL401,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1023.060791 1070.271973 4.000000 _ a_ Salisbury_Labs 
 p 1020.166016 1069.307129 4.000000 _ a_ Salisbury_Labs 
 p 1027.709961 1070.973755 4.000000 _ a_ Salisbury_Labs 
 p 1027.885376 1068.868530 4.000000 _ a_ Salisbury_Labs 
-p 1026.043213 1068.429932 4.000000 SL417,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1026.043213 1068.429932 4.000000 SL417,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1027.359009 1073.780762 4.000000 _ a_ Salisbury_Labs 
-p 1025.429199 1073.517578 4.000000 SL416,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1026.569580 1078.342163 4.000000 SL414,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1025.429199 1073.517578 4.000000 SL416,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1026.569580 1078.342163 4.000000 SL414,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1025.867798 1084.043945 4.000000 _ a_ Salisbury_Labs 
-p 1018.411682 1082.991333 4.000000 SL413,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1018.411682 1082.991333 4.000000 SL413,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1010.166016 1081.500122 4.000000 _ a_ Salisbury_Labs 
 p 1013.323914 1062.640503 4.000000 _ a_ Salisbury_Labs 
-p 1004.727417 1049.043945 4.000000 SL404,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1004.727417 1049.043945 4.000000 SL404,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1000.341492 1051.938721 4.000000 _ a_ Salisbury_Labs 
-p 1000.955505 1048.780762 4.000000 SL405C,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1000.955505 1048.780762 4.000000 SL405C,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 992.797607 1050.710571 4.000000 _ a_ Salisbury_Labs 
-p 993.148499 1047.026367 4.000000 SL405,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 992.709900 1055.271973 4.000000 SL407,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1002.095886 1057.201904 4.000000 SL408,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 993.148499 1047.026367 4.000000 SL405,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 992.709900 1055.271973 4.000000 SL407,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1002.095886 1057.201904 4.000000 SL408,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 988.236206 1050.359741 4.000000 _ a_ Salisbury_Labs 
 p 987.446716 1054.921143 4.000000 _ a_ Salisbury_Labs 
 p 985.166016 1057.640503 4.000000 _ a_ Salisbury_Labs 
 p 983.850281 1050.008911 4.000000 _ a_ Salisbury_Labs 
-p 984.464294 1046.324707 4.000000 SL406A,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 982.709900 1054.307129 4.000000 SL406B,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 984.464294 1046.324707 4.000000 SL406A,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 982.709900 1054.307129 4.000000 SL406B,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1008.587097 1062.201904 4.000000 _ a_ Salisbury_Labs 
 p 1023.485229 1031.200928 1.000000 _ a_ Salisbury_Labs 
 p 1025.765991 1018.569336 1.000000 _ as_ Salisbury_Labs 
-p 1010.074890 1030.362915 1.000000 SL115,SL,Salisbury_Labs,Lecture_Hall a_ Salisbury_Labs 
-p 1025.747192 1059.261353 1.000000 SL105,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1023.165833 1070.910034 1.000000 SL104,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1010.074890 1030.362915 1.000000 SL115,SL,Salisbury_Labs,Lecture_Hall,SL,Salisbury_Labs,Lecture_Hall a_ Salisbury_Labs 
+p 1025.747192 1059.261353 1.000000 SL105,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1023.165833 1070.910034 1.000000 SL104,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1028.360718 1055.710327 2.000000 _ a_ Salisbury_Labs 
 p 1029.062500 1052.640259 2.000000 _ a_ Salisbury_Labs 
-p 1033.711548 1053.956055 2.000000 SL208,SL,Salisbury_Labs,Rosenstock,Agloro a_ Salisbury_Labs 
+p 1033.711548 1053.956055 2.000000 SL208,SL,Salisbury_Labs,Rosenstock,Agloro,SL,Salisbury_Labs,Rosenstock,Agloro a_ Salisbury_Labs 
 p 1031.079956 1052.991089 2.000000 _ a_ Salisbury_Labs 
-p 1031.781738 1050.447266 2.000000 SL209,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1030.378296 1057.815674 2.000000 SL207,SL,Salisbury_Labs,Farbrook a_ Salisbury_Labs 
+p 1031.781738 1050.447266 2.000000 SL209,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1030.378296 1057.815674 2.000000 SL207,SL,Salisbury_Labs,Farbrook,SL,Salisbury_Labs,Farbrook a_ Salisbury_Labs 
 p 1034.533081 1018.023926 2.000000 _ a_ Salisbury_Labs 
 p 987.867249 1031.567627 2.000000 _ a_ Salisbury_Labs 
 p 988.385986 1028.196167 2.000000 _ a_ Salisbury_Labs 
-p 1024.421387 1072.414673 2.000000 SL242,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1025.729126 1055.885864 2.000000 SL204,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1024.421387 1072.414673 2.000000 SL242,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1025.729126 1055.885864 2.000000 SL204,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1030.729126 1055.534912 2.000000 _ a_ Salisbury_Labs 
-p 1033.028320 1014.499268 2.000000 SL214,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 979.436035 1040.870361 3.000000 SL313,SL,Salisbury_Labs a_ Salisbury_Labs 
-p 1006.781616 1061.308960 4.000000 SL409A,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1033.028320 1014.499268 2.000000 SL214,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 979.436035 1040.870361 3.000000 SL313,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1006.781616 1061.308960 4.000000 SL409A,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1005.598389 1060.845337 4.000000 _ a_ Salisbury_Labs 
-p 1007.977295 1064.732056 4.000000 SL411,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1007.977295 1064.732056 4.000000 SL411,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1012.922485 1065.390869 4.000000 _ a_ Salisbury_Labs 
-p 1011.444519 1072.946167 4.000000 SL412,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1011.444519 1072.946167 4.000000 SL412,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1014.929871 1067.668335 4.000000 _ a_ Salisbury_Labs 
 p 1016.853088 1067.840454 4.000000 _ a_ Salisbury_Labs 
 p 1024.156128 1025.193115 2.000000 _ a_ Salisbury_Labs 
 p 1024.421753 1023.067505 2.000000 _ a_ Salisbury_Labs 
 p 1012.276917 1076.220947 2.000000 _ a_ Salisbury_Labs 
-p 1030.167603 1073.298218 2.000000 SL239,SL,Salisbury_Labs a_ Salisbury_Labs 
+p 1030.167603 1073.298218 2.000000 SL239,SL,Salisbury_Labs,SL,Salisbury_Labs a_ Salisbury_Labs 
 p 1027.289673 1069.161621 2.000000 _ a_ Salisbury_Labs 
 p 1017.026489 1067.582642 2.000000 _ a_ Salisbury_Labs 
 p 1017.465088 1063.810791 2.000000 _ a_ Salisbury_Labs 
@@ -1834,17 +1834,17 @@ p 666.246582 1087.508301 1.000000 _ a_ Harrington_Gym
 p 660.615051 1086.616333 1.000000 _ a_ Harrington_Gym 
 p 660.488647 1083.687866 1.000000 _ a_ Harrington_Gym 
 p 647.311951 1080.699463 1.000000 _ a_ Harrington_Gym 
-p 649.984680 1054.561401 1.000000 Harrington_Auditorium_209,Harrington_209,209_Harrington_Auditorium,209_Harrington a_ Harrington_Gym 
+p 649.984680 1054.561401 1.000000 Harrington_Auditorium_209,Harrington_209,209_Harrington_Auditorium,209_Harrington,Harrington_209,209_Harrington_Auditorium,209_Harrington a_ Harrington_Gym 
 p 652.923950 1042.827393 1.000000 _ a_ Harrington_Gym 
-p 649.783386 1042.329956 1.000000 Harrington_Auditorium_210,Harrington_210,210_Harrington_Auditorium,210_Harrington a_ Harrington_Gym 
+p 649.783386 1042.329956 1.000000 Harrington_Auditorium_210,Harrington_210,210_Harrington_Auditorium,210_Harrington,Harrington_210,210_Harrington_Auditorium,210_Harrington a_ Harrington_Gym 
 p 654.605164 1034.387695 1.000000 _ a_ Harrington_Gym 
-p 651.361511 1033.179443 1.000000 Harrington_Auditorium_211,Harrington_211,211_Harrington_Auditorium,211_Harrington a_ Harrington_Gym 
-p 654.097778 1051.043701 1.000000 Harrington_Auditorium_209A,Harrington_209A,209A_Harrington_Auditorium,209A_Harrington a_ Harrington_Gym 
-p 653.632202 1054.236450 1.000000 Harrington_Auditorium_209A,Harrington_209A,209A_Harrington_Auditorium,209A_Harrington a_ Harrington_Gym 
-p 653.014160 1057.343994 1.000000 Harrington_Auditorium_209A,Harrington_209A,209A_Harrington_Auditorium,209A_Harrington a_ Harrington_Gym 
-p 652.558289 1060.459106 1.000000 Harrington_Auditorium_209A,Harrington_209A,209A_Harrington_Auditorium,209A_Harrington a_ Harrington_Gym 
+p 651.361511 1033.179443 1.000000 Harrington_Auditorium_211,Harrington_211,211_Harrington_Auditorium,211_Harrington,Harrington_211,211_Harrington_Auditorium,211_Harrington a_ Harrington_Gym 
+p 654.097778 1051.043701 1.000000 Harrington_Auditorium_209A,Harrington_209A,209A_Harrington_Auditorium,209A_Harrington,Harrington_209A,209A_Harrington_Auditorium,209A_Harrington a_ Harrington_Gym 
+p 653.632202 1054.236450 1.000000 Harrington_Auditorium_209A,Harrington_209A,209A_Harrington_Auditorium,209A_Harrington,Harrington_209A,209A_Harrington_Auditorium,209A_Harrington a_ Harrington_Gym 
+p 653.014160 1057.343994 1.000000 Harrington_Auditorium_209A,Harrington_209A,209A_Harrington_Auditorium,209A_Harrington,Harrington_209A,209A_Harrington_Auditorium,209A_Harrington a_ Harrington_Gym 
+p 652.558289 1060.459106 1.000000 Harrington_Auditorium_209A,Harrington_209A,209A_Harrington_Auditorium,209A_Harrington,Harrington_209A,209A_Harrington_Auditorium,209A_Harrington a_ Harrington_Gym 
 p 648.614319 1068.538086 1.000000 _ a_ Harrington_Gym 
-p 644.104736 1067.290894 1.000000 Harrington_Auditorium_208,Harrington_208,208_Harrington_Auditorium,208_Harrington a_ Harrington_Gym 
+p 644.104736 1067.290894 1.000000 Harrington_Auditorium_208,Harrington_208,208_Harrington_Auditorium,208_Harrington,Harrington_208,208_Harrington_Auditorium,208_Harrington a_ Harrington_Gym 
 p 648.219299 1070.869263 1.000000 _ a_ Harrington_Gym 
 p 643.738525 1070.163696 1.000000 _ a_ Harrington_Gym 
 p 646.621582 1068.222412 1.000000 Harrington_Auditorium_207 a_ Harrington_Gym 
@@ -1927,14 +1927,14 @@ p 949.582642 1238.854126 1.000000 _ a_ Boynton_Hall
 p 947.767273 1238.205688 1.000000 _ a_ Boynton_Hall 
 p 947.507935 1240.280518 1.000000 _ a_ Boynton_Hall 
 p 949.582642 1235.612305 1.000000 _ a_ Boynton_Hall 
-p 955.158569 1235.093506 1.000000 Boynton_Hall_110,Boynton_110,110__Boynton_Hall,110__Boynton a_ Boynton_Hall 
+p 955.158569 1235.093506 1.000000 Boynton_Hall_110,Boynton_110,110__Boynton_Hall,110__Boynton,Boynton_110,110__Boynton_Hall,110__Boynton a_ Boynton_Hall 
 p 955.806946 1229.517700 1.000000 _ a_ Boynton_Hall 
 p 960.215759 1229.777100 1.000000 _ a_ Boynton_Hall 
-p 956.325623 1225.627563 1.000000 Boynton_Hall_118,Boynton_118,118__Boynton_Hall,118__Boynton a_ Boynton_Hall 
+p 956.325623 1225.627563 1.000000 Boynton_Hall_118,Boynton_118,118__Boynton_Hall,118__Boynton,Boynton_118,118__Boynton_Hall,118__Boynton a_ Boynton_Hall 
 p 953.213501 1225.497925 1.000000 _ a_ Boynton_Hall 
 p 948.285950 1228.220947 1.000000 _ a_ Boynton_Hall 
 p 952.694763 1229.258301 1.000000 _ a_ Boynton_Hall 
-p 948.156250 1223.552734 1.000000 Boynton_Hall_116,Boynton_116,116_Boynton,116_Boynton_Hall a_ Boynton_Hall 
+p 948.156250 1223.552734 1.000000 Boynton_Hall_116,Boynton_116,116_Boynton,116_Boynton_Hall,Boynton_116,116_Boynton,116_Boynton_Hall a_ Boynton_Hall 
 p 965.273010 1230.684692 1.000000 _ a_ Boynton_Hall 
 p 689.688782 1088.713867 2.000000 Harrington_Auditorium_302 a_ Harrington_Gym 
 p 663.090332 1083.385498 2.000000 _ a_ Harrington_Gym 
@@ -2024,15 +2024,108 @@ p 662.340759 1068.897827 -1.000000 _ a_ Harrington_Gym
 p 663.949951 1053.098145 -1.000000 _ a_ Harrington_Gym 
 p 664.973999 1049.001831 -1.000000 _ a_ Harrington_Gym 
 p 968.125793 1253.507080 1.000000 _ a_ 
-p 979.059021 1241.603638 1.000000 _ a_ 
-p 981.706238 1242.325684 1.000000 _ a_ 
+p 979.059021 1241.603638 1.000000 _ a_ Boynton_Hall 
+p 981.706238 1242.325684 1.000000 _ a_ Boynton_Hall 
 p 980.984253 1240.520752 1.000000 _ a_ Boynton_Hall 
-p 981.345276 1237.753174 1.000000 _ a_ 
-p 1000.597778 1254.238159 1.000000 _ a_ 
+p 981.345276 1237.753174 1.000000 _ a_ Boynton_Hall 
+p 1000.597778 1254.238159 1.000000 _ a_ Boynton_Hall 
 p 999.274170 1261.578125 1.000000 _ a_ 
-p 964.378967 1241.242554 1.000000 _ s_ 
-p 968.590454 1242.205200 1.000000 _ a_ 
-p 1003.605957 1254.478638 1.000000 _ a_ 
+p 964.378967 1241.242554 1.000000 _ s_ Boynton_Hall 
+p 968.590454 1242.205200 1.000000 _ a_ Boynton_Hall 
+p 1003.605957 1254.478638 1.000000 _ a_ Boynton_Hall 
+p 849.278687 1030.977539 2.000000 _ a_ Campus_Center 
+p 842.491455 1017.790894 2.000000 _ a_ Campus_Center 
+p 835.316406 1009.840210 2.000000 _ s_ Campus_Center 
+p 828.141357 1006.737488 2.000000 _ a_ Campus_Center 
+p 832.795471 1011.973328 2.000000 _ s_ Campus_Center 
+p 852.769226 1006.543579 2.000000 _ a_ Campus_Center 
+p 854.902344 992.387390 2.000000 _ a_ Campus_Center 
+p 858.198975 975.710266 2.000000 _ a_ Campus_Center 
+p 835.898193 987.151550 2.000000 _ a_ Campus_Center 
+p 842.879272 992.775208 2.000000 _ a_ Campus_Center 
+p 840.746155 1011.779419 2.000000 _ a_ Campus_Center 
+p 690.861450 1061.324585 -1.000000 _ a_ 
+p 690.000854 1064.766968 -1.000000 _ a_ 
+p 664.087097 1060.272705 -1.000000 _ a_ 
+p 677.283020 1062.089478 -1.000000 _ a_ 
+p 675.466187 1067.061890 -1.000000 _ a_ 
+p 660.070984 1082.839600 -1.000000 _ a_ 
+p 657.680420 1050.041016 -1.000000 _ a_ 
+p 654.524841 1058.264648 -1.000000 _ a_ 
+p 655.863586 1055.491577 -1.000000 _ a_ 
+p 645.727539 1054.248413 -1.000000 _ a_ 
+p 643.815125 1062.185181 -1.000000 _ a_ 
+p 643.241394 1065.627563 -1.000000 _ a_ 
+p 647.161926 1046.981079 -1.000000 _ a_ 
+p 649.456848 1037.992554 -1.000000 _ a_ 
+p 643.145752 1052.814087 -1.000000 _ a_ 
+p 643.719482 1049.276123 -1.000000 _ a_ 
+p 640.563904 1052.431641 -1.000000 _ a_ 
+p 640.659546 1049.084839 -1.000000 _ a_ 
+p 641.137695 1045.068726 -1.000000 _ a_ 
+p 641.711426 1052.527222 -1.000000 _ a_ 
+p 641.042053 1056.160889 -1.000000 _ a_ 
+p 639.225220 1060.081421 -1.000000 _ a_ 
+p 637.312744 1058.551514 -1.000000 _ a_ 
+p 637.408386 1056.065308 -1.000000 _ a_ 
+p 671.641296 1051.857910 -1.000000 _ a_ 
+p 671.641296 1054.535278 -1.000000 _ a_ 
+p 676.231201 1054.344116 -1.000000 _ a_ 
+p 687.610291 1055.587158 -1.000000 _ a_ 
+p 691.052734 1055.874023 -1.000000 _ a_ 
+p 692.295776 1051.762207 -1.000000 _ a_ 
+p 688.184021 1050.997314 -1.000000 _ a_ 
+p 682.064209 1050.136719 -1.000000 _ a_ 
+p 675.370605 1048.606689 -1.000000 _ a_ Harrington_Gym 
+p 671.067566 1048.128662 -1.000000 _ a_ 
+p 675.179321 1038.088257 -1.000000 _ a_ 
+p 674.414368 1044.208130 -1.000000 _ a_ 
+p 679.195496 1044.686157 -1.000000 _ a_ 
+p 679.673584 1038.375122 -1.000000 _ a_ 
+p 680.916687 1032.063965 -1.000000 _ a_ 
+p 691.339600 1040.096313 -1.000000 _ a_ 
+p 685.889099 1039.140015 -1.000000 _ a_ 
+p 686.558472 1034.072021 -1.000000 _ a_ 
+p 690.957092 1044.208130 -1.000000 _ a_ 
+p 685.219727 1043.443115 -1.000000 _ a_ 
+p 698.128784 1045.068726 -1.000000 _ a_ 
+p 696.311951 1057.021484 -1.000000 _ a_ 
+p 693.060791 1056.447754 -1.000000 _ a_ 
+p 693.060791 1052.144775 -1.000000 _ a_ 
+p 695.164490 1061.037720 -1.000000 _ a_ 
+p 694.208252 1071.078003 -1.000000 _ a_ 
+p 696.981323 1088.194458 -1.000000 _ a_ 
+p 696.216309 1093.740601 -1.000000 _ a_ 
+p 699.835388 1061.663940 -1.000000 _ a_ Harrington_Gym 
+p 699.835388 1057.772705 -1.000000 _ a_ 
+p 709.246948 1059.492065 -1.000000 _ a_ 
+p 708.975464 1062.568970 -1.000000 _ a_ 
+p 713.590759 1064.197876 -1.000000 _ a_ 
+p 714.043213 1059.673096 -1.000000 _ a_ 
+p 726.169617 1062.478394 -1.000000 _ a_ 
+p 725.445679 1065.555298 -1.000000 _ a_ 
+p 722.821289 1065.917236 -1.000000 _ a_ 
+p 720.830383 1072.523438 -1.000000 _ a_ 
+p 736.757629 1068.451050 -1.000000 _ a_ 
+p 736.395691 1072.070923 -1.000000 _ a_ 
+p 729.337036 1065.736206 -1.000000 _ a_ 
+p 730.694458 1058.044067 -1.000000 _ a_ 
+p 733.771301 1058.858521 -1.000000 _ a_ 
+p 731.870911 1048.904053 -1.000000 _ a_ 
+p 735.038208 1049.627930 -1.000000 _ a_ 
+p 728.432068 1045.827148 -1.000000 _ a_ 
+p 732.323364 1046.460693 -1.000000 _ a_ 
+p 721.463867 1044.741211 -1.000000 _ a_ 
+p 718.749023 1044.741211 -1.000000 _ a_ 
+p 717.663086 1051.166382 -1.000000 _ a_ 
+p 721.192383 1039.220947 -1.000000 _ a_ 
+p 711.690369 1038.768555 -1.000000 _ a_ 
+p 713.032166 1099.018555 -1.000000 _ a_ 
+p 712.696960 1102.928833 -1.000000 _ a_ 
+p 733.365723 1067.736084 -1.000000 _ a_ 
+p 732.918823 1071.087769 -1.000000 _ a_ 
+p 740.404297 1068.853271 -1.000000 _ a_ 
+p 739.398743 1073.992554 -1.000000 _ a_ 
 e 17 22
 e 22 21
 e 21 86
@@ -4271,6 +4364,122 @@ e 1569 1504
 e 1465 1705
 e 1450 1707
 e 1707 1463
+e 2035 2036
+e 2036 2037
+e 2037 2038
+e 2038 2039
+e 347 2039
+e 2040 2041
+e 2041 2042
+e 2041 2044
+e 2044 2043
+e 2044 2045
+e 2045 2036
+e 2045 2037
+e 2003 1971
+e 1862 1999
+e 2069 2068
+e 2068 2067
+e 2067 2066
+e 2066 2065
+e 2065 2062
+e 2062 2063
+e 2063 2064
+e 2065 2060
+e 2060 2061
+e 2059 2058
+e 2058 2055
+e 2055 2060
+e 2055 2056
+e 2056 2057
+e 2055 2054
+e 2054 2053
+e 2052 2054
+e 2054 2020
+e 2020 2021
+e 2021 2023
+e 2023 2024
+e 2024 2079
+e 2079 2078
+e 2078 2077
+e 2077 2076
+e 2076 2075
+e 2075 2093
+e 2093 2092
+e 2092 2091
+e 2091 2094
+e 2094 2098
+e 2098 2101
+e 2101 2102
+e 2102 2106
+e 2106 2105
+e 2105 2110
+e 2110 2111
+e 2111 2113
+e 2113 2114
+e 2102 2103
+e 2103 2119
+e 2119 2118
+e 2118 2117
+e 2117 2115
+e 2115 2116
+e 2120 2117
+e 2115 2104
+e 2104 2105
+e 2103 2104
+e 2109 2108
+e 2125 2124
+e 2108 2124
+e 2110 2124
+e 2111 2112
+e 2106 2107
+e 2107 2095
+e 2095 2094
+e 2094 2046
+e 2046 2047
+e 2047 2049
+e 2049 2048
+e 2048 2021
+e 2051 2022
+e 2022 2048
+e 2049 2050
+e 2079 2070
+e 2070 2071
+e 2071 2072
+e 2072 2073
+e 2073 2074
+e 2074 2075
+e 2091 2090
+e 2090 2088
+e 2088 2085
+e 2085 2086
+e 2086 2087
+e 2121 2120
+e 2088 2089
+e 2081 2018
+e 2082 2081
+e 2081 2080
+e 2080 2083
+e 2083 2084
+e 2080 2018
+e 2017 2018
+e 2017 2016
+e 2016 2020
+e 2019 2016
+e 2095 2096
+e 2096 2097
+e 2097 2122
+e 2122 2123
+e 2123 1999
+e 2014 2059
+e 2098 2099
+e 2099 2100
+e 2100 2101
+e 2099 2121
+e 2121 2100
+e 2108 2126
+e 2126 2127
+e 2127 2006
 m  0.0 0.0 0.0 0.0 0.0 
 m campusmap.png -1.0464134 2.3540468 1.0 0.0 1.0 Campus_Map
 m Alden00.png 890.23303 1334.5698 -1.0 190.0 0.19 Alden_Hall_00

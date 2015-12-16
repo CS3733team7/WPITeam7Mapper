@@ -24,7 +24,7 @@ public class SMSPane extends BorderPane {
     @FXML protected ChoiceBox carrierChoiceBox;
 
     public SMSPane(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/wpi/off/by/one/errors/code/view/other/SMSPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/wpi/off/by/one/errors/code/view/Other/SMSPane.fxml"));
 
         loader.setRoot(this);
         loader.setController(this);

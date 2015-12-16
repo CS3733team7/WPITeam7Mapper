@@ -1,8 +1,5 @@
 package edu.wpi.off.by.one.errors.code.application;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 public class Icon{
 	
 	final static String resourceDir = "/edu/wpi/off/by/one/errors/code/resources/icons/map_icons/";

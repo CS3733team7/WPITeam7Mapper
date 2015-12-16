@@ -2,9 +2,7 @@ package edu.wpi.off.by.one.errors.code.controller.menupanes;
 
 import java.io.IOException;
 
-import edu.wpi.off.by.one.errors.code.controller.MainPane;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 /**

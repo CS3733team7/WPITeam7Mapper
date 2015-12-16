@@ -28,7 +28,11 @@
                     <content>
                         <VBox minHeight="0.0" minWidth="0.0">
                            <children>
-                               <CheckBox fx:id="accessibleCheckbox" onAction="#selectAccessible" text="Prioritize Accessibility" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                               	<CheckBox fx:id="accessibleCheckbox" onAction="#selectAccessible" text="Prioritize Accessibility" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                               	<Button fx:id="foodButton" contentDisplay="CENTER" minWidth="0.0" mnemonicParsing="false" text="Find nearest food" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                       			<Button fx:id="mensRoomButton" contentDisplay="CENTER" minWidth="0.0" mnemonicParsing="false" text="Find nearest men's room" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                       			<Button fx:id="womensRoomButton" contentDisplay="CENTER" minWidth="0.0" mnemonicParsing="false" text="Find nearest women's room" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                       			<Button fx:id="genderNeutralRestroomButton" contentDisplay="CENTER" minWidth="0.0" mnemonicParsing="false" text="Find nearest gender neutral restroom" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
                            </children>
                         </VBox>
                     </content>
