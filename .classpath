@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="tests"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_65"/>
-	<classpathentry kind="lib" path="C:/Users/David/Documents/WPITeam7MapperClean/lib/javax.mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Downloads/javamail-1.4.5/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
