@@ -1,6 +1,7 @@
 package edu.wpi.off.by.one.errors.code.controller;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -111,9 +112,14 @@ public class MapRootPane extends AnchorPane{
     Image compass_pirate = new Image(Icon.compass_pirate);
     boolean isctrl = false;
 
+	ArrayList<Matrix> oldmapinv;
+
+	Node r1 = null;
+	Node r2 = null;
+
     
     public MapRootPane() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/MapRootPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/wpi/off/by/one/errors/code/view/MapRootPane.fxml"));
         
         loader.setRoot(this);
         loader.setController(this);
@@ -146,7 +152,13 @@ public class MapRootPane extends AnchorPane{
     
     private void initialize(){
     	//Load campus map from display list
-		display = FileIO.load("src" + resourceDir + "maps/txtfiles/fullCampusMap.txt", display);
+    	
+		try {
+			display = FileIO.load(getClass().getResourceAsStream("/edu/wpi/off/by/one/errors/code/resources/maps/txtfiles/fullCampusMap.txt"), display);
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		// Put all these sets into fxml
         pathPane.setMouseTransparent(true);
         markerPane.setMouseTransparent(false);
@@ -230,7 +242,13 @@ public class MapRootPane extends AnchorPane{
 	 * @param option Additional options to clear first or append onto current
 	 */
 	public void updateDisplay(Display newdisplay, String option){
-		updateDisplay(this.display.getGraph());
+		if(option.equals("APPEND")){
+			this.display = newdisplay;
+			updateDisplay(newdisplay.getGraph());
+		}
+		if(option.equals("NEW")){
+			this.display = newdisplay;
+		}
 	}
 
 
@@ -327,7 +345,6 @@ public class MapRootPane extends AnchorPane{
 					if(icon != null) {
 						Rotate r = new Rotate(0, 0, 0);
 						mygc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx() + c.getX(), r.getTy() + c.getY());
-						System.out.println("Zoom: " + zoom);
 //						if(zoom > max) mygc.scale(max/2, max/2);
 //						else if(zoom < min) mygc.scale(min/2, min/2);
 //						else mygc.scale((zoom/2), (zoom/2));
@@ -452,6 +469,22 @@ public class MapRootPane extends AnchorPane{
 			}
 
 
+
+
+			if(r1 != null && r2 != null) {
+				mygc.save();
+				Coordinate ac = view.transform(r1.getCoordinate());
+				Coordinate bc = view.transform(r2.getCoordinate());
+				if ((translate.getZ() > r1.getCoordinate().getZ() + 0.1 || translate.getZ() < r1.getCoordinate().getZ() - 0.1) && (translate.getZ() > r2.getCoordinate().getZ() + 0.1 || translate.getZ() < r2.getCoordinate().getZ() - 0.1)) {
+				} else {
+					mygc.setLineWidth(5.0f);
+						mygc.setStroke(Color.RED);
+						mygc.setLineDashes(null);
+					mygc.strokeLine(ac.getX(), ac.getY(), bc.getX(), bc.getY());
+				}
+				mygc.restore();
+			}
+
 			//render big red X
 			if(currentRoute != null){
 				mygc.save();
@@ -526,6 +559,8 @@ public class MapRootPane extends AnchorPane{
 	 * @param g 
 	 */
 	private void updateDisplay(Graph g){
+		nodeLayer.getChildren().clear();
+		edgeLayer.getChildren().clear();
 		addNodeDisplayFromList(g.getNodes());
 		addEdgeDisplayFromList(g, g.getEdges());
 	}
@@ -544,7 +579,7 @@ public class MapRootPane extends AnchorPane{
 		Coordinate nc = n.getCoordinate();
 		startMarker = new MarkerDisplay(nc.getX(), nc.getY(), nc.getZ(), Marker.START);
 		startMarker.setNodePoint(n.getId());
-		System.out.println("start set");
+		//System.out.println("start set");
 		//nodeQueue.clear();
 		//nodeQueue.add(e)
 		markerPane.getChildren().add(startMarker);
@@ -575,6 +610,12 @@ public class MapRootPane extends AnchorPane{
     	Coordinate lastdragged = new Coordinate(0);
 		Coordinate mydragged = new Coordinate(0);
     	canvas.setOnMousePressed(e -> {
+			oldmapinv = new ArrayList<>();
+					for(Map m : selectedMaps){
+						Matrix mat = new Matrix();
+						if(m != null)mat = mat.scale(1.0/m.getScale()).rotate(-m.getRotation(), 0.0, 0.0, 1.0).translate(new Coordinate(-m.getCenter().getX(), -m.getCenter().getY()));
+						oldmapinv.add(mat);
+					}
     		Map nearestMap = null;
     		if(!selectedMaps.isEmpty() && ControllerSingleton.getInstance().getMapDevToolPane().isVisible()) nearestMap = selectedMaps.get(0);
     		else selectedMaps.clear();
@@ -624,11 +665,27 @@ public class MapRootPane extends AnchorPane{
 					delta = new Coordinate(in.getX() - lastdragged.getX(), in.getY() - lastdragged.getY());
 					
 				}
-				for(Map m : selectedMaps){
+				int i;
+				for(i = 0; i < selectedMaps.size(); i++){
+					Map m = selectedMaps.get(i);
+					if(m == null)continue;
 					Coordinate c = m.getCenter();
 					m.setRotation(m.getRotation() + deltaRot);
 					m.setScale(m.getScale() + deltaZoom);
 					m.getCenter().setAll((float) c.getX() + delta.getX(), (float)c.getY() + delta.getY(), c.getZ());
+					//find all connected maps
+					if(m.mapstackname != null) {
+						//System.out.println("mapsteck " + m.mapstackname);
+						Mapstack ms = display.addmapstack(m.mapstackname);
+						for (int ki : ms.meps) {
+							if (ki > display.getMaps().size()) continue;
+							Map j = display.getMaps().get(ki);
+							if (j == null) continue;
+							j.getCenter().setAll((float) c.getX() + delta.getX(), (float) c.getY() + delta.getY(), j.getCenter().getZ());
+							j.setScale(m.getScale());
+							j.setRotation(m.getRotation());
+						}
+					}
 					render();
 				}
 				lastdragged.setAll(in.getX(), in.getY(), 0);
@@ -641,6 +698,24 @@ public class MapRootPane extends AnchorPane{
 			if(e.getButton() == MouseButton.PRIMARY && isEditMode){
 				release.setAll((float)e.getX(), (float)e.getY(), 0);
 			}
+			int i;
+			for(i = 0; i <selectedMaps.size(); i++) {
+				Map m = selectedMaps.get(i);
+				if(m == null)continue;
+				Matrix mat = oldmapinv.get(i);
+				Matrix newmat = new Matrix(new Coordinate(m.getCenter().getX(), m.getCenter().getY())).scale(m.getScale()).rotate(m.getRotation(), 0.0, 0.0, 1.0);
+				Mapstack ms = display.addmapstack(m.mapstackname);
+				for(Id iddy : ms.nodes){
+					if(iddy == null)continue;
+					Node n = display.getGraph().returnNodeById(iddy);
+					if(n == null)continue;
+					//TIME FOR DA MAGIIICZ
+					Coordinate modelspace = mat.transform(n.getCoordinate());
+					Coordinate newspace = newmat.transform(modelspace);
+					n.getCoordinate().setAll(newspace.getX(), newspace.getY(), n.getCoordinate().getZ());
+				}
+			}
+			render();
 	     });
     	canvas.setOnMouseClicked(e -> {
     		//If user did not click-drag on map
@@ -687,6 +762,11 @@ public class MapRootPane extends AnchorPane{
     				endMarker = new MarkerDisplay(nearestNode.getCoordinate().getX(), nearestNode.getCoordinate().getY(), level, Marker.END);
     				endMarker.setNodePoint(nearestNodeId);
     				drawPath(startMarker.getNodePoint(), endMarker.getNodePoint());
+    				ControllerSingleton.getInstance().getNavigationPane().start(ControllerSingleton.getInstance().getMapRootPane().getPath().getSteps());
+    				for(int i = 0; i < ControllerSingleton.getInstance().getMapRootPane().getPath().getSteps().size(); i++){
+    					System.out.println(ControllerSingleton.getInstance().getMapRootPane().getPath().getSteps().get(i).toString());
+    				}
+    				showDirections();
     				//markerPane.getChildren().add(endMarker);
     			}
     			if(startMarker == null && nodeQueue.size() == 0) {
@@ -783,6 +863,7 @@ public class MapRootPane extends AnchorPane{
 					if(node == null) continue;
 					Coordinate c = node.getCoordinate();
 					node.setCoordinate(new Coordinate(in.getX(), in.getY(), c.getZ()));
+					display.autoaffiliatenode(node.getId());
 				}
 				render();
 				lastdragged.setAll(in.getX(), in.getY(), 0);
@@ -966,9 +1047,10 @@ public class MapRootPane extends AnchorPane{
 
         //startNode.fireEvent(selectNodeEvent);
         //endNode.fireEvent(selectNodeEvent);
+        showDirections();
         endMarker = null;
         startMarker = null;
-        showDirections();
+        
 	}
 	public void drawMensRoomPath(){
 		pathPane.getChildren().clear();
@@ -994,9 +1076,10 @@ public class MapRootPane extends AnchorPane{
 
         //startNode.fireEvent(selectNodeEvent);
         //endNode.fireEvent(selectNodeEvent);
+        showDirections();
         endMarker = null;
         startMarker = null;
-        showDirections();
+        
 	}
 	public void drawWomensRoomPath(){
 		pathPane.getChildren().clear();
@@ -1022,9 +1105,10 @@ public class MapRootPane extends AnchorPane{
 
         //startNode.fireEvent(selectNodeEvent);
         //endNode.fireEvent(selectNodeEvent);
+        showDirections();
         endMarker = null;
         startMarker = null;
-        showDirections();
+        
 	}
 	public void drawGenderNeutralRestroomPath(){
 		pathPane.getChildren().clear();
@@ -1050,9 +1134,10 @@ public class MapRootPane extends AnchorPane{
 
         //startNode.fireEvent(selectNodeEvent);
         //endNode.fireEvent(selectNodeEvent);
+        showDirections();
         endMarker = null;
         startMarker = null;
-        showDirections();
+        
 	}
 	
 	public void drawPath(Id nodeAId, Id nodeBId){

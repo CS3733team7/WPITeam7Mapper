@@ -78,16 +78,17 @@ public class MenuPane extends HBox {
      */
     public MenuPane() {
         //initializing the fxml file.
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/MenuPane.fxml"));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/wpi/off/by/one/errors/code/view/MenuPane.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
             loader.load();
-            this.getStylesheets().add(getClass().getResource("../resources/stylesheets/MenuPaneStyleSheet.css").toExternalForm());
+            this.getStylesheets().add(getClass().getResource("/edu/wpi/off/by/one/errors/code/resources/stylesheets/MenuPaneStyleSheet.css").toExternalForm());
         } catch (IOException excpt) {
             throw new RuntimeException(excpt);
         }
         addListeners();
+        
         removeRadioButtonStyles();
         ControllerSingleton.getInstance().registerMenuPane(this);
 

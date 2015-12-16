@@ -1,6 +1,7 @@
 package edu.wpi.off.by.one.errors.code.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 
 import edu.wpi.off.by.one.errors.code.controller.ControllerSingleton;
@@ -11,6 +12,7 @@ public class Display extends Pane{
 	
 	ArrayList<Map> Maps;
 	Graph currentGraph;
+	HashMap<String, Mapstack> mapstecks;
 
 	/**
 	 * Display Constructor
@@ -32,11 +34,88 @@ public class Display extends Pane{
 		Maps.add(new Map());
 		this.currentGraph = new Graph();
 	}
+
+	public void autoaffiliatenode(Id nid){
+		Node n = currentGraph.returnNodeById(nid);
+		if(n == null) return;
+		for(Map m : Maps){
+			if(m == null || m.getName() == null) continue;
+			if(m.getName().equals("Campus Map")) continue;
+			if(m.mapstackname == null) continue;
+			int col = m.getColor(n.getCoordinate());
+			if(col != 0){
+				//System.out.println(col + " " + m.getName());
+				Mapstack ms = mapstecks.get(m.mapstackname);
+				if(ms != null) {
+					if(n.mapstackname != null){
+						Mapstack ns = mapstecks.get(n.mapstackname);
+						ns.remn(n.getId());
+					}
+					ms.addn(n.getId());
+					n.mapstackname = m.mapstackname;
+					break;
+				}
+			}
+		}
+	}
+	public void autoaffiliate(){
+		//todo
+		for(Node n : currentGraph.getNodes()){
+			if(n == null) continue;
+			for(Map m : Maps){
+				if(m == null || m.getName() == null) continue;
+				if(m.getName().equals("Campus Map")) continue;
+				if(m.mapstackname == null) continue;
+				int col = m.getColor(n.getCoordinate());
+				if(col != 0){
+					//System.out.println(col + " " + m.getName());
+					Mapstack ms = mapstecks.get(m.mapstackname);
+					if(ms != null) {
+						if(n.mapstackname != null){
+							Mapstack ns = mapstecks.get(n.mapstackname);
+							ns.remn(n.getId());
+						}
+						ms.addn(n.getId());
+						n.mapstackname = m.mapstackname;
+						break;
+					}
+				}
+			}
+		}
+	}
 	
 	public void addMap(Map m){ Maps.add(m);}
 	public void setGraph(Graph g) { this.currentGraph = g; }
 	public ArrayList<Map> getMaps() { return Maps; }
 	public Graph getGraph() { return currentGraph; }
+
+	public Mapstack addmapstack(String name){
+		if(mapstecks == null) mapstecks = new HashMap<>();
+		if(mapstecks.containsKey(name)) return mapstecks.get(name);
+		Mapstack m = new Mapstack(name);
+		mapstecks.put(name, m);
+		return mapstecks.get(name);
+	}
+	public void addmaptostack(String sname, String mname){
+		Mapstack ms = addmapstack(sname);
+		int indice = -1;
+		int i;
+		for(i = 0; i < Maps.size(); i++ ){
+			Map m = Maps.get(i);
+			if(m == null) continue;
+			if(m.getName() == null) continue;
+			if(m.getName().equals(mname))break;
+		}
+		if(i < Maps.size()){
+			//found it
+			ms.addm(i);
+			Map m = Maps.get(i);
+			//System.out.println("addmap "+ m.getName() + " " +sname);
+			m.setmapstack(sname);
+		} else {
+			//System.out.println("unable to find map " + mname);
+		}
+	}
 	
 	public Map getNearestMap(Coordinate coord, int cz){
 		float distsq = Float.MAX_VALUE;

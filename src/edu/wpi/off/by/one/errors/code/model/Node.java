@@ -17,6 +17,7 @@ public class Node {
     private boolean womens = false;
     private boolean genderNeutral = false;
     private String name = "";
+    public String mapstackname;
     
     /**
      *
@@ -59,9 +60,10 @@ public class Node {
         this.coord = newCoord;
     }
     
-    public void setName(String name){
-    	this.name = name;
-    	TagMap.getTagMap().addName(name, id);
+    public void setName(String nameIn){
+    	nameIn = nameIn.trim();
+    	this.name = nameIn;
+    	TagMap.getTagMap().addName(nameIn, id);
     }
     
     public String getName(){
@@ -117,6 +119,10 @@ public class Node {
      */
     public ArrayList<String> GetTags(){
     	return tags;
+    }
+    
+    public void SetTags(ArrayList<String> tags) {
+    	this.tags = tags;
     }
     
     /**

@@ -25,7 +25,7 @@ public class IconedLabel extends BorderPane {
 
     //region Constructor/s
     public IconedLabel() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../view/customcontrols/IconedLabel.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/wpi/off/by/one/errors/code/view/customcontrols/IconedLabel.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {

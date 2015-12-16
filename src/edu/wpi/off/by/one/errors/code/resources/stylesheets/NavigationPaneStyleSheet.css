@@ -14,12 +14,12 @@
 
 #previousButton{
     -fx-background-radius:50;
-    -fx-background-image: url("../icons/white/Leftarrow.png");
+    -fx-background-image: url("/edu/wpi/off/by/one/errors/code/resources/icons/white/Leftarrow.png");
     -fx-background-size: cover;
 }
 
 #nextButton{
     -fx-background-radius:50;
-    -fx-background-image: url("../icons/white/Rightarrow.png");
+    -fx-background-image: url("/edu/wpi/off/by/one/errors/code/resources/icons/white/Rightarrow.png");
     -fx-background-size: cover;
 }

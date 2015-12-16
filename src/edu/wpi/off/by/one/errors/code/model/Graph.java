@@ -148,7 +148,7 @@ public class Graph {
 		for(i = 0; i < listOfEdges.size(); i++){
 			e = listOfEdges.get(i);
 			if(e==null) continue;
-			if((nodeAIn.compare(e.getNodeA()) && nodeBIn.compare(e.getNodeB())) || (nodeBIn.compare(e.getNodeA()) && nodeAIn.compare(e.getNodeB())))break;
+			if((nodeAIn.compare(e.getNodeA()) && nodeBIn.compare(e.getNodeB())) || (nodeBIn.compare(e.getNodeA()) && nodeAIn.compare(e.getNodeB()))) break;
 		}
 		if(i < listOfEdges.size()){ // found duplicate
 			//System.out.println("found dupe");
@@ -229,6 +229,10 @@ public class Graph {
 		Id eid = e.getId();
 		if(eid.indice != id.indice || eid.unique != id.unique) return null; 
 		return e;
+	}
+	
+	public void addListOfEdges(ArrayList<Edge> edges){
+		
 	}
 	
 	public Vector<Node> getNodes(){//gets the list of nodes

@@ -33,7 +33,7 @@ public class EdgeDevToolPane extends VBox {
 	Queue<EdgeDisplay> edges;
 	
     public EdgeDevToolPane(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../view/menupanes/devtoolspanes/EdgeDevToolPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/wpi/off/by/one/errors/code/view/menupanes/devtoolspanes/EdgeDevToolPane.fxml"));
         loader.setRoot(this);
         loader.setController(this);
 

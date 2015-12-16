@@ -115,13 +115,11 @@ public class test extends TestCase{
         //FileIO.save(dir + "testio.txt", dpy);//test save file
         //FileIO.load(dir+"testio.txt", null);//test load file without display
         //FileIO.load(dir+"testio.txt", dpy);//test load file with display
-
     }
     */
     //test Path
-    @Test
+  /*  @Test
     public void testAStar(){
-
     	String dir = System.getProperty("user.dir");
     	Display d = FileIO.load(dir + "/src/edu/wpi/off/by/one/errors/code/resources/maps/txtfiles/testmap.txt", null);
     	Graph g = d.getGraph();
@@ -138,11 +136,9 @@ public class test extends TestCase{
     	ArrayList<Integer> expNTPath = new ArrayList<Integer>();
     	nonTraversablePath.runAStar(g);
     	assertEquals(nonTraversablePath.getRoute(), expNTPath);
-
     }
     @Test
     public void testAccessibleAStar(){
-
     	String dir = System.getProperty("user.dir");
     	Display d = FileIO.load(dir + "/src/edu/wpi/off/by/one/errors/code/resources/maps/txtfiles/testmap.txt", null);
     	Graph g = d.getGraph();
@@ -159,6 +155,5 @@ public class test extends TestCase{
     	ArrayList<Integer> expNTPath = new ArrayList<Integer>();
     	nonTraversablePath.runAStar(g);
     	assertEquals(nonTraversablePath.getRoute(), expNTPath);
-
-    }
+    }*/
 }

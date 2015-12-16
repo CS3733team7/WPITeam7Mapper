@@ -3,11 +3,10 @@ package edu.wpi.off.by.one.errors.code.controller.menupanes;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import edu.wpi.off.by.one.errors.code.controller.ControllerSingleton;
 import edu.wpi.off.by.one.errors.code.controller.MainPane;
-import edu.wpi.off.by.one.errors.code.controller.MapRootPane;
-import edu.wpi.off.by.one.errors.code.controller.customcontrols.AutoCompleteTextField;
 import edu.wpi.off.by.one.errors.code.controller.customcontrols.ClearableTextField;
 import edu.wpi.off.by.one.errors.code.model.Coordinate;
 import edu.wpi.off.by.one.errors.code.model.Graph;
@@ -19,11 +18,8 @@ import edu.wpi.off.by.one.errors.code.model.TagMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -31,7 +27,7 @@ import javafx.scene.layout.BorderPane;
  */
 public class SearchMenuPane extends BorderPane {
 
-	@FXML AutoCompleteTextField searchField;
+	@FXML ClearableTextField searchField;
 	@FXML Button toButton;
 	@FXML Button fromButton;
 	@FXML Button searchLocationButton;
@@ -42,7 +38,7 @@ public class SearchMenuPane extends BorderPane {
 	int currentLevel;
 	
     public SearchMenuPane(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../view/menupanes/SearchMenuPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/wpi/off/by/one/errors/code/view/menupanes/SearchMenuPane.fxml"));
 
         loader.setRoot(this);
         loader.setController(this);
@@ -52,8 +48,12 @@ public class SearchMenuPane extends BorderPane {
         }catch(IOException excpt){
             throw new RuntimeException(excpt);
         }
-        this.getStylesheets().add(getClass().getResource("../../resources/stylesheets/menupanes/SearchPaneStyleSheet.css").toExternalForm());
+        this.getStylesheets().add(getClass().getResource("/edu/wpi/off/by/one/errors/code/resources/stylesheets/menupanes/SearchPaneStyleSheet.css").toExternalForm());
         setListeners();
+        
+        Set<String> tagNameSet = TagMap.getTagMap().getTags();
+        tagNameSet.addAll(TagMap.getTagMap().getNames());
+		searchField.setTagsSet(tagNameSet);
         //SortedSet<String> entries = new TreeSet<String>();
         /*
         for(Map m : ControllerSingleton.getInstance().getMapRootPane().getDisplay().getMaps()){
@@ -68,6 +68,7 @@ public class SearchMenuPane extends BorderPane {
 			String name = (m.getName() == null) ? m.getImgUrl() : m.getName();
 			buildingChoiceBox.getItems().add(name);
         }
+		buildingChoiceBox.setValue("Campus Map");
 	}
 	
 	@FXML private void setDirectionsTo(){
@@ -182,7 +183,7 @@ public class SearchMenuPane extends BorderPane {
 		if(m == null) return;
 		ControllerSingleton.getInstance().getMapRootPane().currentLevel.setValue(m.getCenter().getZ());
 		mainPane.dropStartC = ControllerSingleton.getInstance().getMapRootPane().translate;
-		//mainPane.dropStartR = ControllerSingleton.getInstance().getMapRootPane().rot;
+		mainPane.dropStartR = ControllerSingleton.getInstance().getMapRootPane().rot;
 		mainPane.dropStartS = ControllerSingleton.getInstance().getMapRootPane().zoom;
 		
 		//float zx = (float) (m.getCenter().getX() + m.getImage().getWidth() * 0.5f * m.getScale());

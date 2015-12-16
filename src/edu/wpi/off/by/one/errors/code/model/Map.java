@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Map {
 	public ArrayList<Integer> goodcolors;
+	public String mapstackname;
 	
 	String name;
 	String imagePath;
@@ -13,28 +14,36 @@ public class Map {
 	float scale;
 	private Image myimg;
 
+	public void setmapstack(String name){
+		mapstackname = name;
+	}
+
 	private void updateImg(){
 		
 		myimg = new Image("/edu/wpi/off/by/one/errors/code/resources/maps/images/" + imagePath);
 	}
-	/*
 	public void addColor(int color){
 		if(goodcolors == null) goodcolors = new ArrayList<Integer>();
 		if(goodcolors.contains(Integer.valueOf(color))) return;
 		goodcolors.add(Integer.valueOf(color));
 	}
 	public int getColor(Coordinate c){
-		Matrix mat = new Matrix(new Coordinate(-center.getX(), -center.getY())).scale(1.0/scale).rotate(-rotation, 0.0, 0.0, 1.0);// may not be proper inverse
+//		Matrix mat = new Matrix(new Coordinate(-center.getX(), -center.getY())).scale(1.0/scale).rotate(-rotation, 0.0, 0.0, 1.0);// may not be proper inverse
+		Matrix mat = new Matrix().scale(1.0/scale).rotate(-rotation, 0.0, 0.0, 1.0).translate(new Coordinate(-center.getX(), -center.getY()));// may not be proper inverse
 		Coordinate sc = mat.transform(c);
 		int sx = Math.round(sc.getX());
 		int sy = Math.round(sc.getY());
-		System.out.printf(" %s Eyedrop X %d Eyedrop Y %d, coord X %f coord Y %f, center X %f, center Y %f\n", name, sx, sy, c.getX(), c.getY(), center.getX(), center.getY());
+		//System.out.printf(" %s Eyedrop X %d Eyedrop Y %d, coord X %f coord Y %f, center X %f, center Y %f\n", name, sx, sy, c.getX(), c.getY(), center.getX(), center.getY());
 		if(sx < 0 || sx >= myimg.getWidth()) return 0;
+//		System.out.println("got here");
 		if(sy < 0 || sy >= myimg.getHeight()) return 0;
+		//System.out.printf(" %s Eyedrop X %d Eyedrop Y %d, coord X %f coord Y %f, center X %f, center Y %f\n", name, sx, sy, c.getX(), c.getY(), center.getX(), center.getY());
+
 		return myimg.getPixelReader().getArgb(sx, sy);
 	}
 	public boolean checkLines(Coordinate start, Coordinate finish){
 		//get start/end x and y ints
+		//WARNING NOT THE PROPER
 		Matrix mat = new Matrix(new Coordinate(-center.getX(), -center.getY())).scale(1.0/scale).rotate(-rotation, 0.0, 0.0, 1.0);// may not be proper inverse
 		Coordinate sc = mat.transform(start);
 		Coordinate ec = mat.transform(finish);
@@ -105,7 +114,6 @@ public class Map {
 		}
 		return true;
 	}
-	*/
 	public Map(String path, Coordinate coordinate, float rotation, float scale){
 		this.imagePath=path;
 		this.center = coordinate;
