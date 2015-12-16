@@ -1,32 +1,17 @@
 package edu.wpi.off.by.one.errors.code.controller.menupanes;
 
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-
-import edu.wpi.off.by.one.errors.code.controller.customcontrols.AutoCompleteNameTextField;
-import edu.wpi.off.by.one.errors.code.controller.customcontrols.AutoCompleteTextField;
 import edu.wpi.off.by.one.errors.code.controller.customcontrols.ClearableTextField;
 import edu.wpi.off.by.one.errors.code.controller.ControllerSingleton;
-import edu.wpi.off.by.one.errors.code.controller.MapRootPane;
-import edu.wpi.off.by.one.errors.code.model.GoogleMail;
 import edu.wpi.off.by.one.errors.code.model.Id;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import edu.wpi.off.by.one.errors.code.model.Node;
 import edu.wpi.off.by.one.errors.code.model.TagMap;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -39,6 +24,10 @@ public class DirectionsMenuPane extends BorderPane {
     @FXML private ListView<String> directionsListView;
     @FXML CheckBox accessibleCheckbox;
     @FXML ComboBox carrierChoiceBox;
+	@FXML Button foodButton;
+	@FXML Button mensRoomButton;
+	@FXML Button womensRoomButton;
+	@FXML Button genderNeutralRestroomButton;
 
     private SettingsMenuPane settingsMenuPane;
     Node originNode;
@@ -73,6 +62,22 @@ public class DirectionsMenuPane extends BorderPane {
 				System.out.println(ControllerSingleton.getInstance().getMapRootPane().getPath().getSteps().get(i).toString());
 			}
 			ControllerSingleton.getInstance().getNavigationPane().nodezoomcheck(true);
+		});
+		this.foodButton.setOnAction(e-> {
+			//ControllerSingleton.getInstance().getMapRootPane().placeMarker(originNode);
+			ControllerSingleton.getInstance().getMapRootPane().drawFoodPath();
+		});
+		this.mensRoomButton.setOnAction(e-> {
+			//ControllerSingleton.getInstance().getMapRootPane().placeMarker(originNode);
+			ControllerSingleton.getInstance().getMapRootPane().drawMensRoomPath();
+		});
+		this.womensRoomButton.setOnAction(e-> {
+			//ControllerSingleton.getInstance().getMapRootPane().placeMarker(originNode);
+			ControllerSingleton.getInstance().getMapRootPane().drawWomensRoomPath();
+		});
+		this.genderNeutralRestroomButton.setOnAction(e-> {
+			//ControllerSingleton.getInstance().getMapRootPane().placeMarker(originNode);
+			ControllerSingleton.getInstance().getMapRootPane().drawGenderNeutralRestroomPath();
 		});
 	}
 	

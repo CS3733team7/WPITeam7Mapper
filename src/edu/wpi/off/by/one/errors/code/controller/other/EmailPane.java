@@ -24,7 +24,7 @@ public class EmailPane extends BorderPane {
 
 
     public EmailPane(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/wpi/off/by/one/errors/code/view/other/EmailPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/wpi/off/by/one/errors/code/view/Other/EmailPane.fxml"));
 
         loader.setRoot(this);
         loader.setController(this);

@@ -177,7 +177,7 @@ public class SettingsMenuPane extends BorderPane {
 		ControllerSingleton.getInstance().getMapRootPane().render();
 	}
     public boolean isEmailValid(){
-        boolean isValid;
+        //boolean isValid;
         Pattern EMAIL_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = EMAIL_REGEX.matcher(getUserEmail());
         return matcher.find();
