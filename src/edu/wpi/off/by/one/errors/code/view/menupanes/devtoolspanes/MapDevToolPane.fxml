@@ -5,13 +5,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root minWidth="0.0" prefHeight="357.0" prefWidth="235" spacing="10.0" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import edu.wpi.off.by.one.errors.code.controller.customcontrols.ClearableTextField?>
+<fx:root type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Select a display" />
-      <ChoiceBox fx:id="displayChoiceBox" prefHeight="25.0" prefWidth="222.0" />
+      <Label text="Select a map" />
+      <ChoiceBox fx:id="mapChoiceBox" prefHeight="25.0" prefWidth="222.0" />
       <Separator prefWidth="200.0" />
       <Label minWidth="0.0" text="Name" />
-      <TextField fx:id="nameTextField" minWidth="0.0" promptText="Name of the Map" />
+      <ClearableTextField fx:id="nameTextField" minWidth="0.0" promptText="Name of the Map" />
       <Label minWidth="0.0" text="Center Coordinates" />
       <GridPane hgap="5.0" minWidth="0.0">
         <columnConstraints>
@@ -88,8 +89,24 @@
             <Button fx:id="changeImageButton" alignment="TOP_LEFT" contentDisplay="CENTER" minWidth="0.0" mnemonicParsing="false" onAction="#changeImage" text="Change" StackPane.alignment="CENTER_RIGHT" />
          </children>
       </StackPane>
+      <BorderPane prefHeight="41.0" prefWidth="235.0">
+         <top>
+            <Label prefHeight="17.0" prefWidth="240.0" text="Map Tag" BorderPane.alignment="CENTER" />
+         </top>
+         <right>
+            <Button mnemonicParsing="false" onAction="#assignMapTag" text="Add" BorderPane.alignment="CENTER" />
+         </right>
+         <center>
+            <ClearableTextField fx:id="mapTagTextField" onAction="#assignMapTag" BorderPane.alignment="CENTER" />
+         </center>
+         <bottom>
+            <HBox prefHeight="24.0" prefWidth="235.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#reaffiliateNodes" prefHeight="25.0" prefWidth="117.5" text="Reaffiliate Nodes" />
+                  <Button mnemonicParsing="false" onAction="#disaffiliateNodes" prefHeight="25.0" prefWidth="117.5" text="Disaffiliate Nodes" />
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
    </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
 </fx:root>

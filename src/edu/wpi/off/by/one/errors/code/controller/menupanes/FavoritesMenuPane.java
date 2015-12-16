@@ -1,19 +1,17 @@
 package edu.wpi.off.by.one.errors.code.controller.menupanes;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-
 import java.io.IOException;
 
-import edu.wpi.off.by.one.errors.code.controller.MainPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.BorderPane;
 
 /**
  * Created by jules on 11/28/2015.
  */
-public class FavoritesMenuPane extends AnchorPane {
+public class FavoritesMenuPane extends BorderPane {
 
     public FavoritesMenuPane(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../view/menupanes/FavoritesMenuPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/wpi/off/by/one/errors/code/view/menupanes/FavoritesMenuPane.fxml"));
 
         loader.setRoot(this);
         loader.setController(this);
@@ -24,8 +22,4 @@ public class FavoritesMenuPane extends AnchorPane {
         }
     }
 
-	public void setMainPane(MainPane mainPane) {
-		// TODO Auto-generated method stub
-		
-	}
 }

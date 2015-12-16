@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root minWidth="0.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <Label text="Settings Pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-0.0" AnchorPane.topAnchor="0.0" />
-    </children>
+<?import edu.wpi.off.by.one.errors.code.controller.customcontrols.ClearableTextField?>
+<fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <VBox spacing="5.0">
+            <children>
+                <Label text="Settings Pane" />
+                <Label text="Profile" />
+                <Label text="Name" />
+                <ClearableTextField fx:id="nameTextField" promptText="Enter your name" />
+                <Label text="Phone Number" />
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints fillWidth="true" percentWidth="50"/>
+                        <ColumnConstraints fillWidth="true" percentWidth="50"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints fillHeight="true" prefHeight="25"/>
+                    </rowConstraints>
+                    <children>
+                        <ComboBox fx:id="carrierChoiceBox" GridPane.columnIndex="0">
+                            <VBox.margin>
+                                <Insets top="10.0" />
+                            </VBox.margin>
+                        </ComboBox>
+                        <ClearableTextField fx:id="phoneTextField" promptText="5555555555" GridPane.columnIndex="1" />
+                    </children>
+                </GridPane>
+                <Label text="Email" />
+                <ClearableTextField fx:id="emailTextField" promptText="email@wpi.edu" />
+               <Label text="Units" />
+               	<ComboBox fx:id="unitChoiceBox" prefHeight="25.0" prefWidth="250.0" >
+              <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </ComboBox>
+                <Label text="History" />
+                <CheckBox text="Remember Searches" />
+                <Button alignment="TOP_LEFT" text="Clear History" />
+                <Label text="Other" />
+                <CheckBox fx:id="pirateCheckbox" onAction="#selectPirate" text="Pirate Mode"/>
+            </children>
+        </VBox>
+    </center>
+    <bottom>
+        <Button text="Save" BorderPane.alignment="CENTER_RIGHT" onAction="#onSaveButtonClick"/>
+    </bottom>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
 </fx:root>

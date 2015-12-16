@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import edu.wpi.off.by.one.errors.code.controller.customcontrols.AutoCompleteTextField?>
+<?import edu.wpi.off.by.one.errors.code.controller.customcontrols.*?>
 
 <fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <ListView BorderPane.alignment="CENTER" />
+      <ListView fx:id="locationResultListView" minWidth="0.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </ListView>
    </center>
    <top>
-      <VBox minWidth="0" BorderPane.alignment="CENTER">
+      <VBox spacing="10" minWidth="0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Label" />
-            <BorderPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="0.0">
+            <Label fx:id="searchLabel" maxHeight="40" minWidth="0.0" text="Search" />
+            <BorderPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="30.0">
                <center>
-                  <AutoCompleteTextField minWidth="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+                   <ClearableTextField fx:id="searchField" maxHeight="-Infinity" minWidth="0.0" prefHeight="30.0" promptText="Search for Location" BorderPane.alignment="CENTER" />
                </center>
                <right>
-                  <Button maxWidth="-Infinity" minWidth="0.0" mnemonicParsing="false" prefWidth="30.0" text="Button" BorderPane.alignment="CENTER" />
+                  <Button fx:id="searchLocationButton" minWidth="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="Button" BorderPane.alignment="CENTER" />
                </right>
             </BorderPane>
+            <ComboBox fx:id="buildingChoiceBox" prefHeight="25.0"/>
+            <HBox prefHeight="0.0">
+               <children>
+                  <Button fx:id="fromButton" disable="true" mnemonicParsing="false" onAction="#setDirectionsFrom" prefHeight="25.0" prefWidth="124.0" text="Directions From" />
+                  <Button fx:id="toButton" disable="true" mnemonicParsing="false" onAction="#setDirectionsTo" prefHeight="25.0" prefWidth="125.0" text="Directions To" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </top>
+   <padding>
+      <Insets bottom="0" left="10.0" right="10.0" top="0" />
+   </padding>
 </fx:root>

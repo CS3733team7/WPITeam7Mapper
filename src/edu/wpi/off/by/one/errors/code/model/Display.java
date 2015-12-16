@@ -1,20 +1,18 @@
 package edu.wpi.off.by.one.errors.code.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 
-import edu.wpi.off.by.one.errors.code.application.NodeDisplay;
-import edu.wpi.off.by.one.errors.code.application.event.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import edu.wpi.off.by.one.errors.code.controller.ControllerSingleton;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class Display extends Pane{
 	
-	Map currentMap;
+	ArrayList<Map> Maps;
 	Graph currentGraph;
+	HashMap<String, Mapstack> mapstecks;
 
 	/**
 	 * Display Constructor
@@ -22,7 +20,8 @@ public class Display extends Pane{
 	 * @param currentGraph
 	 */
 	public Display(Map currentMap, Graph currentGraph){
-		this.currentMap = currentMap == null ? new Map() : currentMap;
+		this.Maps = Maps == null ? new ArrayList<Map>() : Maps;
+		if(Maps.isEmpty()) Maps.add(new Map());
 		this.currentGraph = currentGraph == null ? new Graph() : currentGraph;
 	}
 	
@@ -31,25 +30,125 @@ public class Display extends Pane{
 	 * 
 	 */
 	public Display(){
-		this.currentMap = new Map();
+		this.Maps = new ArrayList<Map>();
+		Maps.add(new Map());
 		this.currentGraph = new Graph();
 	}
+
+	public void autoaffiliatenode(Id nid){
+		Node n = currentGraph.returnNodeById(nid);
+		if(n == null) return;
+		for(Map m : Maps){
+			if(m == null || m.getName() == null) continue;
+			if(m.getName().equals("Campus Map")) continue;
+			if(m.mapstackname == null) continue;
+			int col = m.getColor(n.getCoordinate());
+			if(col != 0){
+				//System.out.println(col + " " + m.getName());
+				Mapstack ms = mapstecks.get(m.mapstackname);
+				if(ms != null) {
+					if(n.mapstackname != null){
+						Mapstack ns = mapstecks.get(n.mapstackname);
+						ns.remn(n.getId());
+					}
+					ms.addn(n.getId());
+					n.mapstackname = m.mapstackname;
+					break;
+				}
+			}
+		}
+	}
+	public void autoaffiliate(){
+		//todo
+		for(Node n : currentGraph.getNodes()){
+			if(n == null) continue;
+			for(Map m : Maps){
+				if(m == null || m.getName() == null) continue;
+				if(m.getName().equals("Campus Map")) continue;
+				if(m.mapstackname == null) continue;
+				int col = m.getColor(n.getCoordinate());
+				if(col != 0){
+					//System.out.println(col + " " + m.getName());
+					Mapstack ms = mapstecks.get(m.mapstackname);
+					if(ms != null) {
+						if(n.mapstackname != null){
+							Mapstack ns = mapstecks.get(n.mapstackname);
+							ns.remn(n.getId());
+						}
+						ms.addn(n.getId());
+						n.mapstackname = m.mapstackname;
+						break;
+					}
+				}
+			}
+		}
+	}
 	
-	public void setMap(Map m){ this.currentMap = m; }
+	public void addMap(Map m){ Maps.add(m);}
 	public void setGraph(Graph g) { this.currentGraph = g; }
-	public Map getMap() { return currentMap; }
+	public ArrayList<Map> getMaps() { return Maps; }
 	public Graph getGraph() { return currentGraph; }
+
+	public Mapstack addmapstack(String name){
+		if(mapstecks == null) mapstecks = new HashMap<>();
+		if(mapstecks.containsKey(name)) return mapstecks.get(name);
+		Mapstack m = new Mapstack(name);
+		mapstecks.put(name, m);
+		return mapstecks.get(name);
+	}
+	public void addmaptostack(String sname, String mname){
+		Mapstack ms = addmapstack(sname);
+		int indice = -1;
+		int i;
+		for(i = 0; i < Maps.size(); i++ ){
+			Map m = Maps.get(i);
+			if(m == null) continue;
+			if(m.getName() == null) continue;
+			if(m.getName().equals(mname))break;
+		}
+		if(i < Maps.size()){
+			//found it
+			ms.addm(i);
+			Map m = Maps.get(i);
+			//System.out.println("addmap "+ m.getName() + " " +sname);
+			m.setmapstack(sname);
+		} else {
+			//System.out.println("unable to find map " + mname);
+		}
+	}
+	
+	public Map getNearestMap(Coordinate coord, int cz){
+		float distsq = Float.MAX_VALUE;
+		float cx = coord.getX();
+		float cy = coord.getY();
+		Map nearest = null;
+		for(Map m : Maps){
+			if(m == null) continue;
+			float mx = m.getCenter().getX() - cx;
+			float my = m.getCenter().getY() - cy;
+			float mz = m.getCenter().getZ();
+			float mydistsq = mx * mx + my * my;
+			if(mydistsq < distsq && mz == cz){
+				distsq = mydistsq;
+				nearest = m;
+			}
+		}
+		return nearest;
+	}
 	
 	/**
 	 * Draws a graphical path between two nodes on the map
-	 * @param a First node
-	 * @param b Second node
+	 * @param start First node
+	 * @param end Second node
 	 */
-	public void drawPath(Id start, Id end) {
+	/*public void drawPath(Id start, Id end) {
 		int idx = 0;
 		Vector<Node> nodes = currentGraph.getNodes();
 		Path p = new Path(start, end);
-		p.runAStar(currentGraph); //Change this later??
+        if(ControllerSingleton.getInstance().getMapRootPane().isAccessibleMode){
+        	p.runAccessibleAStar(currentGraph);
+        }
+        else p.runAStar(currentGraph); //Change this later??
 		ArrayList<Id> idList = p.getRoute();
 		while(idx < idList.size()){
 			Node a = nodes.get(idx);
@@ -63,10 +162,10 @@ public class Display extends Pane{
 			//mapPane.getChildren().add(l);
 		}
 		//TODO: Add code to actually draw the line on the map
-	}
-	
+	}*/
+	/*
 	private ImageView GetMapView() {
-		currentMap.getImgUrl();
+		Maps.getImgUrl();
 		Image map = new Image("campusmap.png");
 		ImageView mapIV = new ImageView();
 		mapIV.setImage(map);
@@ -75,5 +174,5 @@ public class Display extends Pane{
 		mapIV.setCache(true);
 		return mapIV;
 	}
-	
+	*/
 }

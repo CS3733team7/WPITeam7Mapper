@@ -8,6 +8,16 @@ public class Node {
     private Vector<Id> edges;//list of indexes of edges
     private Id id;
     private ArrayList<String> tags;//list of tags the node has
+    private TagMap tagMap;
+    private boolean accessible = true;
+    private boolean stairs = false;
+    private boolean elevator = false;
+    private boolean food = false;
+    private boolean mens = false;
+    private boolean womens = false;
+    private boolean genderNeutral = false;
+    private String name = "";
+    public String mapstackname;
     
     /**
      *
@@ -18,6 +28,7 @@ public class Node {
         this.coord = coordIn;
         this.id = new Id();//default, set when added
         tags = new ArrayList<String>();
+        tagMap = TagMap.getTagMap();
     }
     /**
      *
@@ -30,6 +41,7 @@ public class Node {
         this.coord = coordIn;
         this.id = nid;//default, set when added
         tags = new ArrayList<String>();
+        tagMap = TagMap.getTagMap();
     }
     
 	/**
@@ -46,6 +58,16 @@ public class Node {
      */
     public void setCoordinate(Coordinate newCoord) {
         this.coord = newCoord;
+    }
+    
+    public void setName(String nameIn){
+    	nameIn = nameIn.trim();
+    	this.name = nameIn;
+    	TagMap.getTagMap().addName(nameIn, id);
+    }
+    
+    public String getName(){
+    	return this.name;
     }
     
     public boolean addEdgeId(Id id){
@@ -99,6 +121,10 @@ public class Node {
     	return tags;
     }
     
+    public void SetTags(ArrayList<String> tags) {
+    	this.tags = tags;
+    }
+    
     /**
      * Given an index, returns the tag at that location in the array
      * @param i: index of the tag
@@ -123,6 +149,7 @@ public class Node {
      */
     public void addTag(String newTag){
     	tags.add(newTag);
+    	tagMap.addTag(newTag, id);
     }
     
     /**
@@ -131,6 +158,7 @@ public class Node {
      */
     public void removeTag(String tag){
     	tags.remove(tag);
+    	tagMap.removeTag(tag, id);
     }
     
     /**
@@ -138,6 +166,7 @@ public class Node {
      * @param i: index to remove tag from
      */
     public void removeTagAtIndex(int i){
+    	tagMap.removeTag(tags.get(i), id);
     	tags.remove(i);
     }
     
@@ -148,6 +177,7 @@ public class Node {
      */
     public void modifyTag(String oldTag, String newTag){
     	tags.set(tags.indexOf(oldTag), newTag);
+    	tagMap.modifyTag(oldTag, newTag);
     }
     
     /**
@@ -156,6 +186,7 @@ public class Node {
      * @param newTag: the new tag to replace it with
      */
     public void modifyTagAtIndex(int i, String newTag){
+    	tagMap.modifyTag(tags.get(i), newTag);
     	tags.set(i, newTag);
     }
 
@@ -167,5 +198,58 @@ public class Node {
     }
     public float getDistance(Coordinate c){
         return (float)Math.sqrt((double)getDistanceSq(c));
+    }
+    
+    public boolean isAccessible(){
+    	return accessible;
+    }
+    
+    public void setAccessible(boolean accessibility){
+    	accessible = accessibility;
+    }
+    
+    public boolean isStairs(){
+    	return stairs;
+    }
+    
+    public void setStairs(boolean stairsIn){
+    	stairs = stairsIn;
+    }
+    
+    public boolean isElevator(){
+    	return elevator;
+    }
+    
+    public void setElevator(boolean elevatorIn){
+    	elevator = elevatorIn;
+    }
+    
+    public boolean isFood(){
+    	return food;
+    }
+    
+    public void setFood(boolean foodIn){
+    	food = foodIn;
+    }
+    public boolean isMens(){
+    	return mens;
+    }
+    
+    public void setMens(boolean mensIn){
+    	mens = mensIn;
+    }
+    public boolean isWomens(){
+    	return womens;
+    }
+    
+    public void setWomens(boolean womensIn){
+    	womens = womensIn;
+    }
+    public boolean isGenderNeutral(){
+    	return genderNeutral;
+    }
+    
+    public void setGenderNeutral(boolean genNeutIn){
+    	genderNeutral = genNeutIn;
     }
 }
