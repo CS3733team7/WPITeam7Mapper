@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="EclipseModuleManager">
+    <libelement value="file://C:/Users/David/Documents/WPITeam7MapperClean/javax.mail.jar" />
     <conelement value="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER" />
     <src_description expected_position="0">
       <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
@@ -21,6 +22,15 @@
       <library name="junit4">
         <CLASSES>
           <root url="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="javax.mail.jar">
+        <CLASSES>
+          <root url="file://C:/Users/David/Documents/WPITeam7MapperClean/javax.mail.jar" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root type="GridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="10.0"/>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="90.0"/>
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Label fx:id="label" text="Label" GridPane.columnIndex="1" />
-      <ImageView fx:id="image"  pickOnBounds="true" preserveRatio="true"/>
-   </children>
+<fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <left>
+        <ImageView fx:id="imageView" style=" -fx-background-color:blue;" pickOnBounds="true" BorderPane.alignment="CENTER">
+            <image>
+                <Image url="@SettingsRed.png" />
+            </image>
+        </ImageView>
+    </left>
+   <center>
+      <Label fx:id="label" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" text="Label" BorderPane.alignment="CENTER" />
+   </center>
 </fx:root>

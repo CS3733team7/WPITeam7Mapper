@@ -5,6 +5,7 @@ public class Edge {
     private Id nodeB;//ID of Node B
     private Id id;
     private float length;
+    private boolean accessible = true;
     
     /**
      * the default constructor for Edge
@@ -122,5 +123,11 @@ public class Edge {
     }
     public float getDistance(Coordinate coord, Graph g){
         return (float)Math.sqrt(((double) getDistanceSq(coord, g)));
+    }
+    public void setAccessible(boolean accessibility){
+    	accessible = accessibility;
+    }
+    public boolean getAccessible(){
+    	return accessible;
     }
 }

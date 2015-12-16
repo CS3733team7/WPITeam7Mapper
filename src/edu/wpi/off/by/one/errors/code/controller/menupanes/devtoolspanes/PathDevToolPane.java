@@ -1,9 +1,9 @@
 package edu.wpi.off.by.one.errors.code.controller.menupanes.devtoolspanes;
 
+import java.io.IOException;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
-
-import java.io.IOException;
 
 /**
  * Created by jules on 11/30/2015.

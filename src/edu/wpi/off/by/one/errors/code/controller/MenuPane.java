@@ -1,44 +1,72 @@
 package edu.wpi.off.by.one.errors.code.controller;
 
-import edu.wpi.off.by.one.errors.code.controller.menupanes.*;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-
 import java.io.IOException;
 
-import edu.wpi.off.by.one.errors.code.controller.menupanes.*;
+import edu.wpi.off.by.one.errors.code.controller.menupanes.DevToolsMenuPane;
+import edu.wpi.off.by.one.errors.code.controller.menupanes.DirectionsMenuPane;
+import edu.wpi.off.by.one.errors.code.controller.menupanes.FavoritesMenuPane;
+import edu.wpi.off.by.one.errors.code.controller.menupanes.HelpMenuPane;
+import edu.wpi.off.by.one.errors.code.controller.menupanes.SearchMenuPane;
+import edu.wpi.off.by.one.errors.code.controller.menupanes.SettingsMenuPane;
+import javafx.animation.Animation;
+import javafx.animation.Transition;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 /**
  * Created by jules on 11/28/2015.
  */
 public class MenuPane extends HBox {
-
-	MainPane mainPane;
-	
     //region FXML file attributes
-    @FXML
-    private ToggleButton hamburgerToggleButton;
+    @FXML protected ToggleButton hamburgerToggleButton;
+    @FXML protected RadioButton searchMenuRadioButton;
+    @FXML protected RadioButton directionsMenuRadioButton;
+    @FXML protected RadioButton favoritesMenuRadioButton;
+    @FXML protected RadioButton devToolMenuRadioButton;
+    @FXML protected RadioButton settingsMenuRadioButton;
+    @FXML protected RadioButton helpMenuRadioButton;
+    @FXML protected AnchorPane detailsMenuContainerAnchorPane;
+    @FXML protected SearchMenuPane searchMenuPane;
+    @FXML protected DirectionsMenuPane directionsMenuPane;
+    @FXML protected FavoritesMenuPane favoritesMenuPane;
+    @FXML protected DevToolsMenuPane devToolsMenuPane;
+    @FXML protected SettingsMenuPane settingsMenuPane;
+    @FXML protected HelpMenuPane helpMenuPane;
+    //endregion
 
-    @FXML
-    private AnchorPane detailsMenuContainerAnchorPane;
-    
-    @FXML SearchMenuPane searchMenuPane;
-    @FXML DirectionsMenuPane directionsMenuPane;
-    @FXML FavoritesMenuPane favoritesMenuPane;
-    @FXML DevToolsMenuPane devToolsMenuPane;
-    @FXML SettingsMenuPane settingsMenuPane;
-    @FXML HelpMenuPane helpMenuPane;
+    //region Other attributes
+    /**
+     * Animation object to close/compact the menu
+     */
+    private final Animation collapseAnimation = new Transition() {
+        {
+            setCycleDuration(Duration.millis(100));
+        }
+        protected void interpolate(double frac) {
+            final double currentWidth = getMaxWidth() * (1.0 - frac);
+            setPrefWidth(currentWidth);
+        }
+    };
 
-    //Menu RadioButton
-    @FXML private RadioButton searchMenuRadioButton;
-    @FXML private RadioButton directionsMenuRadioButton;
-    @FXML private RadioButton favoritesMenuRadioButton;
-    @FXML private RadioButton devToolMenuRadioButton;
-    @FXML private RadioButton settingsMenuRadioButton;
-    @FXML private RadioButton helpMenuRadioButton;
-
+    /**
+     * Animation object to expand the menu
+     */
+    private final Animation expandAnimation = new Transition() {
+        {
+            setCycleDuration(Duration.millis(100));
+        }
+        protected void interpolate(double frac) {
+            final double currentWidth = getMaxWidth() * frac;
+            setPrefWidth(currentWidth);
+        }
+    };
     //endregion
 
     //region Constructors
@@ -49,81 +77,68 @@ public class MenuPane extends HBox {
      * @exception RuntimeException Thrown if file cannot be loaded.
      */
     public MenuPane() {
+        //initializing the fxml file.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/MenuPane.fxml"));
-
         loader.setRoot(this);
         loader.setController(this);
         try {
             loader.load();
+            this.getStylesheets().add(getClass().getResource("../resources/stylesheets/MenuPaneStyleSheet.css").toExternalForm());
         } catch (IOException excpt) {
             throw new RuntimeException(excpt);
         }
-        removeRadioButtonStyles();
         addListeners();
-        this.getStylesheets().add(getClass().getResource("../resources/stylesheets/MenuPaneStyleSheet.css").toExternalForm());
-
+        removeRadioButtonStyles();
+        ControllerSingleton.getInstance().registerMenuPane(this);
 
     }
     //endregion
 
-    public void setMainPane(MainPane m) { 
-    	mainPane = m; 
-    	searchMenuPane.setMainPane(mainPane);
-        directionsMenuPane.setMainPane(mainPane);
-        favoritesMenuPane.setMainPane(mainPane);
-        devToolsMenuPane.setMainPane(mainPane);
-        settingsMenuPane.setMainPane(mainPane);
-        helpMenuPane.setMainPane(mainPane);
-    }
-    public MainPane getMainPane() { return mainPane; }
+    //region getters
     public SearchMenuPane getSearchMenuPane() { return searchMenuPane; }
     public DirectionsMenuPane getDirectionsMenuPane() { return directionsMenuPane; }
 	public FavoritesMenuPane getFavoritesMenuPane() { return favoritesMenuPane; }
 	public DevToolsMenuPane getDevToolsMenuPane() { return devToolsMenuPane; }
 	public SettingsMenuPane getSettingsMenuPane() { return settingsMenuPane; }
 	public HelpMenuPane getHelpMenuPane() { return helpMenuPane; }
-
+    //endregion
 
 	//region Listener Methods
     /**
      * adds all the listeners needed
      */
     private void addListeners(){
-        //listener to compact or extend this pane once the hamburgerToggleButton is clicked(the selected value is changed)
         hamburgerToggleButton.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue){
-                this.setPrefWidth(this.getMaxWidth());
-                detailsMenuContainerAnchorPane.setVisible(true);
+                expandAnimation.play();
             }
             else{
-                this.setPrefWidth(this.getMinWidth());
-                detailsMenuContainerAnchorPane.setVisible(false);
+                collapseAnimation.play();
             }
         });
-
-
-
     }
     //endregion
 
     //region Helper Methods
     /**
-     * Extends the pane by selecting the toggle button
+     * Expands the pane by selecting the toggle button
      */
-    public void extend(){
-        if(!hamburgerToggleButton.isSelected())
+    public void expand(){
+        if(!hamburgerToggleButton.isSelected()){
             hamburgerToggleButton.setSelected(true);
+        }
     }
 
     /**
-     * Compacts the pane by deselection the toggle button
+     * Selects the directionsMenuRadioButton in order to show the directions pane.
      */
-    public void compact(){
-        if(hamburgerToggleButton.isSelected())
-            hamburgerToggleButton.setSelected(false);
+    public void showDirections(){
+        directionsMenuRadioButton.setSelected(true);
     }
-    //endregion
 
+    /**
+     * Removes the built in css styleclass for all the radioButtons in this Pane
+     */
     public void removeRadioButtonStyles(){
         searchMenuRadioButton.getStyleClass().remove("radio-button");
         directionsMenuRadioButton.getStyleClass().remove("radio-button");
@@ -131,8 +146,7 @@ public class MenuPane extends HBox {
         devToolMenuRadioButton.getStyleClass().remove("radio-button");
         settingsMenuRadioButton.getStyleClass().remove("radio-button");
         helpMenuRadioButton.getStyleClass().remove("radio-button");
-
-
     }
+    //endregion
 
 }

@@ -1,22 +1,17 @@
 package edu.wpi.off.by.one.errors.code;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Rule;
 import org.junit.Test;
-import java.lang.String;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Vector;
-
 import org.junit.rules.ExpectedException;
 
 import edu.wpi.off.by.one.errors.code.model.Coordinate;
 import edu.wpi.off.by.one.errors.code.model.Display;
-import edu.wpi.off.by.one.errors.code.model.Edge;
 import edu.wpi.off.by.one.errors.code.model.FileIO;
 import edu.wpi.off.by.one.errors.code.model.Graph;
-import edu.wpi.off.by.one.errors.code.model.Map;
+import edu.wpi.off.by.one.errors.code.model.Matrix;
 import edu.wpi.off.by.one.errors.code.model.Node;
 import edu.wpi.off.by.one.errors.code.model.Path;
 import junit.framework.TestCase;
@@ -70,6 +65,40 @@ public class test extends TestCase{
         assertEquals(n3.getEdgelist().get(0) == n4.getEdgelist().get(0), true);
     }
     
+    Matrix testTranslateMatrix = new Matrix(new Coordinate(0));
+    Matrix testRotateMatrix = new Matrix(0, 0, 0, 0);
+    @Test
+    public void testMatrix(){
+    	/*
+    	assertEquals(, actualTranslateMatrix);
+    	testTranslateMatrix = testTranslateMatrix.translate(new Coordinate(100));
+*/
+    	Matrix actualTranslateMatrix = new Matrix(new Coordinate(100));
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[0][0], actualTranslateMatrix.getM()[0][0]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[1][0], actualTranslateMatrix.getM()[1][0]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[2][0], actualTranslateMatrix.getM()[2][0]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[3][0], actualTranslateMatrix.getM()[3][0]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[0][1], actualTranslateMatrix.getM()[0][1]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[1][1], actualTranslateMatrix.getM()[1][1]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[2][1], actualTranslateMatrix.getM()[2][1]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[3][1], actualTranslateMatrix.getM()[3][1]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[0][2], actualTranslateMatrix.getM()[0][2]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[1][2], actualTranslateMatrix.getM()[1][2]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[2][2], actualTranslateMatrix.getM()[2][2]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[3][2], actualTranslateMatrix.getM()[3][2]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[0][3], actualTranslateMatrix.getM()[0][3]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[1][3], actualTranslateMatrix.getM()[1][3]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[2][3], actualTranslateMatrix.getM()[2][3]);
+    	assertEquals(testTranslateMatrix.translate(new Coordinate(100)).getM()[3][3], actualTranslateMatrix.getM()[3][3]);
+    	Coordinate newCoord = new Coordinate(0);
+    	Coordinate testedCoord = new Coordinate(100);
+    	assertEquals(testTranslateMatrix.transform(testedCoord).getX(), testedCoord.getX());
+    	assertEquals(testTranslateMatrix.transform(testedCoord).getY(), testedCoord.getY());
+    	assertEquals(testTranslateMatrix.transform(testedCoord).getZ(), testedCoord.getZ());
+    	assertEquals(new Matrix().getM()[0][0], new Matrix(new Coordinate(1)).getM()[0][0]);
+    	assertEquals(new Matrix().scale(100).getM()[0][0], 100.0);
+    }
+    
     //test FileIO
     /*@Test
    public void testFile(){
@@ -88,7 +117,7 @@ public class test extends TestCase{
         //FileIO.load(dir+"testio.txt", dpy);//test load file with display
 
     }
-    
+    */
     //test Path
     @Test
     public void testAStar(){
@@ -102,13 +131,34 @@ public class test extends TestCase{
     	expTPath1.addAll(Arrays.asList(5, 4, 17, 6, 7, 10, 9, 11, 12));
     	expTPath2.addAll(Arrays.asList(5, 4, 17, 7, 10, 9, 11, 12));
     	traversablePath.runAStar(g);
-    	assertNotEquals(traversablePath.getRoute(), expTPath1);
-    	assertEquals(traversablePath.getRoute(), expTPath2);
+    	assertEquals(traversablePath.getRoute().get(traversablePath.getRoute().size()-1).getIndice(), expTPath1.toArray()[8]);
+    	assertEquals(traversablePath.getRoute().get(traversablePath.getRoute().size()-1).getIndice(), expTPath2.toArray()[7]);
     	
     	Path nonTraversablePath = new Path(g.getNodes().get(5).getId(), g.getNodes().get(0).getId());
     	ArrayList<Integer> expNTPath = new ArrayList<Integer>();
     	nonTraversablePath.runAStar(g);
     	assertEquals(nonTraversablePath.getRoute(), expNTPath);
 
-    }*/
+    }
+    @Test
+    public void testAccessibleAStar(){
+
+    	String dir = System.getProperty("user.dir");
+    	Display d = FileIO.load(dir + "/src/edu/wpi/off/by/one/errors/code/resources/maps/txtfiles/testmap.txt", null);
+    	Graph g = d.getGraph();
+    	Path traversablePath = new Path(g.getNodes().get(5).getId(), g.getNodes().get(12).getId());
+    	ArrayList<Integer> expTPath1 = new ArrayList<Integer>();
+    	ArrayList<Integer> expTPath2 = new ArrayList<Integer>();
+    	expTPath1.addAll(Arrays.asList(5, 4, 17, 6, 7, 10, 9, 11, 12));
+    	expTPath2.addAll(Arrays.asList(5, 4, 17, 7, 10, 9, 11, 12));
+    	traversablePath.runAccessibleAStar(g);
+    	assertEquals(traversablePath.getRoute().get(traversablePath.getRoute().size()-1).getIndice(), expTPath1.toArray()[8]);
+    	assertEquals(traversablePath.getRoute().get(traversablePath.getRoute().size()-1).getIndice(), expTPath2.toArray()[7]);
+    	
+    	Path nonTraversablePath = new Path(g.getNodes().get(5).getId(), g.getNodes().get(0).getId());
+    	ArrayList<Integer> expNTPath = new ArrayList<Integer>();
+    	nonTraversablePath.runAStar(g);
+    	assertEquals(nonTraversablePath.getRoute(), expNTPath);
+
+    }
 }
